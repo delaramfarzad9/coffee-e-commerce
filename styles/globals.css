@@ -1,26 +1,102 @@
+/* pacifico-regular - latin */
+@font-face {
+  font-display: swap; 
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../public/font/pacifico-v23-latin-regular.woff2") format('woff2'); 
+  
+}
+/* nunito */
+@font-face {
+  font-display: swap; 
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: url("../public/font/nunito-v32-latin-300.woff2") format('woff2'); 
+  
+}
+@font-face {
+  font-display: swap; 
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../public/font/nunito-v32-latin-regular.woff2") format('woff2'); 
+  
+}
+@font-face {
+  font-display: swap; 
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 500;
+  src: url("../public/font/nunito-v32-latin-500.woff2") format('woff2'); 
+  
+}
+@font-face {
+  font-display: swap; 
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 600;
+  src: url("../public/font/nunito-v32-latin-600.woff2") format('woff2'); 
+  
+}
+@font-face {
+  font-display: swap; 
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../public/font/nunito-v32-latin-700.woff2") format('woff2'); 
+  
+}
+@font-face {
+  font-display: swap; 
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 800;
+  src: url("../public/font/nunito-v32-latin-800.woff2") format('woff2'); 
+  
+}
+@font-face {
+  font-display: swap; 
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 900;
+  src: url("../public/font/nunito-v32-latin-900.woff2") format('woff2'); 
+  
+}
 @import "tailwindcss";
+@theme{
+    --font-pacifico:Pacifico ,"sans-serif"; 
+    --font-nunito: Nunito, "sans-serif";
+    --color-chocolate: #7B3F00;
+}
+body{
+  @apply relative font-nunito  font-normal
+};
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@utility bg-desktop {
+  background-image: url('/images/hero/22.png');
+
+}
+@utility bg-mobile {
+  background-image: url('/images/hero/11.png');
+
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+/* Scrollbar track (background) */
+.cart-scroll::-webkit-scrollbar {
+  width: 10px; /* thickness */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+
+/* Scrollbar thumb (the draggable part) */
+.cart-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #533303, #5f221e); /* orange → red gradient */
+  border-radius: 10px;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Hover effect */
+.cart-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #6e2b05, #6a5028);
 }
