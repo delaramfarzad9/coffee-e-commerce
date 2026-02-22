@@ -1,6 +1,6 @@
 import Svg from "../../ui/Svg";
 import Quantity from "./Quantity";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 
@@ -12,9 +12,21 @@ export default function ShoppingCart({
   onRemove,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+// Close on ESC key 
+useEffect(() => {
+   if (!isOpen) return; 
+   const handleEsc = (e) => {
+     if (e.key === "Escape") onClose();
+     };
+      window.addEventListener("keydown", handleEsc); 
+      return () => window.removeEventListener("keydown", handleEsc); 
+    }, [isOpen, onClose]);
   if (!isOpen) return null; // hide when closed
+
   return (
+    <>
+      {/* BACKDROP OVERLAY */}
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-30" onClick={onClose} />
     <div className=" fixed  bg-gray-800 left-0 top-0 lg:w-1/3 md:w-1/2 w-10/12 h-screen flex flex-col  z-40">
       <div className="overflow-y-scroll  cart-scroll">
         {/* close button */}
@@ -112,5 +124,6 @@ export default function ShoppingCart({
         onConfirm={clearCart}
       />
     </div>
+    </>
   );
 }
