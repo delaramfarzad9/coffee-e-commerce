@@ -10,6 +10,8 @@ export default function ShoppingCart({
   onClose,
   clearCart,
   onRemove,
+  increaseQty,
+  decreaseQty
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 // Close on ESC key 
@@ -66,9 +68,13 @@ useEffect(() => {
                   <span>{product.price}$</span>
                   <span>X</span>
                   <Quantity
-                    onRemove={() => onRemove(product.id)}
-                    className="text-gray-100 border-gray-100 scale-90"
-                  />
+  quantity={product.quantity}
+  onIncrease={() => increaseQty(product.id)}
+  onDecrease={() => decreaseQty(product.id)}
+  onRemove={() => onRemove(product.id)}
+  className="text-gray-100 border-gray-100 scale-90"
+/>
+
                 </div>
               </div>
               {/* right  */}
@@ -93,15 +99,16 @@ useEffect(() => {
             {/* bottom part of the shoppig cart */}
             <div className="flex flex-col mt-auto gap-2">
               {/* total price  */}
-              <div className="flex flex-row justify-between items-center border-y border-b-gray-100 py-5 my-5 px-5 text-gray-100 font-bold text-lg">
-                <span>Total :</span>
-                <span>
-                  {cart
-                    .reduce((prev, curr) => prev + curr.price, 0)
-                    .toLocaleString()}{" "}
-                  $
-                </span>
-              </div>
+             <div className="flex flex-row justify-between items-center border-y border-b-gray-100 py-5 my-5 px-5 text-gray-100 font-bold text-lg">
+  <span>Total :</span>
+  <span>
+    {cart
+      .reduce((total, item) => total + item.price * item.quantity, 0)
+      .toLocaleString()}{" "}
+    $
+  </span>
+</div>
+
               {/* end button */}
               <Button
                 btnTask="Check Out"

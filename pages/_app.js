@@ -4,7 +4,7 @@ import '../styles/globals.css'
 export default function MyApp({ Component, pageProps }) {
   return (
     <Layout>
-      {(addToCart) => <Component {...pageProps} addToCart={addToCart} />}
+       <Component {...pageProps}  />
     </Layout>
   )
 }

@@ -8,29 +8,22 @@ import Button from "../../ui/Button";
 export default function Cart({
   id,
   image = defaultProductImg,
-  title = "title",
-  price = "100",
-  description = "description",
+  title,
+  price,
+  description,
   addToCart,
+  increaseQty,
+  decreaseQty,
+  quantity
 }) {
   const [like, setLike] = useState(false);
-  const handleLike = () => {
-    setLike(!like);
-  };
-  const [showQuantity, setShowQuantity] = useState(false);
-  const handleShowQuantity = () => {
-    setShowQuantity(!showQuantity);
-  };
-  const handleQuantityRemoved = () => {
-    setShowQuantity(false); // This will hide Quantity and show button
-  };
-
+ 
   return (
     <div className="relative flex flex-col w-full shadow-lg rounded-2xl h-[460px] ">
       <div className="absolute top-0 right-0 p-4">
         {/* heart Icon */}
         <Svg
-          onClick={handleLike}
+          onClick={() => setLike(!like)}
           svgId={like ? "heart-filled" : "heart"}
           className="w-7 h-7 text-amber-900  cursor-pointer   duration-300
                 font-semibold  hover:scale-110 hover:text-[#D4AF37]/80 
@@ -43,20 +36,19 @@ export default function Cart({
         <h2 className="font-bold">{title}</h2>
         <span className="font-semibold">{price.toLocaleString()}$</span>
         <p className="line-clamp-2">{description}</p>
-        {showQuantity ? (
-          <Quantity
-            onRemove={handleQuantityRemoved}
-            className="mx-auto mt-auto"
-          />
-        ) : (
-          <Button
-            onClick={() => {
-              handleShowQuantity();
-              addToCart(id);
-            }}
-            btnTask="Add to Cart"
-          />
-        )}
+        
+       {quantity > 0 ? (
+  <Quantity
+    quantity={quantity}
+    onIncrease={() => increaseQty(id)}
+    onDecrease={() => decreaseQty(id)}
+    onRemove={() => decreaseQty(id)}
+    className="mt-auto"
+  />
+) : (
+  <Button onClick={() => addToCart(id)} btnTask="Add to Cart" className="mt-auto" />
+)}
+
       </div>
     </div>
   );
