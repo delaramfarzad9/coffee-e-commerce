@@ -7,7 +7,7 @@ import LinkItem from './LinkItem'
 
 export default function Footer() {
   return (
-   <footer className='w-full  mt-10  text-amber-900 bg-orange-100'>
+   <footer className='w-full  pt-10  text-amber-900 bg-orange-100'>
     {/* main Footer wrapper  */}
      <div className='flex flex-col gap-7 justify-between items-start md:flex-row py-12 px-4 md:px-10'>
         {/* wrapper1/logo/address/contact */}
@@ -38,11 +38,11 @@ export default function Footer() {
       {/*wrapper2/ Latest Posts */}
        <div className='flex flex-col gap-2 items-start text-balance text-left font-bold'>
         <p className='font-extrabold text-yellow-600'>Latest Posts</p>
-         <PostItem title="How to Brew the Perfect Espresso" url="#"/>
-         <PostItem title="Top 5 Coffee Beans for Winter" url="#"/>
-         <PostItem title="The Science Behind Cold Brew" url="#"/>
-       <PostItem title="Important Tips and Best Practices for Storing Coffee at Home" url="#"/>
-         <PostItem title="Optimal Time for Drinking Brewed Coffee" url="#"/>
+         <PostItem title="How to Brew the Perfect Espresso" href="/blog/brew-perfect-espresso" />
+         <PostItem title="Top 5 Coffee Beans for Winter" href="/blog/top-5-winter-beans"/>
+         <PostItem title="The Science Behind Cold Brew" href="/blog/science-of-cold-brew"/>
+       <PostItem title="Important Tips and Best Practices for Storing Coffee at Home" href="/blog/coffee-storage-tips"/>
+         <PostItem title="Optimal Time for Drinking Brewed Coffee" href="/blog/optimal-coffee-time"/>
          
 
         

@@ -3,15 +3,14 @@ import Quantity from "./Quantity";
 import { useState,useEffect } from "react";
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
+import { useCart } from "../../../context/CartContext";
 
 export default function ShoppingCart({
-  cart,
+ 
   isOpen,
   onClose,
-  clearCart,
-  onRemove,
-  increaseQty,
-  decreaseQty
+ 
+
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 // Close on ESC key 
@@ -24,6 +23,8 @@ useEffect(() => {
       return () => window.removeEventListener("keydown", handleEsc); 
     }, [isOpen, onClose]);
   if (!isOpen) return null; // hide when closed
+
+const { cart, clearCart, removeFromCart, increaseQty, decreaseQty } = useCart();
 
   return (
     <>
@@ -71,7 +72,8 @@ useEffect(() => {
   quantity={product.quantity}
   onIncrease={() => increaseQty(product.id)}
   onDecrease={() => decreaseQty(product.id)}
-  onRemove={() => onRemove(product.id)}
+  onRemove={() => removeFromCart(product.id)}
+
   className="text-gray-100 border-gray-100 scale-90"
 />
 
@@ -129,6 +131,8 @@ useEffect(() => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={clearCart}
+        text="Are you sure you want to clear the whole shopping cart?"
+        btnTask="Yes, Clear"
       />
     </div>
     </>
