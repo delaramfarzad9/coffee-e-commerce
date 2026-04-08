@@ -1,8 +1,9 @@
 import { useState } from "react";
+import Link from "next/link";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="bg-orange-200 pt-40 pb-24 gap-14 flex flex-col lg:flex-row  items-stretch justify-center  px-4 sm:px-6 md:px-7 lg:px-8 xl:px-40">
+    <div className="bg-chocolate/30 pt-40 pb-24 gap-14 flex flex-col lg:flex-row  items-stretch justify-center  px-4 sm:px-6 md:px-7 lg:px-8 xl:px-40">
       
         {/* login form */}
          <div className="flex flex-col justify-between w-full max-w-lg bg-gray-100 rounded-xl shadow-lg p-8 ">
@@ -79,12 +80,14 @@ Skip, pause or cancel <span className="font-bold">anytime</span></p>
             Subscribe & Save
           </button>
           <p className="space-y-4  text-gray-700 mb-5 mt-2 text-center">Not quite ready to subscribe?</p>
+        <Link href="/shop">
           <button
             type="submit"
             className="w-full mt-2 py-2 lg:py-4 bg-amber-900 text-white  rounded-lg font-semibold hover:bg-amber-800 transition"
           >
             Browse Coffees
           </button>
+        </Link>
       </div>
       </div>
     

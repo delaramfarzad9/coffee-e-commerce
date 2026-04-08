@@ -4,7 +4,7 @@ export default function Logo({className='',imgClassName=''}) {
 
     <div className={`flex flex-row gap-1 justify-center items-center ${className}`}>
         <div className="text-xl font-pacifico font-bold lg:text-2xl shrink-0 text-amber-900  ">SetCoffee</div>
-        <Image   src="/images/appLogo.png"
+        <Image   src="/images/favicon.png"
         alt="logo"
         width={40}
         height={40}

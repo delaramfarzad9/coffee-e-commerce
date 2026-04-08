@@ -17,7 +17,8 @@ export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
     <div>
       <HeroSection />
       <Catalog 
-  products={products} 
+      title="Best Sellers"
+  products={products.slice(0, 5)} 
   cart={cart}
   addToCart={(id) => {
     const product = products.find((p) => p.id === id);

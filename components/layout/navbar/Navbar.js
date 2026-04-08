@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import NavLink from './Navlink'
 import Svg from '../../ui/Svg'
 import Logo from '../../ui/Logo'
-import LoginBtn from './LoginBtn'
+
 import SearchBar from './SearchBox/SearchBar'
 import Link from 'next/link'
 import { useRouter } from "next/router"
@@ -65,7 +65,7 @@ setSeeSearchBar(prev=>!prev)
         <NavLink href="/blog/" scrolled={scrolled} isHome={isHome} >Blog</NavLink>
         <NavLink href="/contact" scrolled={scrolled} isHome={isHome} >Contact</NavLink>
         <NavLink href="/about" scrolled={scrolled} isHome={isHome} >About</NavLink>
-        <NavLink href="/policies" scrolled={scrolled} isHome={isHome} >Policies</NavLink>
+       
         
      
         
@@ -101,7 +101,7 @@ setSeeSearchBar(prev=>!prev)
   )}
 </Link>
 
-        {/* ---login btn & login icon--- */}
+        {/* --- login icon--- */}
         
         <Link href="/login">
         <Svg svgId="login" className="md:w-7 md:h-7 text-amber-900  cursor-pointer   duration-300

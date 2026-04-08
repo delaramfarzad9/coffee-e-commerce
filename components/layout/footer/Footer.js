@@ -21,18 +21,18 @@ export default function Footer() {
         {/* ---location--- */}
         <address className='flex flex-row space-x-1  text-balance not-italic items-start '>  
             <Svg svgId="location" className="shrink-0"/>
-            <p className="">1234 Maple Avenue, Seattle, WA 98101, United States</p>
+            <p className="">42 Brew Lane, Shoreditch, London, E2 7RG, United Kingdom</p>
         </address>
         {/* Order Tracking */}
         <p className='flex flex-row gap-1 items-start' >
              <Svg svgId="mobile" className="shrink-0"/>
             <span>Order Tracking</span>
-            <a href="tel:5551234567" className="hover:text-amber-700">(555) 123‑4567</a>
+            <a href="tel:00442079460821" className="hover:text-amber-700">(+44 20 7946 0821)</a>
         </p> 
           {/* email */}
            <p className='flex flex-row gap-1 items-start' >
              <Svg svgId="email" className="shrink-0"/>
-            <a href="mailto:customerservice@setcoffee.com" className="hover:text-amber-700">customerservice@setcoffee.com</a>
+            <a href="mailto:support@setcoffee.co.uk" className="hover:text-amber-700">support@setcoffee.co.uk</a>
         </p>
         </div>
       {/*wrapper2/ Latest Posts */}
@@ -51,9 +51,9 @@ export default function Footer() {
         <nav aria-label="Quick links" className='flex flex-col gap-2 items-start text-left'>
 <h4 className="font-extrabold text-yellow-600 ">Quick Links</h4>
 <ul  className="space-y-1 ">
-    <li><LinkItem href="/terms">Terms &amp; Conditions</LinkItem></li>
-    <li><LinkItem href="/shipping">Shipping Terms &amp; Costs</LinkItem></li>
-    <li><LinkItem href="/complaints">Submit Complaints</LinkItem></li>
+    <li><LinkItem href="/terms">Terms & Conditions</LinkItem></li>
+    <li><LinkItem href="/delivery">Shipping & Delivery</LinkItem></li>
+    <li><LinkItem href="/support">Customer Support</LinkItem></li>
     <li><LinkItem href="/privacy">Privacy Policy</LinkItem></li>
     <li><LinkItem href="/dictionary">Coffee Dictionary</LinkItem></li>
 </ul>
