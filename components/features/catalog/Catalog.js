@@ -4,7 +4,7 @@ import Button from '../../ui/Button'
 import Svg from '../../ui/Svg'
 import Link from 'next/link'
 
-export default function Catalog({ products, cart, addToCart, increaseQty, decreaseQty,title }) {
+export default function Catalog({ products, cart, addToCart, increaseQty, decreaseQty,title,btnTask,svgId,btnTaskLabel }) {
   
   
   return (
@@ -12,10 +12,11 @@ export default function Catalog({ products, cart, addToCart, increaseQty, decrea
     {/* title  */}
  <div className='flex flex-row-reverse justify-between items-center'>
 
- <Link href="/shop">
-  <Button className='mr-2 md:mr-5 scale-90 md:scale-95 lg:scale-100 pr-2' btnTask='All Products'>
-    <Svg  svgId='chevron-right'/>
-  </Button></Link>
+ 
+  <Button className='mr-2 md:mr-5 gap-5 tracking-wider py-3  '
+  onClick={btnTask} >
+  <span>{btnTaskLabel}</span>  <Svg  svgId={svgId}/> 
+  </Button>
   <h2 className='ml-5 font-bold  md:text-2xl lg:text-3xl text-chocolate border-b-2  border-chocolate/30 pb-2'>{title}</h2>
 
  </div>

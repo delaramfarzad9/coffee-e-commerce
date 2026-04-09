@@ -34,7 +34,7 @@ const { cart, clearCart, removeFromCart, increaseQty, decreaseQty } = useCart();
       <div className="overflow-y-scroll  cart-scroll">
         {/* close button */}
         <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 absolute top-5 -right-12 cursor-pointer hover:opacity-90">
-          <Svg svgId="close" onClick={onClose} className="text-gray-100" />
+          <Svg svgId="close" onClick={onClose} className="text-gray-100 " />
         </div>
         {/* header  */}
         <div

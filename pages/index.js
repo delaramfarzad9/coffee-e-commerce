@@ -2,9 +2,13 @@ import HeroSection from "@/components/sections/HeroSection";
 import Catalog from "@/components/features/catalog/Catalog";
 import getProducts from "@/data/products";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+
 
 export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
   const [products] = useState(getProducts());
+  const router = useRouter();
+
  useEffect(() => {
   const saved = sessionStorage.getItem("scrollPosition");
   if (saved) {
@@ -17,6 +21,10 @@ export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
     <div>
       <HeroSection />
       <Catalog 
+        btnTask={() => router.push("/shop")}
+      svgId="chevron-right"
+      btnTaskLabel="All Products"
+      
       title="Best Sellers"
   products={products.slice(0, 5)} 
   cart={cart}

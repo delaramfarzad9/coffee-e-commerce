@@ -3,8 +3,12 @@ import getProducts from "@/data/products";
 import { useState, useEffect } from "react";
 import CategoryCard from "@/components/ui/CategoryCard";
 import categoryCard from "../data/categoryCard";
+import Svg from "@/components/ui/Svg";
+import FilterPanel from "@/components/features/shop/FilterPanel";
 export default function Shop({ cart, addToCart, increaseQty, decreaseQty }) {
   const [products] = useState(getProducts());
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
    useEffect(() => {
     const saved = sessionStorage.getItem("scrollPosition");
     if (saved) {
@@ -13,7 +17,22 @@ export default function Shop({ cart, addToCart, increaseQty, decreaseQty }) {
     }
   }, []);
   return (
-    <section className="w-full  flex flex-col   ">
+   <>
+   {/* backdrop + filterPanel */}
+   {isFilterOpen && (
+ <div className="fixed inset-0 z-40">
+     {/* backdrop */}
+        <div  className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        onClick={() => setIsFilterOpen(false)}
+      />
+        {/* filterPanel */}
+        <FilterPanel isOpen={isFilterOpen} setIsFilterOpen={setIsFilterOpen}  closePanel={() => setIsFilterOpen(false)} />
+ </div>
+      )}  
+    
+    {/* main shop page */}
+    <section className="relative w-full  flex flex-col   ">
+      
       <div className="flex flex-col gap-4 w-full  pb-5 mb-2 bg-chocolate/10 py-5 lg:px-20 px-5">
         <h1 className="text-chocolate text-3xl font-black pt-24 tracking-wider ">Shop Coffee</h1>
         <p className="text-chocolate font-medium text-xl ">
@@ -29,7 +48,16 @@ export default function Shop({ cart, addToCart, increaseQty, decreaseQty }) {
 
       <Catalog 
       className="mb-5"
+       btnTask={() => setIsFilterOpen(true)}
+      btnTaskLabel={
+      <div  onClick={() => setIsFilterOpen(true)}
+       className="flex flex-row gap-4">
+           <Svg svgId="filter" />
+      <span>Filter & Sort</span>
+      </div>
+      }
             title="all products"
+            svgId="circle-plus"
   products={products} 
   cart={cart}
   addToCart={(id) => {
@@ -38,6 +66,7 @@ export default function Shop({ cart, addToCart, increaseQty, decreaseQty }) {
   }}
   increaseQty={increaseQty}
         decreaseQty={decreaseQty}/>
-    </section>
+        
+    </section></>
   );
 }
