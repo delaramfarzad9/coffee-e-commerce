@@ -5,9 +5,16 @@ import { useState,useEffect } from 'react'
 
 
 
-const FilterPanel = ({ closePanel }) => {
+const FilterPanel = ({ closePanel, onSortChange, onFiltersChange }) => {
     const [open,setOpen]=useState(false)
- 
+ const [localFilters, setLocalFilters] = useState({
+  origin: [],
+  roast: [],
+  process: [],
+  priceFrom: null,
+  priceTo: null,
+});
+
 
   useEffect(() => {
     function handleEsc(e) {
@@ -49,12 +56,13 @@ const FilterPanel = ({ closePanel }) => {
 <div className={`flex flex-col gap-2 mx-2  *:w-full
     *:px-2
     *:py-1 *:cursor-pointer  border-l border-b border-r border-chocolate/30 ${open ? 'max-h-96 opacity-100  *:hover:bg-chocolate/30  ' : 'max-h-0 opacity-0'} transition-all duration-300 overflow-hidden`}>
-<span>Featured</span>
-<span>Best Selling</span>
-<span>Alphabetically A-Z</span>
-<span>Alphabetically Z-A</span>
-<span>Price: Low to High</span>
-<span>Price: High to Low</span>
+<span onClick={() => { onSortChange(null); closePanel(); }}>Featured</span>
+<span onClick={() => { onSortChange("best-selling"); closePanel(); }}>Best Selling</span>
+<span onClick={() => { onSortChange("name-asc"); closePanel(); }}>Alphabetically A-Z</span>
+<span onClick={() => { onSortChange("name-desc"); closePanel(); }}>Alphabetically Z-A</span>
+<span onClick={() => { onSortChange("price-asc"); closePanel(); }}>Price: Low to High</span>
+<span onClick={() => { onSortChange("price-desc"); closePanel(); }}>Price: High to Low</span>
+
 </div>
 
 </div>
@@ -114,6 +122,10 @@ const FilterPanel = ({ closePanel }) => {
 
      <button
             type="submit"
+            onClick={() => {
+    onFiltersChange(localFilters);
+    closePanel();
+  }}
             className="w-full cursor-pointer mt-2 py-2 lg:py-4 bg-chocolate text-white  rounded-full font-semibold hover:bg-amber-800 transition"
           >
             Apply Filters

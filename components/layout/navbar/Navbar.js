@@ -3,7 +3,7 @@ import NavLink from './Navlink'
 import Svg from '../../ui/Svg'
 import Logo from '../../ui/Logo'
 
-import SearchBar from './SearchBox/SearchBar'
+
 import Link from 'next/link'
 import { useRouter } from "next/router"
 import { useCart } from "../../../context/CartContext";
@@ -12,9 +12,11 @@ import { useCart } from "../../../context/CartContext";
 
 
 
-export default function Navbar({onCartClick }) {
+
+
+export default function Navbar({onCartClick, onSearchToggle}) {
   const [scrolled, setScrolled] = useState(false)
-  const [seeSearchBar,setSeeSearchBar]=useState(false)
+  
   const router = useRouter()
   const isHome = router.pathname === "/"
   const { cart } = useCart();
@@ -22,9 +24,7 @@ const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 const { liked } = useCart();
 
 
-const searchBarToggle=()=>{
-setSeeSearchBar(prev=>!prev)
-}
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50) // threshold for background
@@ -32,20 +32,28 @@ setSeeSearchBar(prev=>!prev)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+const handleSearchToggle = () => {
+  onSearchToggle();
+};
+
+const getNavbarThemeClass = () => {
+  if (isHome) {
+    return scrolled
+      ? "bg-gray-100/50 text-amber-900 backdrop-blur-md shadow-md"
+      : "text-orange-100 backdrop-blur-sm";
+  }
+
+  return "bg-gray-100/70 text-amber-900 backdrop-blur-md shadow-md";
+};
+
 
   return (
     <div
       className={`
-    fixed z-30 top-0 left-0 right-0 px-4 sm:px-6 md:px-7 lg:px-8 xl:px-40
+    fixed z-50 top-0 left-0 right-0 px-4 sm:px-6 md:px-7 lg:px-8 xl:px-40
     w-full h-16 flex flex-row md:justify-center justify-between items-center
     transition-colors duration-300
-    ${
-      isHome
-        ? scrolled
-          ? "bg-gray-100/50 text-amber-900 backdrop-blur-md shadow-md"
-          : "text-orange-100 backdrop-blur-sm"
-        : "bg-gray-100/70 text-amber-900 backdrop-blur-md shadow-md"
-    }
+  ${getNavbarThemeClass()}
   `}
     >
       {/* ---logo --- */}
@@ -109,7 +117,7 @@ setSeeSearchBar(prev=>!prev)
                   transition-all  ease-in-out
         " /></Link>
         {/* search icon */}
-      <div onClick={searchBarToggle} className=''>
+      <div onClick={handleSearchToggle} className=''>
           <Svg svgId="search" className=" md:w-7 md:h-7 text-amber-900  cursor-pointer   duration-300
         font-semibold  hover:scale-110 hover:text-orange-400
                   transition-all  ease-in-out
@@ -118,12 +126,8 @@ setSeeSearchBar(prev=>!prev)
       </div>
 </div>
     
-      {/* search bar component   */}
-     {seeSearchBar &&  <SearchBar
-       title="Search"
-      
-       onClose={() => setSeeSearchBar(false)}
-        className="absolute top-16 right-0 mx-auto md:right-40"/>}
+     
+        
     </div>
-  )
+  );
 }

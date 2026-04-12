@@ -1,6 +1,6 @@
 export default function Contact() {
   return (
-    <div className="bg-neutral-50 min-h-screen">
+    <div className="bg-neutral-50 min-h-screen mt-10">
       {/* Header */}
       <section className="text-center py-16 px-6">
         <h1 className="text-4xl font-bold text-chocolate mb-4">
