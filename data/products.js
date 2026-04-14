@@ -11,7 +11,8 @@ export default function getProducts() {
         tastingNotes: "Floral, caramel, citrus",
         process: "Washed"
       },
-      price: 8.50 // 250g
+      price: 8.50, // 250g
+      inStock: true
     },
 
     {
@@ -25,7 +26,8 @@ export default function getProducts() {
         tastingNotes: "Jasmine, lemon zest, peach",
         process: "Washed"
       },
-      price: 9.50
+      price: 9.50,
+      inStock: false
     },
 
     {
@@ -39,7 +41,8 @@ export default function getProducts() {
         tastingNotes: "Milk chocolate, hazelnut, brown sugar",
         process: "Natural"
       },
-      price: 7.99
+      price: 7.99,
+      inStock: true
     },
 
     {
@@ -53,7 +56,8 @@ export default function getProducts() {
         tastingNotes: "Blackcurrant, plum, red wine",
         process: "Washed"
       },
-      price: 10.50
+      price: 10.50,
+      inStock: true
     },
 
     {
@@ -67,7 +71,8 @@ export default function getProducts() {
         tastingNotes: "Cocoa, cinnamon, toffee",
         process: "Washed"
       },
-      price: 9.25
+      price: 9.25,
+      inStock: true
     },
 
     {
@@ -81,7 +86,8 @@ export default function getProducts() {
         tastingNotes: "Earthy, dark chocolate, cedar",
         process: "Wet‑hulled"
       },
-      price: 9.99
+      price: 9.99,
+      inStock: true
     },
 
     {
@@ -95,7 +101,8 @@ export default function getProducts() {
         tastingNotes: "Orange, honey, almond",
         process: "Washed"
       },
-      price: 8.99
+      price: 8.99,
+      inStock: true
     },
 
     {
@@ -109,7 +116,8 @@ export default function getProducts() {
         tastingNotes: "Chocolate, walnut, caramel",
         process: "Blend"
       },
-      price: 7.50
+      price: 7.50,
+      inStock: true
     },
 
     {
@@ -123,7 +131,8 @@ export default function getProducts() {
         tastingNotes: "Dark chocolate, molasses, smoky",
         process: "Blend"
       },
-      price: 8.25
+      price: 8.25,
+      inStock: true
     },
 
     {
@@ -137,7 +146,8 @@ export default function getProducts() {
         tastingNotes: "Chocolate, caramel, mild fruit",
         process: "Swiss Water"
       },
-      price: 7.99
+      price: 7.99,
+      inStock: false
     },
 
     {
@@ -151,7 +161,8 @@ export default function getProducts() {
         tastingNotes: "Cocoa, berry, spice",
         process: "Blend"
       },
-      price: 9.50
+      price: 9.50,
+      inStock: false
     },
 
     {
@@ -165,7 +176,8 @@ export default function getProducts() {
         tastingNotes: "Cinnamon, cocoa, dried fruit",
         process: "Blend"
       },
-      price: 10.00
+      price: 10.00,
+      inStock: true
     }
   ];
 }
