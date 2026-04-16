@@ -81,7 +81,7 @@ export default function Shop({ cart, addToCart, increaseQty, decreaseQty, search
 
     if (q.sort) setSortOption(q.sort);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // run once
+  }, []); 
 
   //  origin tokens helper
   const normalizeOriginTokens = (originString) => {
@@ -98,10 +98,9 @@ export default function Shop({ cart, addToCart, increaseQty, decreaseQty, search
       result = result.filter(item => item.title.toLowerCase().includes(q));
     }
 
-    if (filters.category) {
-      result = result.filter(item => item.moreInfo.roast === filters.category);
-    }
-
+   if (filters.category) {
+  result = result.filter(item => item.category === filters.category);
+}
     if (filters.origin?.length > 0) {
       const wanted = filters.origin.map(o => o.toLowerCase());
       result = result.filter(item => {
@@ -127,6 +126,10 @@ export default function Shop({ cart, addToCart, increaseQty, decreaseQty, search
     if (sortOption === "price-desc") result.sort((a, b) => b.price - a.price);
     if (sortOption === "name-asc") result.sort((a, b) => a.title.localeCompare(b.title));
     if (sortOption === "name-desc") result.sort((a, b) => b.title.localeCompare(a.title));
+    if (sortOption === "best-selling") {
+  result.sort((a, b) => b.sales - a.sales);
+}
+
 
     return result;
   }, [products, searchQuery, filters, sortOption]);
@@ -158,30 +161,45 @@ export default function Shop({ cart, addToCart, increaseQty, decreaseQty, search
   }, []);
 
  
-  const catalogTitle = useMemo(() => {
-    if (searchQuery?.trim()) return `Results for "${searchQuery}"`;
-    const parts = [];
-    if (filters.origin?.length) parts.push(`Origin: ${filters.origin.join(", ")}`);
-    if (filters.roast?.length) parts.push(`Roast: ${filters.roast.join(", ")}`);
-    if (filters.process?.length) parts.push(`Process: ${filters.process.join(", ")}`);
-    if (filters.priceFrom !== null || filters.priceTo !== null) {
-      const from = filters.priceFrom ?? 0;
-      const to = filters.priceTo ?? "∞";
-      parts.push(`Price: £${from}–£${to}`);
-    }
-    if (filters.inStock === true) parts.push("Availability: In Stock");
-    if (filters.inStock === false) parts.push("Availability: Out of Stock");
-    const sortLabel = sortOption ? {
-      "price-asc": "Sorted: Price Low→High",
-      "price-desc": "Sorted: Price High→Low",
-      "name-asc": "Sorted: A→Z",
-      "name-desc": "Sorted: Z→A",
-      "best-selling": "Sorted: Best Selling",
-    }[sortOption] : null;
-    if (parts.length || sortLabel) return [parts.join(" • "), sortLabel].filter(Boolean).join(" • ");
-    return "All Products";
-  }, [searchQuery, filters, sortOption]);
+const catalogTitle = useMemo(() => {
+  if (searchQuery?.trim()) {
+    return `Results for "${searchQuery}"`;
+  }
 
+  if (sortOption === "best-selling") {
+    return "Best Sellers";
+  }
+
+  if (filters.category) {
+    const found = categoryCard.find(c => c.value === filters.category);
+    return found?.text || "Category";
+  }
+
+  const parts = [];
+
+  if (filters.origin?.length) {
+    parts.push(`Origin: ${filters.origin.join(", ")}`);
+  }
+
+  if (filters.roast?.length) {
+    parts.push(`Roast: ${filters.roast.join(", ")}`);
+  }
+
+  if (filters.process?.length) {
+    parts.push(`Process: ${filters.process.join(", ")}`);
+  }
+
+  if (filters.priceFrom !== null || filters.priceTo !== null) {
+    const from = filters.priceFrom ?? 0;
+    const to = filters.priceTo ?? "∞";
+    parts.push(`Price: £${from}–£${to}`);
+  }
+
+  if (filters.inStock === true) parts.push("In Stock");
+  if (filters.inStock === false) parts.push("Out of Stock");
+
+  return parts.length ? parts.join(" • ") : "All Coffees";
+}, [searchQuery, filters, sortOption]);
   // Note: when opening a product, set sessionStorage so back restores scroll:
   // sessionStorage.setItem("scrollToCatalog", "true"); sessionStorage.setItem("scrollPosition", String(window.scrollY)); router.push(`/product/${id}`);
 // --- Add inside your Shop component, after filteredProducts is computed ---
@@ -203,7 +221,7 @@ const findClosestMatches = (allProducts, activeFilters, sortOption, searchQuery)
       res = res.filter(item => item.title.toLowerCase().includes(q));
     }
 
-    if (f.category) res = res.filter(item => item.moreInfo.roast === f.category);
+    if (f.category) res = res.filter(item => item.category === f.category);
 
     if (f.origin?.length > 0) {
       const wanted = f.origin.map(o => o.toLowerCase());
@@ -278,7 +296,7 @@ const fallback = findClosestMatches(products, filters, sortOption, searchQuery);
           onSortChange={handleSortChange}
           onFiltersChange={handleFiltersChange}
           currentFilters={filters}
-          productCount={filteredProducts.length}
+          productCount={products.length}
         />
       )}
 
@@ -293,13 +311,65 @@ const fallback = findClosestMatches(products, filters, sortOption, searchQuery);
                 key={c.id}
                 text={c.text}
                 image={c.image}
-                onClick={() => {
-                  setFilters(prev => {
-                    const merged = { ...prev, category: prev.category === c.value ? null : c.value };
-                    pushFiltersToUrl(merged, sortOption);
-                    return merged;
-                  });
-                }}
+onClick={() => {
+  let updatedFilters = { ...filters };
+  let newSort = sortOption;
+
+  // 1. RESET (All Coffees)
+  if (c.type === "reset") {
+    updatedFilters = {
+      category: null,
+      origin: [],
+      roast: [],
+      process: [],
+      priceFrom: null,
+      priceTo: null,
+      inStock: null,
+    };
+    newSort = null;
+  }
+
+  // 2. SORT (Best Sellers)
+  else if (c.type === "sort") {
+    newSort = "best-selling"; // 🔥 IMPORTANT (not "best")
+
+    // 🔥 CLEAR category + filters
+    updatedFilters = {
+      category: null,
+      origin: [],
+      roast: [],
+      process: [],
+      priceFrom: null,
+      priceTo: null,
+      inStock: null,
+    };
+  }
+
+  // 3. CATEGORY (Espresso / Decaf / Filter)
+  else if (c.type === "category") {
+    updatedFilters = {
+      category: c.value,
+      origin: [],
+      roast: [],
+      process: [],
+      priceFrom: null,
+      priceTo: null,
+      inStock: null,
+    };
+
+    // 🔥 CLEAR sort when selecting category
+    newSort = null;
+  }
+
+  // APPLY STATE
+  setFilters(updatedFilters);
+  setSortOption(newSort);
+
+  // UPDATE URL
+  pushFiltersToUrl(updatedFilters, newSort);
+
+
+}}
               />
             ))}
           </div>
@@ -328,49 +398,32 @@ const fallback = findClosestMatches(products, filters, sortOption, searchQuery);
 
 
 {filteredProducts.length === 0 && (
-  <div className="w-full flex flex-col items-center justify-center py-12 text-chocolate text-center px-6">
-    <h2 className="text-3xl font-black tracking-wide mb-2">No exact matches</h2>
+  <div className="w-full flex flex-col items-center justify-center py-12 gap-4 text-chocolate text-center px-6">
+    <h2 className="text-3xl font-black tracking-wide mb-2">No Exact Matches</h2>
 
-    <p className="text-lg opacity-80 mb-6">
-      We couldn't find products matching <strong>{searchQuery || "your filters"}</strong>.
-    </p>
-
+  
     <div className="mb-6">
-      {fallback.reason !== "exact" && (
-       <p className="mb-2 text-sm opacity-80">
-  {fallback.reason === "exact"
-    ? "No exact matches — showing closest results."
-    : fallback.reason.startsWith("relaxed:")
-      ? `No exact matches. We relaxed the ${fallback.reason.replace("relaxed:", "")} filter and are showing the closest results.`
-      : "No exact matches. We’ve shown recommended products instead."}
-</p>
-      )}
+
 
       <div className="flex gap-3 justify-center">
-        <button
-          onClick={() => setFilters(prev => ({ ...prev, ...fallback.relaxedFilters }))}
-          className="px-6 py-2 rounded-full bg-chocolate text-white"
-        >
-          Show closest matches
-        </button>
-
+      
         <button
           onClick={() => setFilters(prev => ({ ...prev, priceFrom: null, priceTo: null }))}
-          className="px-6 py-2 rounded-full border border-chocolate text-chocolate"
+          className="px-6 py-2 rounded-full border border-chocolate/20 text-chocolate shadow hover:bg-chocolate/30 hover:text-white transition"
         >
-          Remove price filter
+          Remove Price Filter
         </button>
 
         <button
           onClick={() => setFilters({ category: null, origin: [], roast: [], process: [], priceFrom: null, priceTo: null, inStock: null })}
-          className="px-6 py-2 rounded-full underline"
+          className="px-6 py-2 rounded-full underline tracking-wider hover:bg-chocolate/30 hover:text-white transition"
         >
-          Clear all filters
+          Clear All Filters
         </button>
       </div>
     </div>
 
-    {/* Render fallback results using your Catalog component so styling and cart UX match */}
+    {/* Render fallback results  */}
     <div className="w-full max-w-7xl">
       <Catalog
         className="mb-5"
@@ -379,7 +432,7 @@ const fallback = findClosestMatches(products, filters, sortOption, searchQuery);
         title={
   fallback.reason === "exact"
     ? "Results"
-    : "No exact matches — showing similar products"
+    : "Similar Products"
 }
         svgId="circle-plus"
         products={fallback.results.slice(0, 12)} // limit to first 12 for performance

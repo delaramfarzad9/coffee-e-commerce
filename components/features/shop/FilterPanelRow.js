@@ -7,14 +7,14 @@ const FilterPanelRow = ({ title, children }) => {
   return (
     <div className="border-b border-b-chocolate/30">
       
-      <div className="mx-2 my-2 pb-2">
+      <div className="mx-2 my-2 py-2">
         <button
           type="button"
           onClick={() => setOpen((s) => !s)}
           aria-expanded={open}
           className="w-full flex items-center justify-between cursor-pointer"
         >
-          <div className="font-bold text-xl text-left">{title}</div>
+          <div className="font-bold text-lg tracking-wider text-left">{title}</div>
           <Svg svgId="chevron-down" className={`w-4 h-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
         </button>
       </div>
