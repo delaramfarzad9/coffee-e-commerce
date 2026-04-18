@@ -1,12 +1,19 @@
 import HeroSection from "@/components/sections/HeroSection";
 import Catalog from "@/components/features/catalog/Catalog";
 import getProducts from "@/data/products";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
+import { getBestSellerIds } from "@/utils/bestSellers";
 
 
 export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
   const [products] = useState(getProducts());
+  const bestSellers = useMemo(() => {
+    const ids = getBestSellerIds();
+    return products
+      .filter((p) => ids.has(p.id))
+      .sort((a, b) => b.sales - a.sales);
+  }, [products]);
   const router = useRouter();
 
  useEffect(() => {
@@ -20,21 +27,20 @@ export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
   return (
     <div>
       <HeroSection />
-      <Catalog 
+      <Catalog
         btnTask={() => router.push("/shop")}
-      svgId="chevron-right"
-      btnTaskLabel="All Products"
-      
-      title="Best Sellers"
-  products={products.slice(0, 5)} 
-  cart={cart}
-  addToCart={(id) => {
-    const product = products.find((p) => p.id === id);
-    addToCart(product);
-  }}
-  increaseQty={increaseQty}
+        svgId="chevron-right"
+        btnTaskLabel="All Products"
+        title="Best Sellers"
+        products={bestSellers}
+        cart={cart}
+        addToCart={(id) => {
+          const product = products.find((p) => p.id === id);
+          addToCart(product);
+        }}
+        increaseQty={increaseQty}
         decreaseQty={decreaseQty}
-/>
+      />
 
       
     </div>

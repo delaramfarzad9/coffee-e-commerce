@@ -22,6 +22,20 @@ export default function Navbar({onCartClick, onSearchToggle}) {
   const { cart } = useCart();
 const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 const { liked } = useCart();
+const [mobileOpen, setMobileOpen] = useState(false);
+
+const toggleMobileMenu = () => setMobileOpen(prev => !prev);
+const closeMobileMenu = () => setMobileOpen(false);
+
+// Close on ESC
+useEffect(() => {
+  const handleEsc = (e) => {
+    if (e.key === "Escape") closeMobileMenu();
+  };
+  window.addEventListener("keydown", handleEsc);
+  return () => window.removeEventListener("keydown", handleEsc);
+}, []);
+
 
 
 
@@ -35,6 +49,21 @@ const { liked } = useCart();
 const handleSearchToggle = () => {
   onSearchToggle();
 };
+// close mobile menu tapping out side 
+useEffect(() => {
+  const handleClickOutside = (e) => {
+    if (!mobileOpen) return;
+    const menu = document.getElementById("mobile-menu-panel");
+    const button = document.getElementById("mobile-menu-button");
+
+    if (menu && !menu.contains(e.target) && !button.contains(e.target)) {
+      closeMobileMenu();
+    }
+  };
+
+  document.addEventListener("click", handleClickOutside);
+  return () => document.removeEventListener("click", handleClickOutside);
+}, [mobileOpen]);
 
 const getNavbarThemeClass = () => {
   if (isHome) {
@@ -48,6 +77,7 @@ const getNavbarThemeClass = () => {
 
 
   return (
+<>
     <div
       className={`
     fixed z-50 top-0 left-0 right-0 px-4 sm:px-6 md:px-7 lg:px-8 xl:px-40
@@ -60,9 +90,14 @@ const getNavbarThemeClass = () => {
  
 <Logo className="md:scale-100 scale-90"/>
   {/* Mobile Menu Button */}
-      <button className="sm:hidden   text-amber-800 text-2xl">
-        <Svg svgId="bars-3" className="w-8 h-8"/>
-      </button>
+   <button
+  onClick={toggleMobileMenu}
+  id="mobile-menu-button"
+  className="sm:hidden text-amber-800 text-2xl"
+>
+  <Svg svgId={mobileOpen ? "x-mark" : "bars-3"} className="w-8 h-8" />
+</button>
+
       {/* Desktop Menu */}
       <nav
     
@@ -129,5 +164,26 @@ const getNavbarThemeClass = () => {
      
         
     </div>
+    {/* Mobile Menu Panel */}
+<div
+id="mobile-menu-panel"
+  className={`
+    sm:hidden fixed top-16 left-0 right-0 z-40
+    bg-gray-100/95 backdrop-blur-md shadow-md
+    transition-all duration-300 overflow-hidden
+    ${mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
+  `}
+>
+  <nav className="flex flex-col items-start *:px-6 *:py-3  text-lg text-amber-900 bg-chocolate/30 *:hover:bg-gray-100/50 *:w-full *:transition-all *:duration-200 *:font-bold *:hover:text-chocolate ">
+    <Link href="/" onClick={closeMobileMenu}>Home</Link>
+    <Link href="/shop" onClick={closeMobileMenu}>Shop</Link>
+    <Link href="/blog" onClick={closeMobileMenu}>Blog</Link>
+    <Link href="/contact" onClick={closeMobileMenu}>Contact</Link>
+    <Link href="/about" onClick={closeMobileMenu}>About</Link>
+  </nav>
+</div>
+
+    </>
+    
   );
 }
