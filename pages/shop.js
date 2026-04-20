@@ -397,78 +397,88 @@ export default function Shop({
             Single origins, blends, and seasonal favourites.
           </p>
 
-          <div className="flex flex-row gap-4 md:self-center mt-5 mb-10">
-            {categoryCard.map((c) => (
-              <CategoryCard
-                key={c.id}
-                text={c.text}
-                image={c.image}
-                onClick={() => {
-                  let updatedFilters = { ...filters };
-                  let newSort = sortOption;
+          <div className="w-full mt-6 mb-12">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 max-w-6xl mx-auto px-2">
+              {categoryCard.map((c) => (
+                <CategoryCard
+                  key={c.id}
+                  text={c.text}
+                  image={c.image}
+                  onClick={() => {
+                    let updatedFilters = { ...filters };
+                    let newSort = sortOption;
 
-                  // 1. RESET (All Coffees)
-                  if (c.type === "reset") {
-                    updatedFilters = {
-                      category: null,
-                      origin: [],
-                      roast: [],
-                      process: [],
-                      priceFrom: null,
-                      priceTo: null,
-                      inStock: null,
-                    };
-                    newSort = null;
-                  }
+                    // 1. RESET (All Coffees)
+                    if (c.type === "reset") {
+                      updatedFilters = {
+                        category: null,
+                        origin: [],
+                        roast: [],
+                        process: [],
+                        priceFrom: null,
+                        priceTo: null,
+                        inStock: null,
+                      };
+                      newSort = null;
+                    }
 
-                  // 2. SORT (Best Sellers)
-                  else if (c.type === "sort") {
-                    newSort = "best-selling"; // 🔥 IMPORTANT (not "best")
+                    // 2. SORT (Best Sellers)
+                    else if (c.type === "sort") {
+                      newSort = "best-selling"; // 🔥 IMPORTANT (not "best")
 
-                    // 🔥 CLEAR category + filters
-                    updatedFilters = {
-                      category: null,
-                      origin: [],
-                      roast: [],
-                      process: [],
-                      priceFrom: null,
-                      priceTo: null,
-                      inStock: null,
-                    };
-                  }
+                      // 🔥 CLEAR category + filters
+                      updatedFilters = {
+                        category: null,
+                        origin: [],
+                        roast: [],
+                        process: [],
+                        priceFrom: null,
+                        priceTo: null,
+                        inStock: null,
+                      };
+                    }
 
-                  // 3. CATEGORY (Espresso / Decaf / Filter)
-                  else if (c.type === "category") {
-                    updatedFilters = {
-                      category: c.value,
-                      origin: [],
-                      roast: [],
-                      process: [],
-                      priceFrom: null,
-                      priceTo: null,
-                      inStock: null,
-                    };
+                    // 3. CATEGORY (Espresso / Decaf / Filter)
+                    else if (c.type === "category") {
+                      updatedFilters = {
+                        category: c.value,
+                        origin: [],
+                        roast: [],
+                        process: [],
+                        priceFrom: null,
+                        priceTo: null,
+                        inStock: null,
+                      };
 
-                    // 🔥 CLEAR sort when selecting category
-                    newSort = null;
-                  }
+                      // 🔥 CLEAR sort when selecting category
+                      newSort = null;
+                    }
 
-                  // APPLY STATE
-                  setFilters(updatedFilters);
-                  setSortOption(newSort);
+                    // APPLY STATE
+                    setFilters(updatedFilters);
+                    setSortOption(newSort);
 
-                  // UPDATE URL
-                  pushFiltersToUrl(updatedFilters, newSort);
-                }}
-              />
-            ))}
+                    // UPDATE URL
+                    pushFiltersToUrl(updatedFilters, newSort);
+                  }}
+                />
+              ))}{" "}
+            </div>
+            {/* Mobile scroll hint */}
+            <div className="flex justify-center mt-4 sm:hidden">
+              <div className="flex space-x-1 opacity-60">
+                <div className="w-2 h-2 bg-chocolate/40 rounded-full"></div>
+                <div className="w-2 h-2 bg-chocolate/60 rounded-full"></div>
+                <div className="w-2 h-2 bg-chocolate/40 rounded-full"></div>
+              </div>
+            </div>{" "}
           </div>
         </div>
 
         <div ref={catalogRef}>
           {filteredProducts.length > 0 && (
             <Catalog
-              className="mb-5"
+              className="my-5"
               btnTask={() => setIsFilterOpen(true)}
               btnTaskLabel={
                 <div
