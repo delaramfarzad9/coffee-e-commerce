@@ -14,7 +14,9 @@ export default function About() {
       {/* Content */}
       <section className="max-w-5xl mx-auto px-6 pb-16 grid md:grid-cols-2 gap-10">
         <div>
-          <h2 className="text-2xl font-semibold mb-3 text-chocolate">Who We Are</h2>
+          <h2 className="text-2xl font-semibold mb-3 text-chocolate">
+            Who We Are
+          </h2>
           <p className="text-gray-600">
             SetCoffee is a UK-based brand delivering high-quality coffee
             products with a focus on taste, consistency, and convenience.
@@ -22,15 +24,19 @@ export default function About() {
         </div>
 
         <div>
-          <h2 className="text-2xl font-semibold mb-3 text-chocolate">Our Mission</h2>
+          <h2 className="text-2xl font-semibold mb-3 text-chocolate">
+            Our Mission
+          </h2>
           <p className="text-gray-600">
-            We aim to make exceptional coffee accessible to everyone,
-            elevating daily routines with better coffee.
+            We aim to make exceptional coffee accessible to everyone, elevating
+            daily routines with better coffee.
           </p>
         </div>
 
         <div>
-          <h2 className="text-2xl font-semibold mb-3 text-chocolate">Our Story</h2>
+          <h2 className="text-2xl font-semibold mb-3 text-chocolate">
+            Our Story
+          </h2>
           <p className="text-gray-600">
             Built from a passion for coffee, SetCoffee was created to bring
             café-quality coffee straight to your home.
@@ -38,7 +44,9 @@ export default function About() {
         </div>
 
         <div>
-          <h2 className="text-2xl font-semibold mb-3 text-chocolate">Why Choose Us</h2>
+          <h2 className="text-2xl font-semibold mb-3 text-chocolate">
+            Why Choose Us
+          </h2>
           <ul className="text-gray-600 list-disc list-inside">
             <li>Premium quality beans</li>
             <li>Fast UK delivery</li>
@@ -54,7 +62,13 @@ export default function About() {
           Have questions?
         </h3>
         <p className="text-chocolate mb-4">
-          Contact us at support@setcoffee.co.uk
+          Contact us at{" "}
+          <a
+            href="mailto:support@setcoffee.co.uk"
+            className="text-amber-900 underline font-semibold"
+          >
+            support@setcoffee.co.uk
+          </a>
         </p>
         <a
           href="/contact"

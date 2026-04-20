@@ -2,7 +2,6 @@ export default function Privacy() {
   return (
     <div className="bg-neutral-50 min-h-screen px-6 py-16">
       <div className="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-sm">
-
         <h1 className="text-3xl font-bold mb-6 text-chocolate">
           Privacy Policy
         </h1>
@@ -10,10 +9,10 @@ export default function Privacy() {
         {/* Intro */}
         <section className="mb-8">
           <p className="text-gray-600">
-            At SetCoffee, we respect your privacy and are committed to protecting
-            your personal information. This Privacy Policy explains what data we
-            collect, how we use it, and your rights as a customer in the United
-            Kingdom.
+            At SetCoffee, we respect your privacy and are committed to
+            protecting your personal information. This Privacy Policy explains
+            what data we collect, how we use it, and your rights as a customer
+            in the United Kingdom.
           </p>
         </section>
 
@@ -32,7 +31,9 @@ export default function Privacy() {
             <li>Email address</li>
             <li>Billing and delivery address</li>
             <li>Order details</li>
-            <li>Payment information (processed securely by our payment provider)</li>
+            <li>
+              Payment information (processed securely by our payment provider)
+            </li>
           </ul>
         </section>
 
@@ -41,9 +42,7 @@ export default function Privacy() {
           <h2 className="text-xl font-semibold mb-2 text-chocolate">
             2. How We Use Your Information
           </h2>
-          <p className="text-gray-600 mb-2">
-            We use your information to:
-          </p>
+          <p className="text-gray-600 mb-2">We use your information to:</p>
 
           <ul className="list-disc pl-6 text-gray-600 space-y-1">
             <li>Process and deliver your orders</li>
@@ -59,10 +58,10 @@ export default function Privacy() {
             3. How We Protect Your Data
           </h2>
           <p className="text-gray-600">
-            We take data protection seriously. Your information is stored securely
-            and is only accessible to authorised staff. Payment details are handled
-            by trusted third‑party payment processors and are never stored on our
-            servers.
+            We take data protection seriously. Your information is stored
+            securely and is only accessible to authorised staff. Payment details
+            are handled by trusted third‑party payment processors and are never
+            stored on our servers.
           </p>
         </section>
 
@@ -72,10 +71,10 @@ export default function Privacy() {
             4. Sharing Your Information
           </h2>
           <p className="text-gray-600">
-            We do not sell or share your personal information with third parties,
-            except when required to fulfil your order (such as delivery couriers or
-            payment providers). These partners only receive the information needed
-            to complete their service.
+            We do not sell or share your personal information with third
+            parties, except when required to fulfil your order (such as delivery
+            couriers or payment providers). These partners only receive the
+            information needed to complete their service.
           </p>
         </section>
 
@@ -86,9 +85,9 @@ export default function Privacy() {
           </h2>
           <p className="text-gray-600">
             Our website uses basic cookies to improve functionality and enhance
-            your browsing experience. Cookies help us remember your preferences and
-            understand how visitors use our site. You can disable cookies in your
-            browser settings at any time.
+            your browsing experience. Cookies help us remember your preferences
+            and understand how visitors use our site. You can disable cookies in
+            your browser settings at any time.
           </p>
         </section>
 
@@ -115,8 +114,8 @@ export default function Privacy() {
             7. Updates to This Policy
           </h2>
           <p className="text-gray-600">
-            We may update this Privacy Policy from time to time. Any changes will
-            be posted on this page with an updated revision date.
+            We may update this Privacy Policy from time to time. Any changes
+            will be posted on this page with an updated revision date.
           </p>
         </section>
 
@@ -127,11 +126,16 @@ export default function Privacy() {
           </h2>
           <p className="text-gray-600">
             If you have any questions about this Privacy Policy or how your data
-            is handled, please contact us at  
-            <span className="font-medium"> support@setcoffee.co.uk</span>.
+            is handled, please contact us at{" "}
+            <a
+              href="mailto:support@setcoffee.co.uk"
+              className="font-medium text-yellow-600 hover:text-amber-700"
+            >
+              support@setcoffee.co.uk
+            </a>
+            .
           </p>
         </section>
-
       </div>
     </div>
   );

@@ -2,7 +2,6 @@ export default function Delivery() {
   return (
     <div className="bg-neutral-50 min-h-screen px-6 py-16">
       <div className="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-sm">
-
         <h1 className="text-3xl font-bold mb-6 text-chocolate">
           Shipping & Delivery
         </h1>
@@ -23,11 +22,13 @@ export default function Delivery() {
             1. Order Processing
           </h2>
           <p className="text-gray-600 mb-2">
-            Orders are processed within <span className="font-medium">1–2 business days</span>.
-            During busy periods or holidays, processing may take slightly longer.
+            Orders are processed within{" "}
+            <span className="font-medium">1–2 business days</span>. During busy
+            periods or holidays, processing may take slightly longer.
           </p>
           <p className="text-gray-600">
-            You will receive an email confirmation once your order has been dispatched.
+            You will receive an email confirmation once your order has been
+            dispatched.
           </p>
         </section>
 
@@ -37,8 +38,9 @@ export default function Delivery() {
             2. Delivery Times
           </h2>
           <p className="text-gray-600 mb-2">
-            Standard UK delivery typically takes <span className="font-medium">2–5 working days</span>,
-            depending on your location.
+            Standard UK delivery typically takes{" "}
+            <span className="font-medium">2–5 working days</span>, depending on
+            your location.
           </p>
           <p className="text-gray-600">
             Delivery times are estimates and may vary due to courier delays,
@@ -52,9 +54,9 @@ export default function Delivery() {
             3. Delivery Partners
           </h2>
           <p className="text-gray-600">
-            We work with trusted UK couriers to ensure your coffee arrives safely.
-            Once your order is dispatched, the courier becomes responsible for
-            delivery and tracking updates.
+            We work with trusted UK couriers to ensure your coffee arrives
+            safely. Once your order is dispatched, the courier becomes
+            responsible for delivery and tracking updates.
           </p>
         </section>
 
@@ -76,8 +78,8 @@ export default function Delivery() {
             5. Incorrect or Incomplete Addresses
           </h2>
           <p className="text-gray-600">
-            Please ensure your delivery address is correct at checkout. We cannot
-            modify the address once the order has been dispatched. Failed
+            Please ensure your delivery address is correct at checkout. We
+            cannot modify the address once the order has been dispatched. Failed
             deliveries due to incorrect addresses may incur additional charges.
           </p>
         </section>
@@ -100,10 +102,16 @@ export default function Delivery() {
           </h2>
           <p className="text-gray-600">
             If you have any questions about shipping or delivery, feel free to
-            reach out at <span className="font-medium">support@setcoffee.co.uk</span>.
+            reach out at{" "}
+            <a
+              href="mailto:support@setcoffee.co.uk"
+              className="font-medium text-yellow-600 hover:text-amber-700"
+            >
+              support@setcoffee.co.uk
+            </a>
+            .
           </p>
         </section>
-
       </div>
     </div>
   );

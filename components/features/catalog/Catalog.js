@@ -4,11 +4,11 @@ import Button from '../../ui/Button'
 import Svg from '../../ui/Svg'
 import Link from 'next/link'
 
-export default function Catalog({ products, cart, addToCart, increaseQty, decreaseQty,title,btnTask,svgId,btnTaskLabel }) {
+export default function Catalog({ products, cart, addToCart, increaseQty, decreaseQty,title,btnTask,svgId,btnTaskLabel,className='' }) {
   
   
   return (
-   <div className='flex flex-col gap-14 md:mt-10'>
+   <div className={`flex flex-col gap-14  ${className}`}>
     {/* title  */}
  <div className='flex flex-row-reverse justify-between items-center'>
 
