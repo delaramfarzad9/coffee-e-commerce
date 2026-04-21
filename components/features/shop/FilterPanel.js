@@ -94,11 +94,10 @@ const FilterPanel = ({
 
     const tagName = e.target.tagName;
     const inputType = e.target.type;
-    const isTextLikeInput =
-      tagName === "INPUT" &&
-      !["checkbox", "radio", "button", "submit"].includes(inputType);
+    const isFilterInput =
+      tagName === "INPUT" && !["button", "submit"].includes(inputType);
 
-    if (!isTextLikeInput) return;
+    if (!isFilterInput) return;
 
     e.preventDefault();
     applyAndClose();

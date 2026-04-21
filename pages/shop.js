@@ -33,6 +33,7 @@ export default function Shop({
   const router = useRouter();
   const catalogRef = useRef(null);
   const noMatchRef = useRef(null);
+  const shouldScrollToCatalogRef = useRef(false);
 
   // ***  helpers to serialize/deserialize arrays for URL sync
   const serializeArray = (arr) =>
@@ -211,6 +212,22 @@ export default function Shop({
       });
     }
   }, [filteredProducts.length]);
+
+  useEffect(() => {
+    if (!shouldScrollToCatalogRef.current || !catalogRef.current) return;
+
+    shouldScrollToCatalogRef.current = false;
+
+    requestAnimationFrame(() => {
+      const offset = -70;
+      const top =
+        catalogRef.current.getBoundingClientRect().top +
+        window.pageYOffset +
+        offset;
+
+      window.scrollTo({ top, behavior: "smooth" });
+    });
+  }, [filteredProducts, filters, sortOption]);
 
   const catalogTitle = useMemo(() => {
     if (searchQuery?.trim()) {
@@ -414,6 +431,10 @@ export default function Shop({
                     onClick={() => {
                       let updatedFilters = { ...filters };
                       let newSort = sortOption;
+
+                      if (window.innerWidth < 640) {
+                        shouldScrollToCatalogRef.current = true;
+                      }
 
                       // 1. RESET (All Coffees)
                       if (c.type === "reset") {
