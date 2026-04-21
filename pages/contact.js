@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+
 export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,6 +30,7 @@ export default function Contact() {
     <div className="bg-neutral-50 min-h-screen mt-10">
       {/* Header */}
       <section className="text-center py-16 px-6">
+         
         <h1 className="text-4xl font-bold text-chocolate mb-4">Contact Us</h1>
         <p className="text-chocolate max-w-2xl mx-auto">
           We'd love to hear from you.

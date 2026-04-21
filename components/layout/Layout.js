@@ -1,22 +1,27 @@
 import Navbar from "./navbar/Navbar";
 import Footer from "./footer/Footer";
 import ShoppingCart from "../features/cart/ShoppingCart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import SearchBar from "./navbar/SearchBox/SearchBar";
 import { useRouter } from "next/router";
-
-
 
 export default function Layout({ children }) {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const clearCart = () => setCart([]);
- 
-const [searchQuery, setSearchQuery] = useState("");
-const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.pathname !== "/shop") {
+      setSearchQuery("");
+    }
+  }, [router.pathname]);
+
   const removeProductFromCart = (id) => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
@@ -52,39 +57,37 @@ const router = useRouter();
     );
   };
   const openSearch = () => {
-  setSearchQuery("");   // clear input when opening
-  setIsSearchOpen(true);
-};
-
+    setSearchQuery(""); // clear input when opening
+    setIsSearchOpen(true);
+  };
 
   return (
     <>
- <Navbar
-  cartCount={cart.length}
-  onCartClick={() => setIsCartOpen(true)}
-    onSearchToggle={openSearch}
-/>
-
+      <Navbar
+        cartCount={cart.length}
+        onCartClick={() => setIsCartOpen(true)}
+        onSearchToggle={openSearch}
+      />
 
       {/* FULL PAGE BACKDROP + SEARCH BAR */}
       {isSearchOpen && (
         <>
           <div
-              onClick={() => {
-  setIsSearchOpen(false);
-}}
+            onClick={() => {
+              setSearchQuery("");
+              setIsSearchOpen(false);
+            }}
             className="fixed inset-0 bg-black/40 backdrop-blur-sm z-30"
           />
 
           <SearchBar
-  title="Search"
-      isOpen={isSearchOpen}
-  onClose={() => setIsSearchOpen(false)}
-  searchQuery={searchQuery}
-  setSearchQuery={setSearchQuery}
-  className="z-40     transition-opacity duration-300"
-/>
-
+            title="Search"
+            isOpen={isSearchOpen}
+            onClose={() => setIsSearchOpen(false)}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            className="z-40     transition-opacity duration-300"
+          />
         </>
       )}
       <main>
@@ -94,8 +97,8 @@ const router = useRouter();
           increaseQty,
           decreaseQty,
           cart,
-           searchQuery,
-  setSearchQuery
+          searchQuery,
+          setSearchQuery,
         })}{" "}
       </main>
       <ShoppingCart

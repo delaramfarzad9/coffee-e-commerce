@@ -6,6 +6,7 @@ import categoryCard from "../data/categoryCard";
 import Svg from "@/components/ui/Svg";
 import FilterPanel from "@/components/features/shop/FilterPanel";
 import { useRouter } from "next/router";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export default function Shop({
   cart,
@@ -389,8 +390,9 @@ export default function Shop({
       )}
 
       <section className="relative w-full flex flex-col">
-        <div className="flex flex-col gap-4 w-full pb-5 mb-2 bg-chocolate/10 py-5 lg:px-20 px-5">
-          <h1 className="text-chocolate text-3xl font-black pt-24 tracking-wider">
+        <div className="flex flex-col gap-4 w-full mb-2 bg-chocolate/10 pt-24 md:pt-28 pb-5 lg:px-20 px-5">
+          <Breadcrumb />
+          <h1 className="text-chocolate text-3xl font-black tracking-wider">
             Shop Coffee
           </h1>
           <p className="text-chocolate font-medium text-xl">
@@ -400,78 +402,76 @@ export default function Shop({
           <div className="w-full mt-6 mb-12">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 max-w-6xl mx-auto px-2">
               {categoryCard.map((c) => (
-                <CategoryCard
+                <div
                   key={c.id}
-                  text={c.text}
-                  image={c.image}
-                  onClick={() => {
-                    let updatedFilters = { ...filters };
-                    let newSort = sortOption;
+                  className={
+                    c.value === "Decaf" ? "hidden sm:block" : undefined
+                  }
+                >
+                  <CategoryCard
+                    text={c.text}
+                    image={c.image}
+                    onClick={() => {
+                      let updatedFilters = { ...filters };
+                      let newSort = sortOption;
 
-                    // 1. RESET (All Coffees)
-                    if (c.type === "reset") {
-                      updatedFilters = {
-                        category: null,
-                        origin: [],
-                        roast: [],
-                        process: [],
-                        priceFrom: null,
-                        priceTo: null,
-                        inStock: null,
-                      };
-                      newSort = null;
-                    }
+                      // 1. RESET (All Coffees)
+                      if (c.type === "reset") {
+                        updatedFilters = {
+                          category: null,
+                          origin: [],
+                          roast: [],
+                          process: [],
+                          priceFrom: null,
+                          priceTo: null,
+                          inStock: null,
+                        };
+                        newSort = null;
+                      }
 
-                    // 2. SORT (Best Sellers)
-                    else if (c.type === "sort") {
-                      newSort = "best-selling"; // 🔥 IMPORTANT (not "best")
+                      // 2. SORT (Best Sellers)
+                      else if (c.type === "sort") {
+                        newSort = "best-selling"; // 🔥 IMPORTANT (not "best")
 
-                      // 🔥 CLEAR category + filters
-                      updatedFilters = {
-                        category: null,
-                        origin: [],
-                        roast: [],
-                        process: [],
-                        priceFrom: null,
-                        priceTo: null,
-                        inStock: null,
-                      };
-                    }
+                        // 🔥 CLEAR category + filters
+                        updatedFilters = {
+                          category: null,
+                          origin: [],
+                          roast: [],
+                          process: [],
+                          priceFrom: null,
+                          priceTo: null,
+                          inStock: null,
+                        };
+                      }
 
-                    // 3. CATEGORY (Espresso / Decaf / Filter)
-                    else if (c.type === "category") {
-                      updatedFilters = {
-                        category: c.value,
-                        origin: [],
-                        roast: [],
-                        process: [],
-                        priceFrom: null,
-                        priceTo: null,
-                        inStock: null,
-                      };
+                      // 3. CATEGORY (Espresso / Decaf / Filter)
+                      else if (c.type === "category") {
+                        updatedFilters = {
+                          category: c.value,
+                          origin: [],
+                          roast: [],
+                          process: [],
+                          priceFrom: null,
+                          priceTo: null,
+                          inStock: null,
+                        };
 
-                      // 🔥 CLEAR sort when selecting category
-                      newSort = null;
-                    }
+                        // 🔥 CLEAR sort when selecting category
+                        newSort = null;
+                      }
 
-                    // APPLY STATE
-                    setFilters(updatedFilters);
-                    setSortOption(newSort);
+                      // APPLY STATE
+                      setFilters(updatedFilters);
+                      setSortOption(newSort);
 
-                    // UPDATE URL
-                    pushFiltersToUrl(updatedFilters, newSort);
-                  }}
-                />
-              ))}{" "}
+                      // UPDATE URL
+                      pushFiltersToUrl(updatedFilters, newSort);
+                    }}
+                  />
+                </div>
+              ))}
             </div>
-            {/* Mobile scroll hint */}
-            <div className="flex justify-center mt-4 sm:hidden">
-              <div className="flex space-x-1 opacity-60">
-                <div className="w-2 h-2 bg-chocolate/40 rounded-full"></div>
-                <div className="w-2 h-2 bg-chocolate/60 rounded-full"></div>
-                <div className="w-2 h-2 bg-chocolate/40 rounded-full"></div>
-              </div>
-            </div>{" "}
           </div>
         </div>
 
@@ -480,6 +480,7 @@ export default function Shop({
             <Catalog
               className="my-5"
               btnTask={() => setIsFilterOpen(true)}
+              mobileBtnLabel="Filter"
               btnTaskLabel={
                 <div
                   onClick={() => setIsFilterOpen(true)}
@@ -552,6 +553,7 @@ export default function Shop({
                 <Catalog
                   className="mb-5"
                   btnTask={() => setIsFilterOpen(true)}
+                  mobileBtnLabel="Filter"
                   btnTaskLabel={
                     <div
                       onClick={() => setIsFilterOpen(true)}

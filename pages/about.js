@@ -1,8 +1,11 @@
+
 export default function About() {
   return (
     <div className=" min-h-screen mt-20">
       {/* Hero */}
       <section className="text-center py-16 px-6">
+        
+
         <h1 className="text-4xl font-bold text-chocolate mb-4">
           About SetCoffee
         </h1>

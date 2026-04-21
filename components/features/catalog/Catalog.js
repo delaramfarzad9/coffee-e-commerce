@@ -1,36 +1,58 @@
+import Cart from "../cart/Cart";
+import Button from "../../ui/Button";
+import Svg from "../../ui/Svg";
 
-import Cart from '../cart/Cart'
-import Button from '../../ui/Button'
-import Svg from '../../ui/Svg'
-import Link from 'next/link'
-
-export default function Catalog({ products, cart, addToCart, increaseQty, decreaseQty,title,btnTask,svgId,btnTaskLabel,className='' }) {
-  
-  
+export default function Catalog({
+  products,
+  cart,
+  addToCart,
+  increaseQty,
+  decreaseQty,
+  title,
+  btnTask,
+  svgId,
+  btnTaskLabel,
+  mobileBtnLabel,
+  className = "",
+}) {
   return (
-   <div className={`flex flex-col gap-14  ${className}`}>
-    {/* title  */}
- <div className='flex flex-row-reverse justify-between items-center'>
-
- 
-  <Button className='mr-2 md:mr-5 gap-5 tracking-wider py-3  '
-  onClick={btnTask} >
-  <span>{btnTaskLabel}</span>  <Svg  svgId={svgId}/> 
-  </Button>
-  <h2 className='ml-5 font-bold  md:text-2xl lg:text-3xl text-chocolate border-b-2  border-chocolate/30 pb-2'>{title}</h2>
-
- </div>
- {/* catalog  */}
-     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mx-4 my-10'>
- {products.map((p) => {
+    <div className={`flex flex-col gap-14  ${className}`}>
+      {/* title  */}
+      <div className="flex items-center justify-between gap-3 px-2 sm:px-4 md:px-5">
+        <div className="min-w-0">
+          <h2 className="inline-block max-w-full font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl text-chocolate border-b-2 border-chocolate/30 pb-1 sm:pb-2 leading-tight">
+            {title}
+          </h2>
+        </div>
+        <Button
+          className="shrink-0 mx-0 ml-auto mr-0 gap-2 tracking-wide px-3 sm:px-6 py-2 text-xs sm:text-sm whitespace-nowrap"
+          onClick={btnTask}
+        >
+          <div className="sm:hidden">{mobileBtnLabel || btnTaskLabel}</div>
+          <div className="hidden sm:flex items-center gap-2">
+            {btnTaskLabel}
+          </div>
+          {svgId && <Svg svgId={svgId} />}
+        </Button>
+      </div>
+      {/* catalog  */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5 mx-2 sm:mx-4 md:mx-5 my-6 sm:my-10">
+        {products.map((p) => {
           const cartItem = cart.find((item) => item.id === p.id);
           const quantity = cartItem?.quantity || 0;
 
           return (
-            <Cart key={p.id} {...p} quantity={quantity} addToCart={addToCart} increaseQty={increaseQty} decreaseQty={decreaseQty} />
+            <Cart
+              key={p.id}
+              {...p}
+              quantity={quantity}
+              addToCart={addToCart}
+              increaseQty={increaseQty}
+              decreaseQty={decreaseQty}
+            />
           );
         })}
+      </div>
     </div>
-   </div>
-  )
+  );
 }

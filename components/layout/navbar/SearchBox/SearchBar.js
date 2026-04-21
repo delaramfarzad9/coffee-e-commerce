@@ -2,6 +2,7 @@ import React from "react";
 import Svg from "../../../ui/Svg";
 import CategoryCard from "@/components/ui/CategoryCard";
 import { useRouter } from "next/router";
+import categoryCard from "@/data/categoryCard";
 
 export default function SearchBar({
   isOpen,
@@ -12,14 +13,36 @@ export default function SearchBar({
   setSearchQuery,
 }) {
   const router = useRouter();
-  const handleSearch = () => {
-    // mark that we came here from a search
+
+  const dismissSearch = () => {
+    setSearchQuery("");
+    onClose();
+  };
+
+  const navigateToShop = (query = {}) => {
     if (typeof window !== "undefined") {
       sessionStorage.setItem("scrollToCatalog", "true");
     }
 
     onClose();
-    router.push("/shop");
+    router.push({ pathname: "/shop", query });
+  };
+
+  const handleSearch = () => {
+    navigateToShop();
+  };
+
+  const handleCategoryClick = (card) => {
+    setSearchQuery("");
+
+    if (card.type === "sort") {
+      navigateToShop({ sort: card.value });
+      return;
+    }
+
+    if (card.type === "category") {
+      navigateToShop({ category: card.value });
+    }
   };
 
   return (
@@ -33,13 +56,13 @@ export default function SearchBar({
       <div className="flex flex-col gap-2 mt-10 p-5">
         {/* search bar  */}
         <div
-          className={`flex flex-row gap-6 w-full justify-center items-center  ${className}`}
+          className={`flex flex-row gap-4 sm:gap-6 w-full justify-center items-center ${className}`}
         >
           <div className="md:text-xl lg:text-2xl hidden md:block font-black tracking-wider text-chocolate">
             {title}
           </div>
 
-          <div className="w-2/5 h-14 bg-white rounded-full flex flex-row justify-center items-center gap-3 px-5">
+          <div className="w-full max-w-3xl h-14 sm:h-15 bg-white rounded-full flex flex-row justify-center items-center gap-3 px-4 sm:px-5 shadow-sm">
             <input
               type="text"
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -48,37 +71,38 @@ export default function SearchBar({
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleSearch();
                 if (e.key === "Escape") {
-                  onClose();
-                  setSearchQuery("");
+                  dismissSearch();
                 }
               }}
-              className="w-full h-full bg-transparent outline-none text-gray-800 font-medium text-lg"
+              className="w-full h-full bg-transparent outline-none text-gray-800 font-medium text-sm sm:text-base md:text-lg"
             />
             <Svg
               svgId="search"
               onClick={handleSearch}
-              className="w-8 h-8 text-gray-400 hover:text-gray-500 transition"
+              className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400 hover:text-gray-500 transition shrink-0"
             />
           </div>
         </div>
         {/* cartegory cards */}
-        <div className="flex flex-row justify-center items-center gap-6 mt-10 mb-5">
-          <CategoryCard
-            text="Best Sellers"
-            image="/images/sorting/bestsellers.png"
-          />
-          <CategoryCard text="Espresso" image="/images/sorting/espresso.png" />
-          <CategoryCard text="Decaf Coffee" image="/images/sorting/decaf.png" />
-          <CategoryCard
-            text="Filter Coffee"
-            image="/images/sorting/filter.png"
-          />
+        <div className="w-full mt-8 mb-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 md:gap-5 max-w-6xl mx-auto px-2">
+            {categoryCard
+              .filter((card) => card.type !== "reset")
+              .map((card) => (
+                <CategoryCard
+                  key={card.id}
+                  text={card.text}
+                  image={card.image}
+                  onClick={() => handleCategoryClick(card)}
+                />
+              ))}
+          </div>
         </div>
       </div>
       {/* close btn  */}
       <Svg
         svgId="close"
-        onClick={onClose}
+        onClick={dismissSearch}
         className="absolute top-5 right-5 w-8 h-8 text-chocolate cursor-pointer hover:scale-105 hover:text-red-400 duration-300 ease-in-out"
       />
     </div>

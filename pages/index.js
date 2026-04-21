@@ -30,10 +30,11 @@ export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
     <div>
       <HeroSection />
       <Catalog
-      className="mt-10 lg:mt-20"
+        className="mt-10 lg:mt-20"
         btnTask={() => router.push("/shop")}
         svgId="chevron-right"
         btnTaskLabel="All Products"
+        mobileBtnLabel="Products"
         title="Best Sellers"
         products={bestSellers}
         cart={cart}
@@ -44,17 +45,15 @@ export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
         increaseQty={increaseQty}
         decreaseQty={decreaseQty}
       />
-   {/* blog slider  */}
+      {/* blog slider  */}
       <div className="mt-20 flex flex-col gap-10 text-xl text-chocolate font-bold ">
         <h2 className="text-2xl md:text-3xl lg:text-4xl mb-5 ml-5 border-b-2 border-b-chocolate/30 w-min whitespace-nowrap">
           From Our Blog
         </h2>
         <BlogSlider posts={blogPosts} />
       </div>
-      
-      <About />
-   
 
+      <About />
     </div>
   );
 }
