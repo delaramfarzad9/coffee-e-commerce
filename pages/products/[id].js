@@ -6,11 +6,12 @@ import Button from "@/components/ui/Button";
 import { useCart } from "@/context/CartContext";
 import Svg from "@/components/ui/Svg";
 import ContentLayout from "@/components/layout/ContentLayout";
-import { findProductBySlugOrId } from "@/utils/productSlug";
+import { findProductBySlugOrId, getProductSlug } from "@/utils/productSlug";
 
-export default function ProductDetail() {
+export default function ProductDetail({ product: productProp }) {
   const router = useRouter();
-  const { id } = router.query;
+  const rawId = router.query?.id;
+  const idFromRouter = Array.isArray(rawId) ? rawId[0] : rawId;
 
   const { cart, addToCart, increaseQty, decreaseQty } = useCart();
   const { isLiked, toggleLike } = useCart();
@@ -22,9 +23,12 @@ export default function ProductDetail() {
   const notifyRef = useRef(null);
 
   const products = getProducts();
-  const product = findProductBySlugOrId(products, id);
+  const product =
+    productProp ??
+    (idFromRouter ? findProductBySlugOrId(products, idFromRouter) : null);
 
-  const itemInCart = cart.find((item) => item.id === id);
+  const effectiveId = product?.id ?? idFromRouter;
+  const itemInCart = cart.find((item) => item.id === effectiveId);
   const quantityInCart = itemInCart ? itemInCart.quantity : 0;
 
   const handleNotifySubmit = (e) => {
@@ -419,4 +423,45 @@ export default function ProductDetail() {
       </div>
     </ContentLayout>
   );
+}
+
+export async function getStaticPaths() {
+  const products = getProducts();
+
+  const paths = products
+    .map((p) => {
+      const slug = getProductSlug(p);
+      const id = p.id != null ? String(p.id) : "";
+      // Prefer slug, but fallback to id if slug is missing
+      const param =
+        typeof slug === "string" && slug.trim()
+          ? slug.trim()
+          : typeof id === "string" && id.trim()
+            ? id.trim()
+            : null;
+      if (!param) return null; // skip if both are missing/empty
+      return { params: { id: param } };
+    })
+    .filter(Boolean);
+
+  return { paths, fallback: "blocking" };
+}
+
+export async function getStaticProps({ params }) {
+  const raw = params?.id;
+  const id = Array.isArray(raw) ? raw[0] : raw;
+
+  if (!id || typeof id !== "string" || id.trim() === "") {
+    return { notFound: true };
+  }
+
+  const products = getProducts();
+  const product = findProductBySlugOrId(products, id);
+
+  if (!product) return { notFound: true };
+
+  return {
+    props: { product },
+    revalidate: 60,
+  };
 }
