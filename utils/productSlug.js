@@ -1,4 +1,5 @@
 export function getProductSlug(product) {
+  
   const source = typeof product === "string" ? product : product?.title || "";
 
   return source
@@ -10,6 +11,7 @@ export function getProductSlug(product) {
 }
 
 export function findProductBySlugOrId(products, value) {
+  if (!value) return null;
   return products.find(
     (product) => product.id === value || getProductSlug(product) === value,
   );

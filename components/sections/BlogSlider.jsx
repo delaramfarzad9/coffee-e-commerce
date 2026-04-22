@@ -45,9 +45,7 @@ export default function BlogSlider({ posts }) {
 
   return (
     <div className="relative mb-20">
-      {/* ── Edge fades ── */}
-      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-linear-to-r from-white to-transparent" />
-      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-linear-to-l from-white to-transparent" />
+      {/* Edge fades removed to avoid white cloudy edges on mobile */}
 
       {/* ── Viewport ── */}
       <div className="overflow-hidden px-5" ref={emblaRef}>
@@ -84,9 +82,7 @@ export default function BlogSlider({ posts }) {
                       transition-opacity duration-500
                       flex items-end p-4
                     "
-                  >
-                   
-                  </div>
+                  ></div>
 
                   {/* Date pill */}
                   <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-chocolate text-[11px] font-semibold px-2.5 py-1 rounded-full shadow-sm">
