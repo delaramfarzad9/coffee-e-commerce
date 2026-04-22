@@ -99,7 +99,7 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
           onClick={handleHomeNavigation}
           scroll
         >
-          <Logo className="md:scale-100 scale-90 cursor-pointer" />
+          <Logo className="md:scale-100 scale-90 cursor-pointer ml-3 sm:ml-0" />
         </Link>
 
         {/* Desktop Menu */}
@@ -121,7 +121,7 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
           </NavLink>
         </nav>
         {/* ---cart & like & lOGIN & search--- */}
-        <div className="flex flex-row   justify-center items-center md:gap-2 lg:gap-4 gap-1  ">
+        <div className="flex flex-row   justify-center items-center  lg:gap-4 gap-2  ">
           {/* Cart Icon */}
           <div
             onClick={onCartClick}
