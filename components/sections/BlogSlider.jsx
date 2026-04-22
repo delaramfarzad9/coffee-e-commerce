@@ -48,7 +48,7 @@ export default function BlogSlider({ posts }) {
       {/* Edge fades removed to avoid white cloudy edges on mobile */}
 
       {/* ── Viewport ── */}
-      <div className="overflow-hidden px-5" ref={emblaRef}>
+      <div className="overflow-hidden px-5 py-5" ref={emblaRef}>
         <div className="flex gap-6">
           {posts.map((post) => (
             <Link
@@ -59,10 +59,10 @@ export default function BlogSlider({ posts }) {
               <div
                 className="
                   relative flex flex-col h-full rounded-2xl overflow-hidden
-                  bg-white border border-gray-100
+                  bg-chocolate/10 
                   shadow
                   transition-all duration-500 ease-out
-                  group-hover:-translate-y-2 group-hover:shadow-md
+                  group-hover:-translate-y-2 group-hover:shadow-md 
                 "
               >
                 {/* Image with zoom on hover */}
@@ -85,7 +85,7 @@ export default function BlogSlider({ posts }) {
                   ></div>
 
                   {/* Date pill */}
-                  <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-chocolate text-[11px] font-semibold px-2.5 py-1 rounded-full shadow-sm">
+                  <span className="absolute top-3 right-3 bg-gray-50 backdrop-blur-sm text-chocolate text-[11px] font-semibold px-2.5 py-1 rounded-full shadow-sm">
                     {new Date(post.date).toLocaleDateString("en-GB", {
                       day: "numeric",
                       month: "short",
@@ -96,15 +96,15 @@ export default function BlogSlider({ posts }) {
 
                 {/* Content */}
                 <div className="p-5 flex flex-col grow gap-2">
-                  <h2 className="text-base font-bold text-chocolate leading-snug group-hover:text-amber-800 transition-colors duration-300">
+                  <h2 className="text-medium font-bold text-chocolate leading-snug group-hover:text-amber-800 transition-colors duration-300">
                     {post.title}
                   </h2>
-                  <p className="text-gray-500 text-sm leading-relaxed line-clamp-2">
+                  <p className="text-chocolate/80 text-base leading-relaxed line-clamp-2">
                     {post.excerpt}
                   </p>
 
                   {/* Animated bottom bar */}
-                  <div className="mt-auto pt-3 border-t border-gray-100">
+                  <div className="mt-auto pt-3 border-t border-chocolate/20">
                     <span className="text-xs font-semibold text-amber-800 tracking-wider uppercase flex items-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
                       Read article
                       <svg
@@ -135,9 +135,9 @@ export default function BlogSlider({ posts }) {
         aria-label="Previous post"
         className="
           absolute left-1 top-1/2 -translate-y-1/2 z-20
-          w-10 h-10 rounded-full bg-white shadow-lg border border-gray-100
+          w-10 h-10 rounded-full bg-gray-100 shadow-lg 
           flex items-center justify-center
-          text-chocolate hover:bg-chocolate hover:text-white
+          text-chocolate hover:bg-chocolate/80 hover:text-gray-100
           transition-all duration-300 hover:scale-110
         "
       >
@@ -161,9 +161,9 @@ export default function BlogSlider({ posts }) {
         aria-label="Next post"
         className="
           absolute right-1 top-1/2 -translate-y-1/2 z-20
-          w-10 h-10 rounded-full bg-white shadow-lg border border-gray-100
+          w-10 h-10 rounded-full bg-white shadow-lg 
           flex items-center justify-center
-          text-chocolate hover:bg-chocolate hover:text-white
+          text-chocolate hover:bg-chocolate/80 hover:text-gray-100
           transition-all duration-300 hover:scale-110
         "
       >

@@ -303,7 +303,14 @@ export default function Cart({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                addToCart(id, { id, image, title, price, description });
+                addToCart(id, {
+                  id,
+                  image,
+                  title,
+                  price,
+                  description,
+                  inStock,
+                });
               }}
               btnTask="Add to Cart"
               className="mt-2 text-sm sm:text-base"

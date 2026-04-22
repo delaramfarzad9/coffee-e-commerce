@@ -324,9 +324,9 @@ export default function ProductDetail({ product: productProp }) {
                         <div className="space-y-4">
                           <Quantity
                             quantity={quantityInCart}
-                            onIncrease={() => increaseQty(id)}
-                            onDecrease={() => decreaseQty(id)}
-                            onRemove={() => decreaseQty(id)}
+                            onIncrease={() => increaseQty(effectiveId)}
+                            onDecrease={() => decreaseQty(effectiveId)}
+                            onRemove={() => decreaseQty(effectiveId)}
                             className="mx-auto"
                           />
                           <p className="text-center text-sm text-gray-600">
@@ -336,7 +336,7 @@ export default function ProductDetail({ product: productProp }) {
                         </div>
                       ) : (
                         <Button
-                          onClick={() => addToCart(id, product)}
+                          onClick={() => addToCart(effectiveId, product)}
                           btnTask="Add to Cart"
                           className="w-full bg-chocolate hover:bg-chocolate/90 text-white border-0 py-4 text-lg font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl"
                         />

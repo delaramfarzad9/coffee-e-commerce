@@ -80,25 +80,27 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
   ${getNavbarThemeClass()}
   `}
       >
-        {/* ---logo --- */}
+        {/* Mobile: Burger menu left, logo center; Desktop: logo left */}
+        {/* Mobile Menu Button (left on mobile) */}
+        <button
+          onClick={toggleMobileMenu}
+          id="mobile-menu-button"
+          className="sm:hidden text-amber-800 text-2xl order-1"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+        >
+          <Svg svgId={mobileOpen ? "x-mark" : "bars-3"} className="w-8 h-8" />
+        </button>
 
+        {/* Logo: center on mobile, left on desktop */}
         <Link
           href="/"
           aria-label="Go to home page"
-          className="shrink-0"
+          className="shrink-0 order-2 sm:order-none absolute left-1/2 -translate-x-1/2 sm:static sm:left-auto sm:translate-x-0"
           onClick={handleHomeNavigation}
           scroll
         >
           <Logo className="md:scale-100 scale-90 cursor-pointer" />
         </Link>
-        {/* Mobile Menu Button */}
-        <button
-          onClick={toggleMobileMenu}
-          id="mobile-menu-button"
-          className="sm:hidden text-amber-800 text-2xl"
-        >
-          <Svg svgId={mobileOpen ? "x-mark" : "bars-3"} className="w-8 h-8" />
-        </button>
 
         {/* Desktop Menu */}
         <nav className="hidden sm:flex  flex-1 justify-center space-x-3 lg:space-x-4 items-center text-base md:text-lg lg:text-xl">
@@ -139,8 +141,11 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
             </div>
           </div>
 
-          {/* heart Icon */}
-          <Link href="/favorites" className="relative">
+          {/* heart Icon - only show on md and up */}
+          <Link
+            href="/favorites"
+            className="relative hidden md:inline-block landscape:inline-block"
+          >
             <Svg
               svgId="heart"
               className="md:w-7 md:h-7 text-amber-900 cursor-pointer duration-300
@@ -208,6 +213,10 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
           <Link href="/about" onClick={closeMobileMenu}>
             About
           </Link>
+          <Link href="/favorites" onClick={closeMobileMenu}>
+            Favorites
+          </Link>
+          
         </nav>
       </div>
     </>

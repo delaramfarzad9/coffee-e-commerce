@@ -69,8 +69,10 @@ body {
 .hero {
   background-image: url("/images/hero/55.png");
   background-size: contain;
-  background-position: center;
+  background-position: top center;
   background-repeat: no-repeat;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 @media (min-width: 768px) {
