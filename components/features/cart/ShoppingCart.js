@@ -1,12 +1,17 @@
 import Svg from "../../ui/Svg";
 import Quantity from "./Quantity";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import { useCart } from "../../../context/CartContext";
 
 export default function ShoppingCart({ isOpen, onClose }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const scrollContainerRef = useRef(null);
+  const touchStartYRef = useRef(null);
+
+  const { cart, clearCart, removeFromCart, increaseQty, decreaseQty } =
+    useCart();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -16,11 +21,97 @@ export default function ShoppingCart({ isOpen, onClose }) {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, [isOpen, onClose]);
+  // Disable body scroll when cart is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const getScrollContainer = () => scrollContainerRef.current;
+
+    const canScroll = () => {
+      const container = getScrollContainer();
+      return container && container.scrollHeight > container.clientHeight;
+    };
+
+    const applyScroll = (deltaY) => {
+      const container = getScrollContainer();
+      if (!container || !deltaY) return false;
+
+      const maxScrollTop = container.scrollHeight - container.clientHeight;
+      if (maxScrollTop <= 0) return false;
+
+      const nextScrollTop = Math.max(
+        0,
+        Math.min(container.scrollTop + deltaY, maxScrollTop),
+      );
+
+      if (nextScrollTop === container.scrollTop) return false;
+
+      container.scrollTop = nextScrollTop;
+      return true;
+    };
+
+    const handleWheel = (event) => {
+      if (!canScroll()) return;
+
+      const didScroll = applyScroll(event.deltaY);
+      if (!didScroll) return;
+
+      event.preventDefault();
+    };
+
+    const handleTouchStart = (event) => {
+      touchStartYRef.current = event.touches[0]?.clientY ?? null;
+    };
+
+    const handleTouchMove = (event) => {
+      if (!canScroll()) return;
+
+      const currentTouchY = event.touches[0]?.clientY;
+      const previousTouchY = touchStartYRef.current;
+
+      if (currentTouchY == null || previousTouchY == null) return;
+
+      const didScroll = applyScroll(previousTouchY - currentTouchY);
+      if (!didScroll) return;
+
+      touchStartYRef.current = currentTouchY;
+      event.preventDefault();
+    };
+
+    const resetTouch = () => {
+      touchStartYRef.current = null;
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", resetTouch);
+    window.addEventListener("touchcancel", resetTouch);
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", resetTouch);
+      window.removeEventListener("touchcancel", resetTouch);
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
-
-  const { cart, clearCart, removeFromCart, increaseQty, decreaseQty } =
-    useCart();
 
   const totalPrice = cart.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -32,12 +123,12 @@ export default function ShoppingCart({ isOpen, onClose }) {
     <>
       {/* BACKDROP */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-60"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 pointer-events-auto"
         onClick={onClose}
       />
 
       {/* PANEL */}
-      <div className="fixed left-0 top-0 h-screen w-full sm:w-[480px] md:w-[520px] lg:w-[560px] xl:w-[600px] bg-gray-900 z-60 flex flex-col shadow-2xl">
+      <div className="fixed left-0 top-0 z-60 h-screen w-full sm:w-[480px] md:w-[520px] lg:w-[560px] xl:w-[600px] bg-gray-900  flex flex-col shadow-2xl">
         {/* ── HEADER ── */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-700 shrink-0">
           <div className="flex items-center gap-3">
@@ -62,97 +153,102 @@ export default function ShoppingCart({ isOpen, onClose }) {
           </button>
         </div>
 
-        {/* ── ITEM LIST ── */}
-        <div className="flex-1 overflow-y-auto cart-scroll px-4 py-3 space-y-3">
-          {cart.length ? (
-            cart.map((product) => (
-              <div
-                key={product.id}
-                className="flex items-center gap-4 bg-gray-800 rounded-xl p-3 hover:bg-gray-750 transition-colors"
-              >
-                {/* Thumbnail */}
-                <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-lg overflow-hidden ring-1 ring-gray-700">
-                  <img
-                    className="w-full h-full object-cover"
-                    src={product.image}
-                    alt={product.title}
-                  />
-                </div>
+        <div
+          ref={scrollContainerRef}
+          className="flex-1 overflow-y-auto cart-scroll touch-pan-y md:flex md:flex-col md:overflow-hidden"
+        >
+          {/* ── ITEM LIST ── */}
+          <div className="px-4 py-3 space-y-3 md:flex-1 md:overflow-y-auto md:cart-scroll">
+            {cart.length ? (
+              cart.map((product) => (
+                <div
+                  key={product.id}
+                  className="flex items-center gap-4 bg-gray-800 rounded-xl p-3 hover:bg-gray-750 transition-colors"
+                >
+                  {/* Thumbnail */}
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-lg overflow-hidden ring-1 ring-gray-700">
+                    <img
+                      className="w-full h-full object-cover"
+                      src={product.image}
+                      alt={product.title}
+                    />
+                  </div>
 
-                {/* Info */}
-                <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-                  <h3 className="text-gray-100 font-semibold text-sm sm:text-base leading-tight truncate">
-                    {product.title}
-                  </h3>
-                  <span className="text-amber-400 font-bold text-sm">
-                    ${product.price}
-                  </span>
-                  <Quantity
-                    quantity={product.quantity}
-                    onIncrease={() => increaseQty(product.id)}
-                    onDecrease={() => decreaseQty(product.id)}
-                    onRemove={() => removeFromCart(product.id)}
-                    className="text-gray-100 border-gray-600 scale-75 origin-left"
-                  />
-                </div>
+                  {/* Info */}
+                  <div className="flex flex-col gap-1.5 flex-1 min-w-0">
+                    <h3 className="text-gray-100 font-semibold text-sm sm:text-base leading-tight truncate">
+                      {product.title}
+                    </h3>
+                    <span className="text-amber-400 font-bold text-sm">
+                      ${product.price}
+                    </span>
+                    <Quantity
+                      quantity={product.quantity}
+                      onIncrease={() => increaseQty(product.id)}
+                      onDecrease={() => decreaseQty(product.id)}
+                      onRemove={() => removeFromCart(product.id)}
+                      className="text-gray-100 border-gray-600 scale-75 origin-left"
+                    />
+                  </div>
 
-                {/* Line total */}
-                <div className="shrink-0 text-right">
-                  <span className="text-gray-300 text-sm font-medium">
-                    ${(product.price * product.quantity).toLocaleString()}
+                  {/* Line total */}
+                  <div className="shrink-0 text-right">
+                    <span className="text-gray-300 text-sm font-medium">
+                      ${(product.price * product.quantity).toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="flex flex-col items-center justify-center h-64 gap-4 text-gray-500">
+                <Svg svgId="bag" className="w-14 h-14 opacity-40" />
+                <p className="text-base italic">Your cart is empty</p>
+              </div>
+            )}
+          </div>
+
+          {/* ── FOOTER ── */}
+          {cart.length > 0 && (
+            <div className="border-t border-gray-700 px-5 py-4 bg-gray-900 space-y-4 md:shrink-0">
+              {/* Summary rows */}
+              <div className="space-y-1.5 text-sm text-gray-400">
+                <div className="flex justify-between">
+                  <span>Items ({totalItems})</span>
+                  <span className="text-gray-300">
+                    ${totalPrice.toLocaleString()}
                   </span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Shipping</span>
+                  <span className="text-green-400 font-medium">Free</span>
                 </div>
               </div>
-            ))
-          ) : (
-            <div className="flex flex-col items-center justify-center h-64 gap-4 text-gray-500">
-              <Svg svgId="bag" className="w-14 h-14 opacity-40" />
-              <p className="text-base italic">Your cart is empty</p>
-            </div>
-          )}
-        </div>
 
-        {/* ── FOOTER ── */}
-        {cart.length > 0 && (
-          <div className="shrink-0 border-t border-gray-700 px-5 py-4 bg-gray-900 space-y-4">
-            {/* Summary rows */}
-            <div className="space-y-1.5 text-sm text-gray-400">
-              <div className="flex justify-between">
-                <span>Items ({totalItems})</span>
-                <span className="text-gray-300">
+              {/* Total */}
+              <div className="flex justify-between items-center pt-2 border-t border-gray-700 text-gray-100 font-bold text-base sm:text-lg">
+                <span>Total</span>
+                <span className="text-amber-400 text-xl">
                   ${totalPrice.toLocaleString()}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span>Shipping</span>
-                <span className="text-green-400 font-medium">Free</span>
+
+              {/* Actions */}
+              <div className="flex flex-col gap-2 pt-1">
+                <Button
+                  btnTask="Proceed to Checkout"
+                  className="w-full justify-center !mx-0 !my-0 py-3 text-base"
+                />
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="w-full py-2.5 rounded-xl border border-rose-500/60 text-rose-400 text-sm font-semibold
+                             hover:bg-rose-500/10 transition-colors duration-200"
+                >
+                  Clear Cart
+                </button>
               </div>
             </div>
-
-            {/* Total */}
-            <div className="flex justify-between items-center pt-2 border-t border-gray-700 text-gray-100 font-bold text-base sm:text-lg">
-              <span>Total</span>
-              <span className="text-amber-400 text-xl">
-                ${totalPrice.toLocaleString()}
-              </span>
-            </div>
-
-            {/* Actions */}
-            <div className="flex flex-col gap-2 pt-1">
-              <Button
-                btnTask="Proceed to Checkout"
-                className="w-full justify-center !mx-0 !my-0 py-3 text-base"
-              />
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="w-full py-2.5 rounded-xl border border-rose-500/60 text-rose-400 text-sm font-semibold
-                           hover:bg-rose-500/10 transition-colors duration-200"
-              >
-                Clear Cart
-              </button>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Outside close button for sm+ */}
         <div

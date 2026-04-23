@@ -116,3 +116,6 @@ body {
     transform: scale(1);
   }
 }
+.touch-pan-y {
+  touch-action: pan-y;
+}
