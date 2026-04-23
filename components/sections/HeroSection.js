@@ -7,15 +7,15 @@ export default function HeroSection() {
   return (
     <section className="hero w-full">
       <div className="flex items-center lg:pb-20 w-full justify-start aspect-4/3 md:h-dvh bg-no-repeat bg-contain md:bg-cover md:bg-bottom bg-chatgpt">
-        <div className="flex flex-col gap-5">
-          <h1 className="text-[#F6F5F5] text-left text-sm sm:text-2xl md:text-5xl xl:text-6xl font-black md:leading-snug xl:max-w-3xl max-w-1/2 md:ml-20 ml-5 md:mb-0 drop-shadow-xl landscape:pt-20 md:mt-0">
+        <div className="flex flex-col gap-5 landscape:gap-3">
+          <h1 className="text-[#F6F5F5] text-left text-sm sm:text-2xl md:text-5xl xl:text-6xl font-black md:leading-snug xl:max-w-3xl max-w-1/2 md:ml-20 ml-5 md:mb-0 drop-shadow-xl landscape:pt-10 md:mt-0 landscape:text-3xl">
             Fresh Beans From <span className="text-orange-600">Colombia’s</span>{" "}
             Finest Estates
           </h1>
           <Button
             onClick={() => router.push("/shop")}
             btnTask="Shop Now"
-            className="mx-0 self-start ml-5 md:ml-20 text-lg sm:text-xl md:text-2xl px-6 sm:px-10 md:px-14 py-2 md:py-3 tracking-widest"
+            className="mx-0 self-start ml-5 md:ml-20 text-lg sm:text-xl md:text-2xl px-6 sm:px-10 md:px-14 py-2 md:py-3 tracking-widest landscape:py-2 landscape:px-10 landscape:text-lg"
           ></Button>
         </div>
       </div>
