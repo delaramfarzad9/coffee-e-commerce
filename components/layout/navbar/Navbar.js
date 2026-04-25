@@ -216,7 +216,10 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
           <Link href="/favorites" onClick={closeMobileMenu}>
             Favorites
           </Link>
-          
+          <Link href="/login" onClick={closeMobileMenu}>
+  Account
+</Link>
+
         </nav>
       </div>
     </>

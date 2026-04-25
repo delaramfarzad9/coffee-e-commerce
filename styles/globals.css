@@ -119,3 +119,10 @@ body {
 .touch-pan-y {
   touch-action: pan-y;
 }
+
+ 
+@import "tailwindcss";
+@theme {
+  --breakpoint-mobilelandscape: 30rem;
+ 
+}
