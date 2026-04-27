@@ -57,7 +57,7 @@ export default function Catalog({
       custom={i}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount:0 }} 
+      viewport={{ once: true, margin: "-20% 0px" }} 
       variants={cardVariants}>
               <Cart
               key={p.id}
