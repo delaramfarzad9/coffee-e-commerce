@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { motion } from "framer-motion";
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -29,18 +30,28 @@ export default function Contact() {
   return (
     <div className="bg-neutral-50 min-h-screen mt-10">
       {/* Header */}
-      <section className="text-center py-16 px-6">
+      <motion.section 
+      initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.3 }}
+    transition={{ duration: 0.7 }}
+      className="text-center py-16 px-6">
          
         <h1 className="text-4xl font-bold text-chocolate mb-4">Contact Us</h1>
         <p className="text-chocolate max-w-2xl mx-auto">
           We'd love to hear from you.
         </p>
-      </section>
+      </motion.section>
 
       {/* Content */}
       <section className="max-w-6xl mx-auto px-6 pb-16 grid md:grid-cols-2 gap-10">
         {/* Info */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6 }}
+        >
           <h2 className="text-2xl font-semibold mb-4 text-chocolate">
             Get in Touch
           </h2>
@@ -75,15 +86,26 @@ export default function Contact() {
               Lane, London, E2 7RG
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Form */}
-        <form
+        <motion.form
+        
           onSubmit={handleSubmit}
+          initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      whileHover={{ scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
           className="bg-white p-6 rounded-2xl shadow-sm space-y-4"
         >
           {sent && (
-            <div className="flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
+            <motion.div
+             initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+             className="flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-5 h-5 text-green-600"
@@ -98,7 +120,7 @@ export default function Contact() {
                 />
               </svg>
               <span className="font-semibold">Message sent successfully!</span>
-            </div>
+            </motion.div>
           )}
 
           <div>
@@ -137,14 +159,15 @@ export default function Contact() {
             ></textarea>
           </div>
 
-          <button
+          <motion.button
             type="submit"
+             whileTap={{ scale: 0.97 }}
             disabled={sending}
             className={`w-full ${sending ? "bg-gray-400 cursor-wait" : "bg-chocolate hover:opacity-90"} text-gray-100 font-semibold py-3 rounded-xl`}
           >
             {sending ? "Sending..." : "Send Message"}
-          </button>
-        </form>
+          </motion.button>
+        </motion.form>
       </section>
     </div>
   );

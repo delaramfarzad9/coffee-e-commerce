@@ -1,6 +1,7 @@
 import React from "react";
 
 const CategoryCard = ({ text, image, onClick }) => {
+  
   return (
     <div
       onClick={onClick}

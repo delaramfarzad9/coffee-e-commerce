@@ -34,7 +34,7 @@ export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
 <motion.div
    initial={{ opacity: 0, y: 40 }}
   whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, margin:"-100px" }}
+  viewport={{ once: true, amount: 0 }}
   transition={{ duration: 0.6 }}>
         <Catalog
         className="mt-10 lg:mt-20"
@@ -54,12 +54,17 @@ export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
       />
 </motion.div>
       {/* blog slider  */}
-      <div className="mt-20 flex flex-col gap-10 text-xl text-chocolate font-bold ">
+      <motion.div
+      initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.2 }}
+  transition={{ duration: 0.7 }}
+       className="mt-20 flex flex-col gap-10 text-xl text-chocolate font-bold ">
         <h2 className="text-2xl md:text-3xl lg:text-4xl mb-5 ml-5 border-b-2 border-b-chocolate/30 w-min whitespace-nowrap">
           From Our Blog
         </h2>
         <BlogSlider posts={blogPosts} />
-      </div>
+      </motion.div>
 
       <About />
     </div>

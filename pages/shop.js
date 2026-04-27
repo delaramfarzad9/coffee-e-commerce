@@ -7,6 +7,7 @@ import Svg from "@/components/ui/Svg";
 import FilterPanel from "@/components/features/shop/FilterPanel";
 import { useRouter } from "next/router";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import { motion } from "framer-motion";
 
 export default function Shop({
   cart,
@@ -393,6 +394,7 @@ export default function Shop({
   );
   // fallback.results is the array to render when filteredProducts is empty
   // fallback.reason explains what was relaxed
+  
 
   return (
     <>
@@ -417,10 +419,20 @@ export default function Shop({
           </p>
 
           <div className="w-full mt-6 mb-12">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 max-w-6xl mx-auto px-2">
-              {categoryCard.map((c) => (
-                <div
+            {/* category cards  */} 
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 max-w-6xl mx-auto px-2">
+              {categoryCard.map((c,i) => (
+                <motion.div
                   key={c.id}
+                  initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.4, delay: i * 0.08 }}
                   className={
                     c.value === "Decaf" ? "hidden sm:block" : undefined
                   }
@@ -490,9 +502,9 @@ export default function Shop({
                       pushFiltersToUrl(updatedFilters, newSort);
                     }}
                   />
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
 

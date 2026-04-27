@@ -1,11 +1,35 @@
 import { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const boxVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      delay: i * 0.15,
+      ease: "easeOut",
+    },
+  }),
+};
+
   return (
     <div className="bg-chocolate/30 pt-40 pb-24 gap-14 flex flex-col lg:flex-row items-center lg:items-stretch justify-center px-4 sm:px-6 md:px-7 lg:px-8 xl:px-40">
       {/* login form */}
-      <div className="flex flex-col justify-between w-full max-w-lg bg-gray-100 rounded-xl shadow-lg p-8 ">
+      <motion.div
+       custom={0}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={boxVariants}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 200, damping: 18 }}
+       className="flex flex-col justify-between w-full max-w-lg bg-gray-100 rounded-xl shadow-lg p-8 ">
         <h1 className="text-2xl font-bold text-chocolate mb-10 text-center">
           Login
         </h1>
@@ -53,16 +77,26 @@ export default function Login() {
             </a>
           </div>
           {/* submit button */}
-          <button
+          <motion.button
             type="submit"
+             whileTap={{ scale: 0.97 }}
             className="w-full mt-2 bg-chocolate text-white py-2 lg:py-4 rounded-lg font-semibold hover:bg-amber-800 transition"
           >
             Login
-          </button>
+          </motion.button>
         </form>
-      </div>
+      </motion.div>
       {/* information box  */}
-      <div className="flex flex-col justify-between w-full max-w-lg bg-white rounded-xl shadow-lg p-8">
+      <motion.div
+       custom={1}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={boxVariants}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 200, damping: 18 }}
+       className="flex flex-col justify-between w-full max-w-lg bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-2xl font-semibold text-chocolate mb-6 text-center">
           Don't have a subscription yet?
         </h2>
@@ -79,24 +113,26 @@ export default function Login() {
             Skip, pause or cancel <span className="font-bold">anytime</span>
           </p>
         </div>
-        <button
+        <motion.button
           type="submit"
+          whileTap={{ scale: 0.97 }}
           className="w-full mt-2 py-2 lg:py-4 bg-amber-500 text-  text-white rounded-lg font-semibold hover:bg-amber-300 transition"
         >
           Subscribe & Save
-        </button>
+        </motion.button>
         <p className="space-y-4  text-gray-700 mb-5 mt-2 text-center">
           Not quite ready to subscribe?
         </p>
         <Link href="/shop">
-          <button
+          <motion.button
             type="submit"
+            whileTap={{ scale: 0.97 }}
             className="w-full mt-2 py-2 lg:py-4 bg-amber-900 text-white  rounded-lg font-semibold hover:bg-amber-800 transition"
           >
             Browse Coffees
-          </button>
+          </motion.button>
         </Link>
-      </div>
+      </motion.div>
     </div>
   );
 }
