@@ -34,7 +34,7 @@ export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
 <motion.div
    initial={{ opacity: 0, y: 40 }}
   whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, amount: 0.3 }}
+  viewport={{ once: true, margin:"-100px" }}
   transition={{ duration: 0.6 }}>
         <Catalog
         className="mt-10 lg:mt-20"
