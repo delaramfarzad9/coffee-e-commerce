@@ -6,7 +6,7 @@ import Button from "../../ui/Button";
 import { useCart } from "@/context/CartContext";
 import { getBestSellerIds } from "@/utils/bestSellers";
 import { getProductSlug } from "@/utils/productSlug";
-
+import { motion } from "framer-motion";
 // onClick={() => navigate(`/product/${id}`)}
 export default function Cart({
   id,
@@ -99,7 +99,12 @@ export default function Cart({
   }, []);
 
   return (
-    <Link
+    <motion.div
+     whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }} 
+  transition={{ type: "spring", stiffness: 200, damping: 15 }}
+    >
+      <Link
       onClick={() => {
         sessionStorage.setItem("scrollPosition", window.scrollY);
       }}
@@ -319,5 +324,6 @@ export default function Cart({
         </div>
       </div>
     </Link>
+    </motion.div>
   );
 }

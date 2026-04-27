@@ -1,6 +1,7 @@
 import Cart from "../cart/Cart";
 import Button from "../../ui/Button";
 import Svg from "../../ui/Svg";
+import { motion } from "framer-motion";
 
 export default function Catalog({
   products,
@@ -14,7 +15,16 @@ export default function Catalog({
   btnTaskLabel,
   mobileBtnLabel,
   className = "",
-}) {
+})
+ {
+  const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.4 }
+  })
+};
   return (
     <div className={`flex flex-col gap-14  ${className}`}>
       {/* title  */}
@@ -37,12 +47,18 @@ export default function Catalog({
       </div>
       {/* catalog  */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5 mx-2 sm:mx-4 md:mx-5 my-6 sm:my-10">
-        {products.map((p) => {
+        {products.map((p,i) => {
           const cartItem = cart.find((item) => item.id === p.id);
           const quantity = cartItem?.quantity || 0;
 
           return (
-            <Cart
+          <motion.div
+            key={p.id}
+      custom={i}
+      initial="hidden"
+      whileInView="visible"
+      variants={cardVariants}>
+              <Cart
               key={p.id}
               {...p}
               quantity={quantity}
@@ -50,9 +66,11 @@ export default function Catalog({
               increaseQty={increaseQty}
               decreaseQty={decreaseQty}
             />
+          </motion.div>
           );
         })}
       </div>
+      
     </div>
   );
 }
