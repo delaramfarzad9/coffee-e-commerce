@@ -1,10 +1,27 @@
+import { motion } from "framer-motion";
+
 export default function Support() {
   return (
-    <div className="bg-neutral-50 min-h-screen px-6 py-16">
-      <div className="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-sm">
-        <h1 className="text-3xl font-bold mb-6 text-chocolate">
+    <motion.div
+      className="bg-neutral-50 min-h-screen px-6 py-16"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.div
+        className="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-sm"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <motion.h1
+          className="text-3xl font-bold mb-6 text-chocolate"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.7 }}
+        >
           Customer Support
-        </h1>
+        </motion.h1>
 
         {/* Intro */}
         <section className="mb-8">
@@ -122,7 +139,7 @@ export default function Support() {
             .
           </p>
         </section>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
