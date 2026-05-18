@@ -48,8 +48,8 @@ export default function Cart({
     }
 
     if (!emailPattern.test(trimmedEmail)) {
-      setNotifyError("Please enter a valid email address.");
-      return;
+        setNotifyError("Please enter a valid email address.");
+  return;
     }
 
     setNotifyError("");

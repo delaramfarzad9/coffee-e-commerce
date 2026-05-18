@@ -71,6 +71,8 @@ export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
       <DictionaryTeaser />
 
       <About />
+      
+      
     </div>
   );
 }
