@@ -46,7 +46,7 @@ export default function BlogPage() {
              <Link key={post.id} href={`/blog/${post.id}`}>
               <div
 
-               className="rounded-xl shadow-md hover:shadow-xl transition-all cursor-pointer bg-gray-100 flex flex-col h-full">
+               className="rounded-xl shadow-md hover:shadow-xl transition-all cursor-pointer bg-chocolate/20 flex flex-col h-full">
                 <img
                   src={post.image}
                   alt={post.title}

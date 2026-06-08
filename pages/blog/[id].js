@@ -26,7 +26,7 @@ export default function BlogDetail() {
 
   return (
     <ContentLayout>
-      <div className="max-w-4xl mx-auto p-10">
+      <div className="max-w-4xl mx-auto p-10 rounded-2xl shadow-lg mb-10">
         <motion.img
           src={post.image}
           alt={post.title}
@@ -53,30 +53,23 @@ export default function BlogDetail() {
           {new Date(post.date).toLocaleDateString()}
         </motion.p>
 
-        <article className="prose prose-lg max-w-none text-lg font-medium">
-                    {Array.isArray(post.content)
-            ? post.content.map((para, i) => (
-                <motion.p
-                  key={i}
-                  custom={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.2 }}
-                  variants={paragraphVariants}
-                >
-                  {para}
-                </motion.p>
-              ))
-            : (
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5 }}
-              >
-                {post.content}
-              </motion.p>
-            )}
+        <article className="space-y-6">
+          {(Array.isArray(post.content)
+            ? post.content
+            : post.content.split(/\n\n+/).map((p) => p.trim()).filter(Boolean)
+          ).map((para, i) => (
+            <motion.p
+              key={i}
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              variants={paragraphVariants}
+              className="text-chocolate/80 leading-relaxed text-base md:text-lg font-medium"
+            >
+              {para}
+            </motion.p>
+          ))}
         </article>
       </div>
     </ContentLayout>

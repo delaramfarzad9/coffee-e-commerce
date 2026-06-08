@@ -1,3 +1,5 @@
+// Utility: Generate clean URL slugs and find products by slug or ID
+
 export function getProductSlug(product) {
   
   const source = typeof product === "string" ? product : product?.title || "";
