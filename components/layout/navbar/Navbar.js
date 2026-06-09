@@ -6,6 +6,7 @@ import Logo from "../../ui/Logo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCart } from "../../../context/CartContext";
+import ThemeToggle from "../ThemeToggle";
 
 export default function Navbar({ onCartClick, onSearchToggle }) {
   const [scrolled, setScrolled] = useState(false);
@@ -119,6 +120,7 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
           <NavLink href="/about" scrolled={scrolled} isHome={isHome}>
             About
           </NavLink>
+          <ThemeToggle />
         </nav>
         {/* ---cart & like & lOGIN & search--- */}
         <div className="flex flex-row   justify-center items-center  lg:gap-4 gap-2  ">

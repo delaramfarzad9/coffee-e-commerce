@@ -6,7 +6,9 @@ import React from "react";
 import SearchBar from "./navbar/SearchBox/SearchBar";
 import { useRouter } from "next/router";
 
+
 export default function Layout({ children }) {
+ 
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const clearCart = () => setCart([]);
@@ -15,17 +17,20 @@ export default function Layout({ children }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const router = useRouter();
-
+//Reset search when leaving /shop
   useEffect(() => {
     if (router.pathname !== "/shop") {
       setSearchQuery("");
     }
   }, [router.pathname]);
 
+  //cart functions(functions to pass to components like Quantity, ProductCard, ShoppingCart.)
+  //remove product
   const removeProductFromCart = (id) => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
+  //add product
   const addToCart = (product) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
@@ -39,6 +44,7 @@ export default function Layout({ children }) {
       return [...prev, { ...product, quantity: 1 }];
     });
   };
+  //Increase quantity
   const increaseQty = (id) => {
     setCart((prev) =>
       prev.map((item) =>
@@ -47,6 +53,7 @@ export default function Layout({ children }) {
     );
   };
 
+  //Decrease quantity
   const decreaseQty = (id) => {
     setCart((prev) =>
       prev
@@ -56,6 +63,7 @@ export default function Layout({ children }) {
         .filter((item) => item.quantity > 0),
     );
   };
+  //Search open function
   const openSearch = () => {
     setSearchQuery(""); // clear input when opening
     setIsSearchOpen(true);
