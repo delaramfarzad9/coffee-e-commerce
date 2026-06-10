@@ -26,7 +26,7 @@ export default function Catalog({
   })
 };
   return (
-    <div className={`flex flex-col gap-14 dark:bg-gray-900 bg-white ${className}`}>
+    <div className={`flex flex-col gap-14  ${className}`}>
       {/* title  */}
       <div className="flex items-center justify-between gap-3 px-2 sm:px-4 md:px-5">
         <div className="min-w-0">
