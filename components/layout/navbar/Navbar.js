@@ -7,8 +7,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCart } from "../../../context/CartContext";
 import ThemeToggle from "../ThemeToggle";
+import { useContext } from "react";
+import { ThemeContext } from "../../../context/ThemeContext";
+
 
 export default function Navbar({ onCartClick, onSearchToggle }) {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
   const [scrolled, setScrolled] = useState(false);
 
   const router = useRouter();
@@ -195,11 +200,11 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
         className={`
     sm:hidden fixed top-16 left-0 right-0 z-40
     bg-gray-100/95 backdrop-blur-md shadow-md
-    transition-all duration-300 overflow-hidden
+    transition-all duration-300 overflow-scroll
     ${mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
   `}
       >
-        <nav className="flex flex-col items-start *:px-6 *:py-3  text-lg text-amber-900 bg-chocolate/30 *:hover:bg-gray-100/50 *:w-full *:transition-all *:duration-200 *:font-bold *:hover:text-chocolate ">
+        <nav className="flex flex-col items-start *:px-6 *:py-3  text-lg text-amber-900 bg-chocolate/30 *:hover:bg-gray-100/50 *:w-full *:transition-all *:duration-200 *:font-bold *:hover:text-chocolate *:active:text-chocolate/80">
           <Link href="/" onClick={closeMobileMenu}>
             Home
           </Link>
@@ -221,6 +226,13 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
           <Link href="/login" onClick={closeMobileMenu}>
   Account
 </Link>
+
+ <div onClick={toggleTheme}  className="flex flex-row gap-1  items-center cursor-pointer">
+  <span>Theme /</span>
+  <span className="text-chocolate/70">{theme === "dark" ? "Dark" : "Light"}</span>
+</div>
+
+
 
         </nav>
       </div>
