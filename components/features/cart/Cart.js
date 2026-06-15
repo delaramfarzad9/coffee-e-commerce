@@ -118,7 +118,7 @@ export default function Cart({
       className="no-underline"
     >
       <div
-        className={`relative flex flex-col w-full shadow-lg rounded-2xl h-[400px] sm:h-[460px] transition-all duration-300 ${
+        className={`relative flex flex-col w-full shadow-lg rounded-2xl h-[400px] sm:h-[460px] transition-all duration-300 text-chocolate dark:text-orange-200 ${
           !inStock ? "shadow-md ring-1 ring-gray-200/50" : ""
         }`}
       >

@@ -64,7 +64,7 @@
   --color-chocolate: #7b3f00;
 }
 body {
-  @apply relative font-nunito  font-normal;
+  @apply relative font-nunito  font-normal bg-gray-100 dark:bg-gray-800;
 }
 
 .hero {

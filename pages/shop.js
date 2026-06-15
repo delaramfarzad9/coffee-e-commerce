@@ -20,6 +20,7 @@ export default function Shop({
   const [products] = useState(getProducts());
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
+  //filters object
   const [filters, setFilters] = useState({
     category: null,
     origin: [],
@@ -29,8 +30,9 @@ export default function Shop({
     priceTo: null,
     inStock: null,
   });
-
+//sort option
   const [sortOption, setSortOption] = useState(null);
+  //Router and refs
   const router = useRouter();
   const catalogRef = useRef(null);
   const noMatchRef = useRef(null);
@@ -47,7 +49,8 @@ export default function Shop({
           .filter(Boolean)
       : [];
 
-  // ***  push filters to URL (shallow replace)
+  // Sync current filters and sort option to the URL using shallow routing (no full reload)
+
   const pushFiltersToUrl = (nextFilters, nextSort) => {
     const q = {
       category: nextFilters.category || undefined,
@@ -66,7 +69,7 @@ export default function Shop({
     });
   };
 
-  // ***  handleFiltersChange merges and pushes to URL
+  // Merge new filters into state and sync them to the URL
   const handleFiltersChange = (newFilters) => {
     setFilters((prev) => {
       const merged = { ...prev, ...newFilters };
