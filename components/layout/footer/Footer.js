@@ -7,7 +7,7 @@ import LinkItem from "./LinkItem";
 
 export default function Footer() {
   return (
-    <footer className="w-full  pt-10  text-amber-900 bg-orange-100">
+    <footer className="w-full pt-10 text-amber-900 dark:text-orange-200 bg-orange-100 dark:bg-gray-900">
       {/* main Footer wrapper  */}
       <div className="flex flex-col gap-7 justify-between items-start md:flex-row py-12 px-4 md:px-10">
         {/* wrapper1/logo/address/contact */}
@@ -31,7 +31,10 @@ export default function Footer() {
           <p className="flex flex-row gap-1 items-start">
             <Svg svgId="mobile" className="shrink-0" />
             <span>Order Tracking</span>
-            <a href="tel:00442079460821" className="hover:text-amber-700">
+            <a
+              href="tel:00442079460821"
+              className="hover:text-amber-700 dark:hover:text-orange-300"
+            >
               (+44 20 7946 0821)
             </a>
           </p>
@@ -40,7 +43,7 @@ export default function Footer() {
             <Svg svgId="email" className="shrink-0" />
             <a
               href="mailto:support@setcoffee.co.uk"
-              className="hover:text-amber-700"
+              className="hover:text-amber-700 dark:hover:text-orange-300"
             >
               support@setcoffee.co.uk
             </a>
@@ -48,7 +51,9 @@ export default function Footer() {
         </div>
         {/*wrapper2/ Latest Posts */}
         <div className="flex flex-col gap-2 items-start text-balance text-left font-bold">
-          <p className="font-extrabold text-yellow-600">Latest Posts</p>
+          <p className="font-extrabold text-yellow-600 dark:text-amber-400">
+            Latest Posts
+          </p>
           <PostItem
             title="How to Brew the Perfect Espresso"
             href="/blog/brew-perfect-espresso"
@@ -75,7 +80,9 @@ export default function Footer() {
           aria-label="Quick links"
           className="flex flex-col gap-2 items-start text-left"
         >
-          <h4 className="font-extrabold text-yellow-600 ">Quick Links</h4>
+          <h4 className="font-extrabold text-yellow-600 dark:text-amber-400">
+            Quick Links
+          </h4>
           <ul className="space-y-1 ">
             <li>
               <LinkItem href="/terms" className="whitespace-nowrap">

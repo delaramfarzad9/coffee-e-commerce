@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Link from "next/link";
+import Button from "@/components/ui/Button";
 
 const TEASER_TERMS = [
   {
@@ -26,17 +26,17 @@ export default function DictionaryTeaser() {
       className="mt-20 mx-2 sm:mx-4 md:mx-5 flex flex-col gap-10"
     >
       {/* Section heading  */}
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-chocolate border-b-2 border-b-chocolate/30 w-min whitespace-nowrap">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-chocolate dark:text-orange-200 border-b-2 border-b-chocolate/30 dark:border-b-orange-200/30 w-min whitespace-nowrap">
         Coffee Dictionary
       </h2>
 
       {/* Card */}
-      <div className="relative overflow-hidden rounded-3xl bg-chocolate/10 border border-amber-200/60 shadow-xl px-8 py-14 sm:px-14 sm:py-16">
+      <div className="relative overflow-hidden rounded-3xl bg-chocolate/10 dark:bg-white/5 border border-amber-200/60 dark:border-orange-200/15 shadow-xl px-8 py-14 sm:px-14 sm:py-16">
         {/* Top accent bar */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-chocolate/60 rounded-t-3xl" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-chocolate/60 dark:bg-orange-200/30 rounded-t-3xl" />
 
         {/* Decorative background watermark */}
-        <div className="pointer-events-none select-none absolute -bottom-4 right-6 text-[11rem] font-black text-chocolate/5 leading-none">
+        <div className="pointer-events-none select-none absolute -bottom-4 right-6 text-[11rem] font-black text-chocolate/5 dark:text-orange-200/5 leading-none">
           A–Z
         </div>
 
@@ -48,7 +48,7 @@ export default function DictionaryTeaser() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl font-black text-chocolate leading-[1.1] mb-5"
+              className="text-4xl sm:text-5xl font-black text-chocolate dark:text-orange-200 leading-[1.1] mb-5"
             >
               Speak the Language of Coffee
             </motion.h3>
@@ -58,7 +58,7 @@ export default function DictionaryTeaser() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-chocolate/70 font-medium text-lg leading-relaxed mb-8"
+              className="text-chocolate/70 dark:text-orange-200/75 font-medium text-lg leading-relaxed mb-8"
             >
               From bloom to crema, explore our coffee glossary and elevate your
               experience — one term at a time.
@@ -70,9 +70,9 @@ export default function DictionaryTeaser() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.3 }}
             >
-              <Link
+              <Button
                 href="/dictionary"
-                className="inline-flex items-center gap-3 rounded-full bg-chocolate px-8 py-3.5 font-bold text-amber-100 transition-all hover:bg-chocolate/85 active:scale-95"
+                className="inline-flex items-center gap-3 px-8 py-3.5 font-bold rounded-full"
               >
                 Explore the Dictionary
                 <svg
@@ -88,7 +88,7 @@ export default function DictionaryTeaser() {
                     d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
                   />
                 </svg>
-              </Link>
+              </Button>
             </motion.div>
           </div>
 
@@ -101,12 +101,12 @@ export default function DictionaryTeaser() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.12 }}
-                className="rounded-2xl bg-white/80 border-l-4 border-yellow-400 shadow-sm px-5 py-4"
+                className="rounded-2xl bg-white/80 dark:bg-white/5 border-l-4 border-yellow-400 dark:border-yellow-500/60 shadow-sm px-5 py-4"
               >
-                <p className="text-sm font-bold text-chocolate mb-1">
+                <p className="text-sm font-bold text-chocolate dark:text-orange-200 mb-1">
                   {item.term}
                 </p>
-                <p className="text-sm text-chocolate/70 leading-snug">
+                <p className="text-sm text-chocolate/70 dark:text-orange-200/75 leading-snug">
                   {item.def}
                 </p>
               </motion.div>

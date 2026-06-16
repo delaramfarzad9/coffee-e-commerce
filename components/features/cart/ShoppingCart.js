@@ -128,9 +128,9 @@ export default function ShoppingCart({ isOpen, onClose }) {
       />
 
       {/* PANEL */}
-      <div className="fixed left-0 top-0 z-60 h-screen w-full sm:w-[480px] md:w-[520px] lg:w-[560px] xl:w-[600px] bg-gray-900  flex flex-col shadow-2xl">
+      <div className="fixed left-0 top-0 z-60 h-screen w-full sm:w-120 md:w-130 lg:w-140 xl:w-150 bg-white dark:bg-gray-900 flex flex-col shadow-2xl">
         {/* ── HEADER ── */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-700 shrink-0">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200 dark:border-gray-700 bg-orange-50/60 dark:bg-gray-900 shrink-0">
           <div className="flex items-center gap-3">
             <div className="relative">
               <Svg svgId="cart" className="w-6 h-6 text-amber-400" />
@@ -140,16 +140,19 @@ export default function ShoppingCart({ isOpen, onClose }) {
                 </span>
               )}
             </div>
-            <h2 className="text-lg font-bold text-gray-100 tracking-wide">
+            <h2 className="text-lg font-bold text-chocolate dark:text-gray-100 tracking-wide">
               My Cart
             </h2>
           </div>
           <button
             onClick={onClose}
             aria-label="Close cart"
-            className="sm:hidden w-8 h-8 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center transition-colors"
+            className="sm:hidden w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 flex items-center justify-center transition-colors"
           >
-            <Svg svgId="close" className="w-4 h-4 text-gray-300" />
+            <Svg
+              svgId="close"
+              className="w-4 h-4 text-gray-600 dark:text-gray-300"
+            />
           </button>
         </div>
 
@@ -163,10 +166,10 @@ export default function ShoppingCart({ isOpen, onClose }) {
               cart.map((product) => (
                 <div
                   key={product.id}
-                  className="flex items-center gap-4 bg-gray-800 rounded-xl p-3 hover:bg-gray-750 transition-colors"
+                  className="flex items-center gap-4 bg-orange-50 hover:bg-amber-50 dark:bg-gray-800 dark:hover:bg-gray-750 rounded-xl p-3 transition-colors"
                 >
                   {/* Thumbnail */}
-                  <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-lg overflow-hidden ring-1 ring-gray-700">
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-lg overflow-hidden ring-1 ring-orange-200 dark:ring-gray-700">
                     <img
                       className="w-full h-full object-cover"
                       src={product.image}
@@ -176,10 +179,10 @@ export default function ShoppingCart({ isOpen, onClose }) {
 
                   {/* Info */}
                   <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-                    <h3 className="text-gray-100 font-semibold text-sm sm:text-base leading-tight truncate">
+                    <h3 className="text-chocolate dark:text-gray-100 font-semibold text-sm sm:text-base leading-tight truncate">
                       {product.title}
                     </h3>
-                    <span className="text-amber-400 font-bold text-sm">
+                    <span className="text-amber-600 dark:text-amber-400 font-bold text-sm">
                       ${product.price}
                     </span>
                     <Quantity
@@ -187,20 +190,20 @@ export default function ShoppingCart({ isOpen, onClose }) {
                       onIncrease={() => increaseQty(product.id)}
                       onDecrease={() => decreaseQty(product.id)}
                       onRemove={() => removeFromCart(product.id)}
-                      className="text-gray-100 border-gray-600 scale-75 origin-left"
+                      className="scale-75 origin-left"
                     />
                   </div>
 
                   {/* Line total */}
                   <div className="shrink-0 text-right">
-                    <span className="text-gray-300 text-sm font-medium">
+                    <span className="text-gray-600 dark:text-gray-300 text-sm font-medium">
                       ${(product.price * product.quantity).toLocaleString()}
                     </span>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="flex flex-col items-center justify-center h-64 gap-4 text-gray-500">
+              <div className="flex flex-col items-center justify-center h-64 gap-4 text-gray-400 dark:text-gray-500">
                 <Svg svgId="bag" className="w-14 h-14 opacity-40" />
                 <p className="text-base italic">Your cart is empty</p>
               </div>
@@ -209,12 +212,12 @@ export default function ShoppingCart({ isOpen, onClose }) {
 
           {/* ── FOOTER ── */}
           {cart.length > 0 && (
-            <div className="border-t border-gray-700 px-5 py-4 bg-gray-900 space-y-4 md:shrink-0">
+            <div className="border-t border-gray-200 dark:border-gray-700 px-5 py-4 bg-orange-50/60 dark:bg-gray-900 space-y-4 md:shrink-0">
               {/* Summary rows */}
-              <div className="space-y-1.5 text-sm text-gray-400">
+              <div className="space-y-1.5 text-sm text-gray-500 dark:text-gray-400">
                 <div className="flex justify-between">
                   <span>Items ({totalItems})</span>
-                  <span className="text-gray-300">
+                  <span className="text-gray-700 dark:text-gray-300">
                     ${totalPrice.toLocaleString()}
                   </span>
                 </div>
@@ -225,9 +228,9 @@ export default function ShoppingCart({ isOpen, onClose }) {
               </div>
 
               {/* Total */}
-              <div className="flex justify-between items-center pt-2 border-t border-gray-700 text-gray-100 font-bold text-base sm:text-lg">
+              <div className="flex justify-between items-center pt-2 border-t border-gray-200 dark:border-gray-700 text-chocolate dark:text-gray-100 font-bold text-base sm:text-lg">
                 <span>Total</span>
-                <span className="text-amber-400 text-xl">
+                <span className="text-amber-600 dark:text-amber-400 text-xl">
                   ${totalPrice.toLocaleString()}
                 </span>
               </div>
@@ -236,12 +239,12 @@ export default function ShoppingCart({ isOpen, onClose }) {
               <div className="flex flex-col gap-2 pt-1">
                 <Button
                   btnTask="Proceed to Checkout"
-                  className="w-full justify-center !mx-0 !my-0 py-3 text-base"
+                  className="w-full justify-center mx-0! my-0! py-3 text-base"
                 />
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="w-full py-2.5 rounded-xl border border-rose-500/60 text-rose-400 text-sm font-semibold
-                             hover:bg-rose-500/10 transition-colors duration-200"
+                  className="w-full py-2.5 rounded-xl border border-rose-400/50 dark:border-rose-500/60 text-rose-500 dark:text-rose-400 text-sm font-semibold
+                             hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors duration-200"
                 >
                   Clear Cart
                 </button>
@@ -253,9 +256,12 @@ export default function ShoppingCart({ isOpen, onClose }) {
         {/* Outside close button for sm+ */}
         <div
           onClick={onClose}
-          className="hidden sm:flex absolute top-5 -right-11 w-9 h-9 items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700 cursor-pointer transition-colors shadow-lg"
+          className="hidden sm:flex absolute top-5 -right-11 w-9 h-9 items-center justify-center rounded-full bg-white hover:bg-orange-50 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer transition-colors shadow-lg ring-1 ring-gray-200 dark:ring-transparent"
         >
-          <Svg svgId="close" className="text-gray-100 w-4 h-4" />
+          <Svg
+            svgId="close"
+            className="text-gray-700 dark:text-gray-100 w-4 h-4"
+          />
         </div>
       </div>
 

@@ -108,17 +108,17 @@ export default function ProductDetail({ product: productProp }) {
 
   return (
     <ContentLayout>
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-linear-to-br from-orange-50 via-white to-amber-50 dark:bg-none dark:bg-gray-800 rounded-2xl">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 mb-10 ">
           {/* Main Product Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Product Image Section */}
             <div className="relative">
               <div className="sticky top-8">
-                <div className="relative aspect-square overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-gray-100">
+                <div className="relative aspect-square overflow-hidden rounded-2xl bg-white dark:bg-white/5 shadow-2xl ring-1 ring-gray-100 dark:ring-orange-200/15">
                   <img
                     className={`h-full w-full object-cover transition-transform duration-500 hover:scale-105 ${
-                      !product.inStock ? "opacity-75 grayscale-[25%]" : ""
+                      !product.inStock ? "opacity-75 grayscale-25" : ""
                     }`}
                     src={product.image}
                     alt={product.title}
@@ -137,67 +137,81 @@ export default function ProductDetail({ product: productProp }) {
               {/* Header Section */}
               <div className="space-y-4">
                 <div className="flex items-start justify-between">
-                  <h1 className="text-3xl font-bold text-chocolate sm:text-3xl lg:text-4xl">
+                  <h1 className="text-3xl font-bold text-chocolate dark:text-orange-200 sm:text-3xl lg:text-4xl">
                     {product.title}
                   </h1>
                   <div
-                    className="group flex cursor-pointer items-center gap-2 rounded-full bg-white p-3 shadow-md ring-1 ring-gray-100 transition-all hover:shadow-lg hover:ring-chocolate/20"
+                    className="group flex cursor-pointer items-center gap-2 rounded-full bg-white dark:bg-white/5 p-3 shadow-md ring-1 ring-gray-100 dark:ring-orange-200/15 transition-all hover:shadow-lg hover:ring-chocolate/20 dark:hover:ring-orange-200/30 active:scale-95"
                     onClick={() => toggleLike(product.id)}
                   >
                     <Svg
                       svgId={isLiked(product.id) ? "heart-filled" : "heart"}
                       className={`h-6 w-6 transition-all duration-200 ${
                         isLiked(product.id)
-                          ? "text-red-500 heart-pop"
-                          : "text-gray-400 group-hover:text-red-400"
+                          ? "text-amber-600 dark:text-amber-400 heart-pop"
+                          : "text-gray-400 group-hover:text-amber-600 dark:group-hover:text-amber-400"
                       }`}
                     />
                   </div>
                 </div>
 
-                <p className="text-lg leading-relaxed text-gray-600 sm:text-xl">
+                <p className="text-lg leading-relaxed text-gray-600 dark:text-orange-200/75 sm:text-xl">
                   {product.description}
                 </p>
 
                 <div className="flex items-end gap-4">
-                  <span className="text-4xl font-bold text-chocolate">
+                  <span className="text-4xl font-bold text-chocolate dark:text-orange-200">
                     £{product.price.toFixed(2)}
                   </span>
-                  <span className="text-lg text-gray-500">250g</span>
+                  <span className="text-lg text-gray-500 dark:text-orange-200/60">
+                    250g
+                  </span>
                 </div>
               </div>
 
               {/* Product Information Cards */}
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="rounded-xl bg-white p-6 shadow-lg ring-1 ring-gray-100">
-                  <h3 className="mb-3 font-semibold text-chocolate">Origin</h3>
-                  <p className="text-gray-700">{product.moreInfo.origin}</p>
+                <div className="rounded-xl bg-white dark:bg-white/5 p-6 shadow-lg ring-1 ring-gray-100 dark:ring-orange-200/15">
+                  <h3 className="mb-3 font-semibold text-chocolate dark:text-orange-200">
+                    Origin
+                  </h3>
+                  <p className="text-gray-700 dark:text-orange-200/75">
+                    {product.moreInfo.origin}
+                  </p>
                 </div>
 
-                <div className="rounded-xl bg-white p-6 shadow-lg ring-1 ring-gray-100">
-                  <h3 className="mb-3 font-semibold text-chocolate">
+                <div className="rounded-xl bg-white dark:bg-white/5 p-6 shadow-lg ring-1 ring-gray-100 dark:ring-orange-200/15">
+                  <h3 className="mb-3 font-semibold text-chocolate dark:text-orange-200">
                     Roast Level
                   </h3>
-                  <p className="text-gray-700">{product.moreInfo.roast}</p>
+                  <p className="text-gray-700 dark:text-orange-200/75">
+                    {product.moreInfo.roast}
+                  </p>
                 </div>
 
-                <div className="rounded-xl bg-white p-6 shadow-lg ring-1 ring-gray-100 sm:col-span-2">
-                  <h3 className="mb-3 font-semibold text-chocolate">
+                <div className="rounded-xl bg-white dark:bg-white/5 p-6 shadow-lg ring-1 ring-gray-100 dark:ring-orange-200/15 sm:col-span-2">
+                  <h3 className="mb-3 font-semibold text-chocolate dark:text-orange-200">
                     Tasting Notes
                   </h3>
-                  <p className="text-gray-700">
+                  <p className="text-gray-700 dark:text-orange-200/75">
                     {product.moreInfo.tastingNotes}
                   </p>
                 </div>
 
-                <div className="rounded-xl bg-white p-6 shadow-lg ring-1 ring-gray-100">
-                  <h3 className="mb-3 font-semibold text-chocolate">Process</h3>
-                  <p className="text-gray-700">{product.moreInfo.process}</p>
+                <div className="rounded-xl bg-white dark:bg-white/5 p-6 shadow-lg ring-1 ring-gray-100 dark:ring-orange-200/15">
+                  <h3 className="mb-3 font-semibold text-chocolate dark:text-orange-200">
+                    Process
+                  </h3>
+                  <p className="text-gray-700 dark:text-orange-200/75">
+                    {product.moreInfo.process}
+                  </p>
                 </div>
 
-                <div className="rounded-xl bg-white p-6 shadow-lg ring-1 ring-gray-100">
-                  <h3 className="mb-3 font-semibold text-chocolate">Weight</h3>
-                  <p className="text-gray-700">250g</p>
+                <div className="rounded-xl bg-white dark:bg-white/5 p-6 shadow-lg ring-1 ring-gray-100 dark:ring-orange-200/15">
+                  <h3 className="mb-3 font-semibold text-chocolate dark:text-orange-200">
+                    Weight
+                  </h3>
+                  <p className="text-gray-700 dark:text-orange-200/75">250g</p>
                 </div>
               </div>
 
@@ -206,7 +220,7 @@ export default function ProductDetail({ product: productProp }) {
                 {!product.inStock ? (
                   <div ref={notifyRef} className="space-y-4">
                     {notifyDone ? (
-                      <div className="flex items-center gap-3 rounded-xl bg-emerald-50 border border-emerald-200 p-4 text-emerald-800">
+                      <div className="flex items-center gap-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700/50 p-4 text-emerald-800 dark:text-emerald-300">
                         <svg
                           className="h-6 w-6 shrink-0 text-emerald-600"
                           fill="none"
@@ -224,15 +238,15 @@ export default function ProductDetail({ product: productProp }) {
                           <p className="font-semibold">
                             Perfect! We'll notify you
                           </p>
-                          <p className="text-sm text-emerald-700">
+                          <p className="text-sm text-emerald-700 dark:text-emerald-400">
                             You'll receive an email when this coffee is back in
                             stock.
                           </p>
                         </div>
                       </div>
                     ) : showNotify ? (
-                      <div className="rounded-xl bg-amber-50 border border-amber-200 p-6">
-                        <h3 className="mb-4 text-lg font-semibold text-amber-900">
+                      <div className="rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/40 p-6">
+                        <h3 className="mb-4 text-lg font-semibold text-amber-900 dark:text-orange-200">
                           Get notified when available
                         </h3>
                         <form
@@ -250,7 +264,7 @@ export default function ProductDetail({ product: productProp }) {
                                 setNotifyEmail(e.target.value);
                                 if (notifyError) setNotifyError("");
                               }}
-                              className="flex-1 rounded-lg border border-amber-300 bg-white px-4 py-3 text-gray-700 placeholder-gray-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-200"
+                              className="flex-1 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-white dark:bg-white/5 px-4 py-3 text-gray-700 dark:text-orange-200 placeholder-gray-400 dark:placeholder:text-orange-200/40 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-200 dark:focus:ring-amber-500/40 transition"
                             />
                             <button
                               type="submit"
@@ -279,19 +293,19 @@ export default function ProductDetail({ product: productProp }) {
                       </div>
                     ) : (
                       <div className="space-y-4">
-                        <div className="rounded-xl bg-gray-50 border border-gray-200 p-6 text-center">
+                        <div className="rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-orange-200/15 p-6 text-center">
                           <div className="mb-4">
-                            <div className="mx-auto h-16 w-16 rounded-full bg-gray-200 flex items-center justify-center">
+                            <div className="mx-auto h-16 w-16 rounded-full bg-gray-200 dark:bg-white/10 flex items-center justify-center">
                               <Svg
                                 svgId="close"
-                                className="h-8 w-8 text-gray-400"
+                                className="h-8 w-8 text-gray-400 dark:text-orange-200/40"
                               />
                             </div>
                           </div>
-                          <h3 className="mb-2 text-lg font-semibold text-chocolate/90">
+                          <h3 className="mb-2 text-lg font-semibold text-chocolate/90 dark:text-orange-200">
                             Currently Unavailable
                           </h3>
-                          <p className="mb-4 text-chocolate/70">
+                          <p className="mb-4 text-chocolate/70 dark:text-orange-200/60">
                             This coffee is temporarily out of stock, but we'll
                             have it back soon!
                           </p>
@@ -310,12 +324,12 @@ export default function ProductDetail({ product: productProp }) {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <div className="rounded-xl bg-white p-6 shadow-lg ring-1 ring-gray-100">
+                    <div className="rounded-xl bg-white dark:bg-white/5 p-6 shadow-lg ring-1 ring-gray-100 dark:ring-orange-200/15">
                       <div className="flex items-center justify-between mb-4">
-                        <span className="text-sm font-medium text-gray-600">
+                        <span className="text-sm font-medium text-gray-600 dark:text-orange-200/75">
                           Quantity
                         </span>
-                        <span className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">
+                        <span className="inline-flex items-center rounded-full bg-emerald-100 dark:bg-emerald-900/40 px-3 py-1 text-xs font-semibold text-emerald-800 dark:text-emerald-300">
                           ✓ In Stock
                         </span>
                       </div>
@@ -329,7 +343,7 @@ export default function ProductDetail({ product: productProp }) {
                             onRemove={() => decreaseQty(effectiveId)}
                             className="mx-auto"
                           />
-                          <p className="text-center text-sm text-gray-600">
+                          <p className="text-center text-sm text-gray-600 dark:text-orange-200/60">
                             {quantityInCart} item{quantityInCart > 1 ? "s" : ""}{" "}
                             in your cart
                           </p>
@@ -345,15 +359,15 @@ export default function ProductDetail({ product: productProp }) {
 
                     {/* Favorites Button */}
                     <button
-                      className="group flex w-full items-center justify-center gap-3 rounded-xl border-2 border-gray-200 bg-white p-4 text-gray-700 transition-all hover:border-red-200 hover:bg-red-50 hover:text-red-600"
+                      className="group flex w-full items-center justify-center gap-3 rounded-xl border-2 border-gray-200 dark:border-orange-200/20 bg-white dark:bg-white/5 p-4 text-gray-700 dark:text-orange-200/80 transition-all hover:border-amber-200 dark:hover:border-amber-400/30 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:text-amber-600 dark:hover:text-amber-400 active:scale-95"
                       onClick={() => toggleLike(product.id)}
                     >
                       <Svg
                         svgId={isLiked(product.id) ? "heart-filled" : "heart"}
                         className={`h-5 w-5 transition-all duration-200 ${
                           isLiked(product.id)
-                            ? "text-red-500 heart-pop"
-                            : "text-gray-400 group-hover:text-red-500"
+                            ? "text-amber-600 dark:text-amber-400 heart-pop"
+                            : "text-gray-400 group-hover:text-amber-600 dark:group-hover:text-amber-400"
                         }`}
                       />
                       <span className="font-medium">
@@ -371,48 +385,57 @@ export default function ProductDetail({ product: productProp }) {
           {/* Additional Product Information */}
           <div className="mt-16 space-y-8">
             <div className="text-center">
-              <h2 className="text-3xl font-bold text-chocolate/90">
+              <h2 className="text-3xl font-bold text-chocolate/90 dark:text-orange-200">
                 Why You'll Love This Coffee
               </h2>
-              <p className="mt-2 text-lg text-chocolate/70">
+              <p className="mt-2 text-lg text-chocolate/70 dark:text-orange-200/75">
                 Crafted with care, delivered with passion
               </p>
             </div>
 
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
               <div className="text-center">
-                <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-amber-100 flex items-center justify-center">
-                  <Svg svgId="star" className="h-8 w-8 text-amber-600" />
+                <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center">
+                  <Svg
+                    svgId="star"
+                    className="h-8 w-8 text-amber-600 dark:text-amber-400"
+                  />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-chocolate/90">
+                <h3 className="mb-2 text-lg font-semibold text-chocolate/90 dark:text-orange-200">
                   Premium Quality
                 </h3>
-                <p className="text-chocolate/70">
+                <p className="text-chocolate/70 dark:text-orange-200/70">
                   Sourced from the finest coffee farms with sustainable
                   practices
                 </p>
               </div>
 
               <div className="text-center">
-                <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-emerald-100 flex items-center justify-center">
-                  <Svg svgId="fire" className="h-8 w-8 text-emerald-600" />
+                <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center">
+                  <Svg
+                    svgId="fire"
+                    className="h-8 w-8 text-emerald-600 dark:text-emerald-400"
+                  />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-chocolate/90">
+                <h3 className="mb-2 text-lg font-semibold text-chocolate/90 dark:text-orange-200">
                   Freshly Roasted
                 </h3>
-                <p className="text-chocolate/70">
+                <p className="text-chocolate/70 dark:text-orange-200/70">
                   Roasted to perfection and shipped within days of roasting
                 </p>
               </div>
 
               <div className="text-center">
-                <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center">
-                  <Svg svgId="check" className="h-8 w-8 text-blue-600" />
+                <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
+                  <Svg
+                    svgId="check"
+                    className="h-8 w-8 text-blue-600 dark:text-blue-400"
+                  />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-chocolate/90">
+                <h3 className="mb-2 text-lg font-semibold text-chocolate/90 dark:text-orange-200">
                   Fast Delivery
                 </h3>
-                <p className="text-chocolate/70">
+                <p className="text-chocolate/70 dark:text-orange-200/70">
                   Free shipping on orders over £25 with next-day delivery
                   available
                 </p>

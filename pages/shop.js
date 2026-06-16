@@ -30,7 +30,7 @@ export default function Shop({
     priceTo: null,
     inStock: null,
   });
-//sort option
+  //sort option
   const [sortOption, setSortOption] = useState(null);
   //Router and refs
   const router = useRouter();
@@ -397,7 +397,6 @@ export default function Shop({
   );
   // fallback.results is the array to render when filteredProducts is empty
   // fallback.reason explains what was relaxed
-  
 
   return (
     <>
@@ -414,28 +413,29 @@ export default function Shop({
       <section className="relative w-full flex flex-col">
         <div className="flex flex-col gap-4 w-full mb-2 bg-chocolate/10 pt-24 md:pt-28 pb-5 lg:px-20 px-5">
           <Breadcrumb />
-          <h1 className="text-chocolate text-3xl font-black tracking-wider">
+          <h1 className="text-chocolate dark:text-orange-200 text-3xl font-black tracking-wider">
             Shop Coffee
           </h1>
-          <p className="text-chocolate font-medium text-xl">
+          <p className="text-chocolate dark:text-orange-200/75 font-medium text-xl">
             Single origins, blends, and seasonal favourites.
           </p>
 
           <div className="w-full mt-6 mb-12">
-            {/* category cards  */} 
-            <motion.div 
+            {/* category cards  */}
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 max-w-6xl mx-auto px-2">
-              {categoryCard.map((c,i) => (
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 max-w-6xl mx-auto px-2"
+            >
+              {categoryCard.map((c, i) => (
                 <motion.div
                   key={c.id}
                   initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.4, delay: i * 0.08 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
                   className={
                     c.value === "Decaf" ? "hidden sm:block" : undefined
                   }

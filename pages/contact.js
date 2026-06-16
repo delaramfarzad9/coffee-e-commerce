@@ -28,17 +28,19 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-neutral-50 min-h-screen mt-10">
+    <div className="bg-neutral-50 dark:bg-gray-950 min-h-screen mt-10">
       {/* Header */}
-      <motion.section 
-      initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.3 }}
-    transition={{ duration: 0.7 }}
-      className="text-center py-16 px-6">
-         
-        <h1 className="text-4xl font-bold text-chocolate mb-4">Contact Us</h1>
-        <p className="text-chocolate max-w-2xl mx-auto">
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.7 }}
+        className="text-center py-16 px-6"
+      >
+        <h1 className="text-4xl font-bold text-chocolate dark:text-orange-200 mb-4">
+          Contact Us
+        </h1>
+        <p className="text-chocolate dark:text-orange-200/75 max-w-2xl mx-auto">
           We'd love to hear from you.
         </p>
       </motion.section>
@@ -48,64 +50,70 @@ export default function Contact() {
         {/* Info */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl font-semibold mb-4 text-chocolate">
+          <h2 className="text-2xl font-semibold mb-4 text-chocolate dark:text-orange-200">
             Get in Touch
           </h2>
-          <p className="text-chocolate mb-6">
+          <p className="text-chocolate dark:text-orange-200/75 mb-6">
             Questions about orders, products, or anything else? Reach out
             anytime.
           </p>
 
           <div className="space-y-3 ">
-            <p>
-              <strong className="text-chocolate">Email:</strong>{" "}
+            <p className="dark:text-orange-200/75">
+              <strong className="text-chocolate dark:text-orange-200">
+                Email:
+              </strong>{" "}
               <a
                 href="mailto:support@setcoffee.co.uk"
-                className="text-amber-900 underline font-semibold"
+                className="text-amber-900 dark:text-amber-400 underline font-semibold hover:text-amber-700 dark:hover:text-orange-300 transition-colors"
               >
                 support@setcoffee.co.uk
               </a>
             </p>
 
-            <p>
-              <strong className="text-chocolate">Phone:</strong>{" "}
+            <p className="dark:text-orange-200/75">
+              <strong className="text-chocolate dark:text-orange-200">
+                Phone:
+              </strong>{" "}
               <a
                 href="tel:+442079460821"
-                className="text-amber-900 underline font-semibold"
+                className="text-amber-900 dark:text-amber-400 underline font-semibold hover:text-amber-700 dark:hover:text-orange-300 transition-colors"
               >
                 +44 20 7946 0821
               </a>
             </p>
 
-            <p>
-              <strong className="text-chocolate  ">Address:</strong> 42 Brew
-              Lane, London, E2 7RG
+            <p className="dark:text-orange-200/75">
+              <strong className="text-chocolate dark:text-orange-200">
+                Address:
+              </strong>{" "}
+              42 Brew Lane, London, E2 7RG
             </p>
           </div>
         </motion.div>
 
         {/* Form */}
         <motion.form
-        
           onSubmit={handleSubmit}
           initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      whileHover={{ scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
-          className="bg-white p-6 rounded-2xl shadow-sm space-y-4"
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 0.99 }}
+          className="bg-white dark:bg-white/5 dark:border dark:border-orange-200/15 p-6 rounded-2xl shadow-sm space-y-4"
         >
           {sent && (
             <motion.div
-             initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-             className="flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="flex items-center gap-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700/50 text-green-800 dark:text-green-300 px-4 py-3 rounded-lg"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-5 h-5 text-green-600"
@@ -124,36 +132,42 @@ export default function Contact() {
           )}
 
           <div>
-            <label className="block text-sm mb-1">Name</label>
+            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-orange-200/80">
+              Name
+            </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full border border-gray-300 dark:border-orange-200/20 rounded-lg px-3 py-2 bg-white dark:bg-white/5 text-gray-800 dark:text-orange-200 placeholder:text-gray-400 dark:placeholder:text-orange-200/40 focus:outline-none focus:ring-2 focus:ring-chocolate/50 dark:focus:ring-amber-500/50 transition"
               placeholder="Your name"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm mb-1">Email</label>
+            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-orange-200/80">
+              Email
+            </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full border border-gray-300 dark:border-orange-200/20 rounded-lg px-3 py-2 bg-white dark:bg-white/5 text-gray-800 dark:text-orange-200 placeholder:text-gray-400 dark:placeholder:text-orange-200/40 focus:outline-none focus:ring-2 focus:ring-chocolate/50 dark:focus:ring-amber-500/50 transition"
               placeholder="you@example.com"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm mb-1">Message</label>
+            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-orange-200/80">
+              Message
+            </label>
             <textarea
               rows="4"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full border border-gray-300 dark:border-orange-200/20 rounded-lg px-3 py-2 bg-white dark:bg-white/5 text-gray-800 dark:text-orange-200 placeholder:text-gray-400 dark:placeholder:text-orange-200/40 focus:outline-none focus:ring-2 focus:ring-chocolate/50 dark:focus:ring-amber-500/50 transition"
               placeholder="Your message..."
               required
             ></textarea>
@@ -161,9 +175,13 @@ export default function Contact() {
 
           <motion.button
             type="submit"
-             whileTap={{ scale: 0.97 }}
+            whileTap={{ scale: 0.97 }}
             disabled={sending}
-            className={`w-full ${sending ? "bg-gray-400 cursor-wait" : "bg-chocolate hover:opacity-90"} text-gray-100 font-semibold py-3 rounded-xl`}
+            className={`w-full transition-all duration-200 font-semibold py-3 rounded-xl text-gray-100 ${
+              sending
+                ? "bg-gray-400 dark:bg-gray-600 cursor-wait"
+                : "bg-chocolate dark:bg-amber-700 hover:opacity-90 dark:hover:bg-amber-600 active:scale-95"
+            }`}
           >
             {sending ? "Sending..." : "Send Message"}
           </motion.button>

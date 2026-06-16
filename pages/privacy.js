@@ -3,19 +3,19 @@ import { motion } from "framer-motion";
 export default function Privacy() {
   return (
     <motion.div
-      className="bg-neutral-50 min-h-screen px-6 py-16"
+      className="bg-neutral-50 dark:bg-gray-950 min-h-screen px-6 py-16"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        className="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-sm"
+        className="max-w-4xl mx-auto bg-white dark:bg-white/5 p-8 rounded-2xl shadow-sm dark:border dark:border-orange-200/15"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
         <motion.h1
-          className="text-3xl font-bold mb-6 text-chocolate"
+          className="text-3xl font-bold mb-6 text-chocolate dark:text-orange-200"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.7 }}
@@ -25,7 +25,7 @@ export default function Privacy() {
 
         {/* Intro */}
         <section className="mb-8">
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-orange-200/75">
             At SetCoffee, we respect your privacy and are committed to
             protecting your personal information. This Privacy Policy explains
             what data we collect, how we use it, and your rights as a customer
@@ -35,15 +35,15 @@ export default function Privacy() {
 
         {/* Data Collection */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2 text-chocolate">
+          <h2 className="text-xl font-semibold mb-2 text-chocolate dark:text-orange-200">
             1. Information We Collect
           </h2>
-          <p className="text-gray-600 mb-2">
+          <p className="text-gray-600 dark:text-orange-200/75 mb-2">
             We collect personal information only when necessary to process your
             order or improve your experience. This may include:
           </p>
 
-          <ul className="list-disc pl-6 text-gray-600 space-y-1">
+          <ul className="list-disc pl-6 text-gray-600 dark:text-orange-200/75 space-y-1">
             <li>Name</li>
             <li>Email address</li>
             <li>Billing and delivery address</li>
@@ -56,12 +56,14 @@ export default function Privacy() {
 
         {/* How Data is Used */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2 text-chocolate">
+          <h2 className="text-xl font-semibold mb-2 text-chocolate dark:text-orange-200">
             2. How We Use Your Information
           </h2>
-          <p className="text-gray-600 mb-2">We use your information to:</p>
+          <p className="text-gray-600 dark:text-orange-200/75 mb-2">
+            We use your information to:
+          </p>
 
-          <ul className="list-disc pl-6 text-gray-600 space-y-1">
+          <ul className="list-disc pl-6 text-gray-600 dark:text-orange-200/75 space-y-1">
             <li>Process and deliver your orders</li>
             <li>Send order confirmations and updates</li>
             <li>Improve our website and customer experience</li>
@@ -71,10 +73,10 @@ export default function Privacy() {
 
         {/* Data Protection */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2 text-chocolate">
+          <h2 className="text-xl font-semibold mb-2 text-chocolate dark:text-orange-200">
             3. How We Protect Your Data
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-orange-200/75">
             We take data protection seriously. Your information is stored
             securely and is only accessible to authorised staff. Payment details
             are handled by trusted third‑party payment processors and are never
@@ -84,10 +86,10 @@ export default function Privacy() {
 
         {/* Sharing */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2 text-chocolate">
+          <h2 className="text-xl font-semibold mb-2 text-chocolate dark:text-orange-200">
             4. Sharing Your Information
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-orange-200/75">
             We do not sell or share your personal information with third
             parties, except when required to fulfil your order (such as delivery
             couriers or payment providers). These partners only receive the
@@ -97,10 +99,10 @@ export default function Privacy() {
 
         {/* Cookies */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2 text-chocolate">
+          <h2 className="text-xl font-semibold mb-2 text-chocolate dark:text-orange-200">
             5. Cookies
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-orange-200/75">
             Our website uses basic cookies to improve functionality and enhance
             your browsing experience. Cookies help us remember your preferences
             and understand how visitors use our site. You can disable cookies in
@@ -110,14 +112,14 @@ export default function Privacy() {
 
         {/* Your Rights */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2 text-chocolate">
+          <h2 className="text-xl font-semibold mb-2 text-chocolate dark:text-orange-200">
             6. Your Rights
           </h2>
-          <p className="text-gray-600 mb-2">
+          <p className="text-gray-600 dark:text-orange-200/75 mb-2">
             As a UK customer, you have the right to:
           </p>
 
-          <ul className="list-disc pl-6 text-gray-600 space-y-1">
+          <ul className="list-disc pl-6 text-gray-600 dark:text-orange-200/75 space-y-1">
             <li>Request access to your personal data</li>
             <li>Request corrections to inaccurate information</li>
             <li>Request deletion of your data</li>
@@ -127,10 +129,10 @@ export default function Privacy() {
 
         {/* Updates */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2 text-chocolate">
+          <h2 className="text-xl font-semibold mb-2 text-chocolate dark:text-orange-200">
             7. Updates to This Policy
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-orange-200/75">
             We may update this Privacy Policy from time to time. Any changes
             will be posted on this page with an updated revision date.
           </p>
@@ -138,15 +140,15 @@ export default function Privacy() {
 
         {/* Contact */}
         <section>
-          <h2 className="text-xl font-semibold mb-2 text-chocolate">
+          <h2 className="text-xl font-semibold mb-2 text-chocolate dark:text-orange-200">
             Contact Us
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-orange-200/75">
             If you have any questions about this Privacy Policy or how your data
             is handled, please contact us at{" "}
             <a
               href="mailto:support@setcoffee.co.uk"
-              className="font-medium text-yellow-600 hover:text-amber-700"
+              className="font-medium text-yellow-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-orange-300"
             >
               support@setcoffee.co.uk
             </a>

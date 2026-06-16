@@ -9,24 +9,26 @@ export default function BlogDetail() {
 
   const post = blogPosts.find((p) => p.id === id);
 
-  if (!post) return <p className="p-10">Loading...</p>;
+  if (!post)
+    return (
+      <p className="p-10 text-chocolate dark:text-orange-200/75">Loading...</p>
+    );
   const paragraphVariants = {
-  hidden: { opacity: 0, y: 15 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.45,
-      delay: i * 0.1,
-      ease: "easeOut",
-    },
-  }),
-};
-
+    hidden: { opacity: 0, y: 15 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.45,
+        delay: i * 0.1,
+        ease: "easeOut",
+      },
+    }),
+  };
 
   return (
     <ContentLayout>
-      <div className="max-w-4xl mx-auto p-10 rounded-2xl shadow-lg mb-10">
+      <div className="max-w-4xl mx-auto p-10 rounded-2xl shadow-lg mb-10 bg-white/70 dark:bg-white/5 dark:border dark:border-orange-200/15">
         <motion.img
           src={post.image}
           alt={post.title}
@@ -38,25 +40,32 @@ export default function BlogDetail() {
         />
 
         <motion.h1
-           initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-         className="text-4xl font-bold text-chocolate mb-4">{post.title}</motion.h1>
+          className="text-4xl font-bold text-chocolate dark:text-orange-200 mb-4"
+        >
+          {post.title}
+        </motion.h1>
 
-        <motion.p 
-             initial={{ opacity: 0, y: 10 }}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-        className="text-gray-500 mb-8">
-          {new Date(post.date).toLocaleDateString()}
+          className="text-gray-500 dark:text-orange-200/60 mb-8"
+        >
+          {new Date(post.date).toLocaleDateString("en-GB")}
         </motion.p>
 
         <article className="space-y-6">
           {(Array.isArray(post.content)
             ? post.content
-            : post.content.split(/\n\n+/).map((p) => p.trim()).filter(Boolean)
+            : post.content
+                .split(/\n\n+/)
+                .map((p) => p.trim())
+                .filter(Boolean)
           ).map((para, i) => (
             <motion.p
               key={i}
@@ -65,7 +74,7 @@ export default function BlogDetail() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
               variants={paragraphVariants}
-              className="text-chocolate/80 leading-relaxed text-base md:text-lg font-medium"
+              className="text-chocolate/80 dark:text-orange-200/75 leading-relaxed text-base md:text-lg font-medium"
             >
               {para}
             </motion.p>

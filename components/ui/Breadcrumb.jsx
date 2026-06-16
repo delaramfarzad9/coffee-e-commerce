@@ -31,10 +31,13 @@ export default function Breadcrumb() {
   });
 
   return (
-    <nav className="text-sm text-gray-500 mb-6">
+    <nav className="text-sm text-gray-500 dark:text-orange-200/70 mb-6">
       <ol className="flex items-center gap-2">
         <li>
-          <Link href="/" className="hover:underline">
+          <Link
+            href="/"
+            className="hover:underline dark:hover:text-orange-300 transition-colors duration-200"
+          >
             Home
           </Link>
         </li>
@@ -44,11 +47,14 @@ export default function Breadcrumb() {
             <span>/</span>
 
             {index === crumbs.length - 1 ? (
-              <span className="text-gray-800 font-medium capitalize">
+              <span className="text-gray-800 dark:text-orange-200 font-medium capitalize">
                 {crumb.label}
               </span>
             ) : (
-              <Link href={crumb.href} className="hover:underline capitalize">
+              <Link
+                href={crumb.href}
+                className="hover:underline capitalize dark:hover:text-orange-300 transition-colors duration-200"
+              >
                 {crumb.label}
               </Link>
             )}

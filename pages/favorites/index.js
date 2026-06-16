@@ -6,50 +6,53 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-
 export default function FavoritesPage() {
   const { liked, toggleLike } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
   const products = getProducts();
-  const favoriteProducts = products.filter(product =>
-    liked.includes(product.id)
+  const favoriteProducts = products.filter((product) =>
+    liked.includes(product.id),
   );
   const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.45,
-      delay: i * 0.1,
-      ease: "easeOut",
-    },
-  }),
-};
-
+    hidden: { opacity: 0, y: 20 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.45,
+        delay: i * 0.1,
+        ease: "easeOut",
+      },
+    }),
+  };
 
   return (
     <div className="max-w-6xl mx-auto p-10">
-      <motion.h1 
-      initial={{ opacity: 0, y: 30 }}
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.7 }}
-      className="text-4xl font-bold text-chocolate mb-10 mt-20 border-b-2 pb-3">
+        className="text-4xl font-bold text-chocolate dark:text-orange-200 mb-10 mt-20 border-b-2 border-chocolate/20 dark:border-orange-200/20 pb-3"
+      >
         My Favorites
       </motion.h1>
 
       {favoriteProducts.length === 0 ? (
-        <motion.p 
-        initial={{ opacity: 0, y: 20 }}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-        className="text-lg text-gray-600">
+          className="text-lg text-gray-600"
+        >
           You haven’t added any favorites yet. Explore our{" "}
-          <Link href="/products" className="text-chocolate font-semibold underline">
+          <Link
+            href="/products"
+            className="text-chocolate font-semibold underline dark:text-orange-200 dark:hover:text-orange-300"
+          >
             products
           </Link>{" "}
           and tap the heart icon to save your favourites.
@@ -57,8 +60,8 @@ export default function FavoritesPage() {
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {favoriteProducts.map((product, i) => (
-<motion.div
-  key={product.id}
+            <motion.div
+              key={product.id}
               custom={i}
               initial="hidden"
               whileInView="visible"
@@ -67,22 +70,21 @@ export default function FavoritesPage() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 200, damping: 15 }}
->
-             <Cart
-  key={product.id}
-  id={product.id}
-  image={product.image}
-  title={product.title}
-  price={product.price}
-  description={product.description}
-  confirmUnlike={true}   //  Ask before removing
-  onRemove={() => {
-    setSelectedId(product.id);
-    setIsModalOpen(true);
-  }}
-/>
-
-</motion.div>
+            >
+              <Cart
+                key={product.id}
+                id={product.id}
+                image={product.image}
+                title={product.title}
+                price={product.price}
+                description={product.description}
+                confirmUnlike={true} //  Ask before removing
+                onRemove={() => {
+                  setSelectedId(product.id);
+                  setIsModalOpen(true);
+                }}
+              />
+            </motion.div>
           ))}
         </div>
       )}

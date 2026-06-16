@@ -5,25 +5,17 @@ export default function Quantity({
   onIncrease,
   onDecrease,
   onRemove,
-  className
+  className,
 }) {
   return (
     <div
-      className={`flex flex-row gap-0 border border-chocolate w-max m-auto rounded-full text-chocolate ${className}`}
+      className={`flex flex-row gap-0 border border-chocolate dark:border-orange-200/40 w-max m-auto rounded-full text-chocolate dark:text-orange-200 ${className}`}
     >
-      <div className="flex justify-center items-center w-10 h-10 hover:text-orange-400">
+      <div className="flex justify-center items-center w-10 h-10 hover:text-orange-400 dark:hover:text-amber-400">
         {quantity === 1 ? (
-          <Svg
-            onClick={onRemove}
-            svgId="trash"
-            className="cursor-pointer"
-          />
+          <Svg onClick={onRemove} svgId="trash" className="cursor-pointer" />
         ) : (
-          <Svg
-            onClick={onDecrease}
-            svgId="minus"
-            className="cursor-pointer"
-          />
+          <Svg onClick={onDecrease} svgId="minus" className="cursor-pointer" />
         )}
       </div>
 
@@ -31,12 +23,8 @@ export default function Quantity({
         {quantity}
       </div>
 
-      <div className="flex justify-center items-center w-10 h-10 hover:text-orange-400">
-        <Svg
-          onClick={onIncrease}
-          svgId="add"
-          className="cursor-pointer"
-        />
+      <div className="flex justify-center items-center w-10 h-10 hover:text-orange-400 dark:hover:text-amber-400">
+        <Svg onClick={onIncrease} svgId="add" className="cursor-pointer" />
       </div>
     </div>
   );

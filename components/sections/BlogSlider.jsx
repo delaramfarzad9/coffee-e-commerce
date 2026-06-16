@@ -59,14 +59,14 @@ export default function BlogSlider({ posts }) {
               <div
                 className="
                   relative flex flex-col h-full rounded-2xl overflow-hidden
-                  bg-chocolate/10 
+                  bg-chocolate/10 dark:bg-white/5
                   shadow
                   transition-all duration-500 ease-out
                   group-hover:-translate-y-2 group-hover:shadow-md 
                 "
               >
                 {/* Image with zoom on hover */}
-                <div className="relative overflow-hidden h-56">
+                <div className="relative overflow-hidden h-56 ">
                   <img
                     src={post.image}
                     alt={post.title}
@@ -85,7 +85,7 @@ export default function BlogSlider({ posts }) {
                   ></div>
 
                   {/* Date pill */}
-                  <span className="absolute top-3 right-3 bg-gray-50 backdrop-blur-sm text-chocolate text-[11px] font-semibold px-2.5 py-1 rounded-full shadow-sm">
+                  <span className="absolute top-3 right-3 bg-gray-200 dark:bg-white/10 backdrop-blur-sm text-chocolate dark:text-orange-200/90 text-[11px] font-semibold px-2.5 py-1 rounded-full shadow-sm">
                     {new Date(post.date).toLocaleDateString("en-GB", {
                       day: "numeric",
                       month: "short",
@@ -96,16 +96,16 @@ export default function BlogSlider({ posts }) {
 
                 {/* Content */}
                 <div className="p-5 flex flex-col grow gap-2">
-                  <h2 className="text-medium font-bold text-chocolate leading-snug group-hover:text-amber-800 transition-colors duration-300">
+                  <h2 className="text-medium font-bold text-chocolate dark:text-orange-200 leading-snug group-hover:text-amber-800 dark:group-hover:text-orange-100 transition-colors duration-300">
                     {post.title}
                   </h2>
-                  <p className="text-chocolate/80 text-base leading-relaxed line-clamp-2">
+                  <p className="text-chocolate/80 dark:text-orange-200/75 text-base leading-relaxed line-clamp-2">
                     {post.excerpt}
                   </p>
 
                   {/* Animated bottom bar */}
-                  <div className="mt-auto pt-3 border-t border-chocolate/20">
-                    <span className="text-xs font-semibold text-amber-800 tracking-wider uppercase flex items-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="mt-auto pt-3 border-t border-chocolate/20 dark:border-orange-200/20">
+                    <span className="text-xs font-semibold text-amber-800 dark:text-orange-300 tracking-wider uppercase flex items-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
                       Read article
                       <svg
                         className="w-3.5 h-3.5 translate-x-0 group-hover:translate-x-1 transition-transform duration-300"
@@ -135,9 +135,9 @@ export default function BlogSlider({ posts }) {
         aria-label="Previous post"
         className="
           absolute left-1 top-1/2 -translate-y-1/2 z-20
-          w-10 h-10 rounded-full bg-gray-100 shadow-lg 
+          w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 shadow-lg 
           flex items-center justify-center
-          text-chocolate hover:bg-chocolate/80 hover:text-gray-100
+          text-chocolate dark:text-orange-200 hover:bg-chocolate/80 hover:text-gray-100 dark:hover:bg-orange-200/20
           transition-all duration-300 hover:scale-110
         "
       >
@@ -161,9 +161,9 @@ export default function BlogSlider({ posts }) {
         aria-label="Next post"
         className="
           absolute right-1 top-1/2 -translate-y-1/2 z-20
-          w-10 h-10 rounded-full bg-white shadow-lg 
+          w-10 h-10 rounded-full bg-white dark:bg-white/10 shadow-lg 
           flex items-center justify-center
-          text-chocolate hover:bg-chocolate/80 hover:text-gray-100
+          text-chocolate dark:text-orange-200 hover:bg-chocolate/80 hover:text-gray-100 dark:hover:bg-orange-200/20
           transition-all duration-300 hover:scale-110
         "
       >
@@ -190,8 +190,8 @@ export default function BlogSlider({ posts }) {
                 rounded-full transition-all duration-300 ease-out
                 ${
                   i === selectedIndex
-                    ? "w-6 h-2.5 bg-chocolate"
-                    : "w-2.5 h-2.5 bg-chocolate/30 hover:bg-chocolate/60"
+                    ? "w-6 h-2.5 bg-chocolate dark:bg-orange-200"
+                    : "w-2.5 h-2.5 bg-chocolate/30 hover:bg-chocolate/60 dark:bg-orange-200/30 dark:hover:bg-orange-200/60"
                 }
               `}
             />

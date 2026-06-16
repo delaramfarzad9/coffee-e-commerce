@@ -48,7 +48,7 @@ export default function SearchBar({
   return (
     <div
       className={`
-        fixed top-0 left-0 w-full z-50  bg-gray-100 
+        fixed top-0 left-0 w-full z-50 bg-gray-100 dark:bg-gray-900/95
         transform transition-transform duration-300 ease-out shadow-lg
         ${isOpen ? "translate-y-0" : "-translate-y-full"}
       `}
@@ -58,11 +58,11 @@ export default function SearchBar({
         <div
           className={`flex flex-row gap-4 sm:gap-6 w-full justify-center items-center ${className}`}
         >
-          <div className="md:text-xl lg:text-2xl hidden md:block font-black tracking-wider text-chocolate">
+          <div className="md:text-xl lg:text-2xl hidden md:block font-black tracking-wider text-chocolate dark:text-orange-200">
             {title}
           </div>
 
-          <div className="w-full max-w-3xl h-14 sm:h-15 bg-white rounded-full flex flex-row justify-center items-center gap-3 px-4 sm:px-5 shadow-sm">
+          <div className="w-full max-w-3xl h-14 sm:h-15 bg-white dark:bg-white/10 rounded-full flex flex-row justify-center items-center gap-3 px-4 sm:px-5 shadow-sm dark:border dark:border-orange-200/15">
             <input
               type="text"
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -74,12 +74,12 @@ export default function SearchBar({
                   dismissSearch();
                 }
               }}
-              className="w-full h-full bg-transparent outline-none text-gray-800 font-medium text-sm sm:text-base md:text-lg"
+              className="w-full h-full bg-transparent outline-none text-gray-800 dark:text-orange-200 placeholder:text-gray-400 dark:placeholder:text-orange-200/55 font-medium text-sm sm:text-base md:text-lg"
             />
             <Svg
               svgId="search"
               onClick={handleSearch}
-              className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400 hover:text-gray-500 transition shrink-0"
+              className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400 dark:text-orange-200/70 hover:text-gray-500 dark:hover:text-orange-300 transition shrink-0"
             />
           </div>
         </div>
@@ -103,7 +103,7 @@ export default function SearchBar({
       <Svg
         svgId="close"
         onClick={dismissSearch}
-        className="absolute top-5 right-5 w-8 h-8 text-chocolate cursor-pointer hover:scale-105 hover:text-red-400 duration-300 ease-in-out"
+        className="absolute top-5 right-5 w-8 h-8 text-chocolate dark:text-orange-200 cursor-pointer hover:scale-105 active:scale-95 hover:text-red-400 dark:hover:text-orange-300 duration-300 ease-in-out"
       />
     </div>
   );

@@ -60,9 +60,9 @@ export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.7 }}
-        className="mt-20 flex flex-col gap-10 text-xl text-chocolate font-bold "
+        className="mt-20 flex flex-col gap-10 text-xl text-chocolate dark:text-orange-200 font-bold "
       >
-        <h2 className="text-2xl md:text-3xl lg:text-4xl mb-5 ml-5 border-b-2 border-b-chocolate/30 w-min whitespace-nowrap">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl mb-5 ml-5 border-b-2 border-b-chocolate/30 dark:border-b-orange-200/30 w-min whitespace-nowrap">
           From Our Blog
         </h2>
         <BlogSlider posts={blogPosts} />
@@ -71,8 +71,6 @@ export default function Home({ addToCart, increaseQty, decreaseQty, cart }) {
       <DictionaryTeaser />
 
       <About />
-      
-      
     </div>
   );
 }

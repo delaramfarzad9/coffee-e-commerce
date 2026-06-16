@@ -10,7 +10,6 @@ import ThemeToggle from "../ThemeToggle";
 import { useContext } from "react";
 import { ThemeContext } from "../../../context/ThemeContext";
 
-
 export default function Navbar({ onCartClick, onSearchToggle }) {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
@@ -69,11 +68,11 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
   const getNavbarThemeClass = () => {
     if (isHome) {
       return scrolled
-        ? "bg-gray-100/50 text-amber-900 backdrop-blur-md shadow-md"
-        : "text-orange-100 backdrop-blur-sm";
+        ? "bg-gray-100/50 dark:bg-gray-900/80 text-amber-900 dark:text-orange-200 backdrop-blur-md shadow-md"
+        : "text-orange-100 dark:text-orange-200 backdrop-blur-sm";
     }
 
-    return "bg-gray-100/70 text-amber-900 backdrop-blur-md shadow-md";
+    return "bg-gray-100/70 dark:bg-gray-900/80 text-amber-900 dark:text-orange-200 backdrop-blur-md shadow-md";
   };
 
   return (
@@ -91,7 +90,7 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
         <button
           onClick={toggleMobileMenu}
           id="mobile-menu-button"
-          className="sm:hidden text-amber-800 text-2xl order-1"
+          className="sm:hidden text-amber-800 dark:text-orange-300 text-2xl order-1 active:scale-95 transition-transform duration-150"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
           <Svg svgId={mobileOpen ? "x-mark" : "bars-3"} className="w-8 h-8" />
@@ -132,16 +131,16 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
           {/* Cart Icon */}
           <div
             onClick={onCartClick}
-            className="relative ml-5 md:ml-0 group cursor-pointer"
+            className="relative ml-5 md:ml-0 group cursor-pointer active:scale-95 transition-transform duration-150"
           >
             <Svg
               svgId="cart"
-              className="md:w-7 md:h-7 text-amber-900  cursor-pointer   duration-300
-        font-semibold  group-hover:scale-110 group-hover:text-orange-400
-                  transition-all  ease-in-out
+              className="md:w-7 md:h-7 text-amber-900 dark:text-orange-300 cursor-pointer duration-300
+        font-semibold  group-hover:scale-110 group-hover:text-orange-400 dark:group-hover:text-orange-200
+                  transition-all ease-in-out active:scale-95
         "
             />
-            <div className="absolute  cursor-pointer md:w-5 md:h-5 w-3 h-3 rounded-full bg-amber-900 group-hover:bg-orange-400 flex items-center justify-center -top-2 md:right-7 right-5  group-hover:scale-110 ">
+            <div className="absolute cursor-pointer md:w-5 md:h-5 w-3 h-3 rounded-full bg-amber-900 dark:bg-amber-600 group-hover:bg-orange-400 flex items-center justify-center -top-2 md:right-7 right-5 group-hover:scale-110">
               <span className="font-bold text-gray-100 md:text-sm text-[10px] ">
                 {cartCount}
               </span>
@@ -155,9 +154,9 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
           >
             <Svg
               svgId="heart"
-              className="md:w-7 md:h-7 text-amber-900 cursor-pointer duration-300
-               font-semibold hover:scale-110 hover:text-orange-400
-               transition-all ease-in-out"
+              className="md:w-7 md:h-7 text-amber-900 dark:text-orange-300 cursor-pointer duration-300
+               font-semibold hover:scale-110 hover:text-orange-400 dark:hover:text-orange-200
+               transition-all ease-in-out active:scale-95"
             />
 
             {liked.length > 0 && (
@@ -176,9 +175,9 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
           <Link href="/login">
             <Svg
               svgId="login"
-              className="md:w-7 md:h-7 text-amber-900  cursor-pointer   duration-300
-        font-semibold  hover:scale-110 hover:text-orange-400
-                  transition-all  ease-in-out
+              className="md:w-7 md:h-7 text-amber-900 dark:text-orange-300 cursor-pointer duration-300
+        font-semibold hover:scale-110 hover:text-orange-400 dark:hover:text-orange-200
+                  transition-all ease-in-out active:scale-95
         "
             />
           </Link>
@@ -186,9 +185,9 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
           <div onClick={handleSearchToggle} className="">
             <Svg
               svgId="search"
-              className=" md:w-7 md:h-7 text-amber-900  cursor-pointer   duration-300
-        font-semibold  hover:scale-110 hover:text-orange-400
-                  transition-all  ease-in-out
+              className="md:w-7 md:h-7 text-amber-900 dark:text-orange-300 cursor-pointer duration-300
+        font-semibold hover:scale-110 hover:text-orange-400 dark:hover:text-orange-200
+                  transition-all ease-in-out active:scale-95
         "
             />
           </div>
@@ -199,12 +198,12 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
         id="mobile-menu-panel"
         className={`
     sm:hidden fixed top-16 left-0 right-0 z-40
-    bg-gray-100/95 backdrop-blur-md shadow-md
+    bg-gray-100/95 dark:bg-gray-900/95 backdrop-blur-md shadow-md
     transition-all duration-300 overflow-scroll
     ${mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
   `}
       >
-        <nav className="flex flex-col items-start *:px-6 *:py-3  text-lg text-amber-900 bg-chocolate/30 *:hover:bg-gray-100/50 *:w-full *:transition-all *:duration-200 *:font-bold *:hover:text-chocolate *:active:text-chocolate/80">
+        <nav className="flex flex-col items-start *:px-6 *:py-3 text-lg text-amber-900 dark:text-orange-200 bg-chocolate/30 dark:bg-white/5 *:hover:bg-gray-100/50 dark:*:hover:bg-white/10 *:w-full *:transition-all *:duration-200 *:font-bold *:hover:text-chocolate dark:*:hover:text-orange-100 *:active:scale-95">
           <Link href="/" onClick={closeMobileMenu}>
             Home
           </Link>
@@ -224,16 +223,18 @@ export default function Navbar({ onCartClick, onSearchToggle }) {
             Favorites
           </Link>
           <Link href="/login" onClick={closeMobileMenu}>
-  Account
-</Link>
+            Account
+          </Link>
 
- <div onClick={toggleTheme}  className="flex flex-row gap-1  items-center cursor-pointer">
-  <span>Theme /</span>
-  <span className="text-chocolate/70">{theme === "dark" ? "Dark" : "Light"}</span>
-</div>
-
-
-
+          <div
+            onClick={toggleTheme}
+            className="flex flex-row gap-1  items-center cursor-pointer"
+          >
+            <span>Theme /</span>
+            <span className="text-chocolate/70">
+              {theme === "dark" ? "Dark" : "Light"}
+            </span>
+          </div>
         </nav>
       </div>
     </>

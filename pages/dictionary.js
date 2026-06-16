@@ -108,95 +108,97 @@ export default function Dictionary() {
 
   return (
     <ContentLayout>
-      <div className="bg-chocolate/20 min-h-screen px-6 py-16 mt-10">
-      <div className="max-w-5xl mx-auto flex gap-10">
-        {/* Sidebar (desktop only) */}
-        <aside className="hidden md:flex flex-col sticky top-20 h-fit bg-chocolate/10 p-4 rounded-xl shadow-sm">
-          {letters.map((letter) => (
-            <a
-              key={letter}
-              href={`#${letter}`}
-              className="text-chocolate font-semibold py-1 hover:text-amber-700"
-            >
-              {letter}
-            </a>
-          ))}
-        </aside>
-
-        {/* Main content */}
-        <div className="flex-1 bg-chocolate/10 p-8 rounded-2xl shadow-sm">
-          {/* Title */}
-          <motion.h1
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl font-bold mb-6 text-chocolate"
-          >
-            Coffee Dictionary
-          </motion.h1>
-
-          {/* Intro */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6 }}
-            className=" mb-10 font-semibold text-chocolate/90 text-lg"
-          >
-            Whether you're new to specialty coffee or a seasoned enthusiast,
-            this dictionary helps you understand common terms, brewing language,
-            and flavour notes used across the coffee world.
-          </motion.p>
-
-          {/* Sections */}
-          {letters.map((letter) => (
-            <motion.section
-              key={letter}
-              id={letter}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={sectionVariants}
-              className="mb-12 scroll-mt-24"
-            >
-              <h2 className="text-2xl font-bold mb-4 text-chocolate">
+      <div className="bg-chocolate/20 dark:bg-gray-950 min-h-screen px-6 py-16 mt-10">
+        <div className="max-w-5xl mx-auto flex gap-10">
+          {/* Sidebar (desktop only) */}
+          <aside className="hidden md:flex flex-col sticky top-20 h-fit bg-chocolate/10 dark:bg-white/5 p-4 rounded-xl shadow-sm dark:border dark:border-orange-200/15">
+            {letters.map((letter) => (
+              <a
+                key={letter}
+                href={`#${letter}`}
+                className="text-chocolate dark:text-orange-200 font-semibold py-1 hover:text-amber-700 dark:hover:text-orange-300"
+              >
                 {letter}
-              </h2>
+              </a>
+            ))}
+          </aside>
 
-              <div className="space-y-6">
-                {dictionary[letter].map((item, i) => (
-                  <div key={i}>
-                    <h3 className="font-bold text-chocolate text-lg mb-1 tracking-wider">
-                      {item.term}
-                    </h3>
-                    <p className="text-chocolate/90 tracking-wide font-medium text-lg">{item.def}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.section>
-          ))}
-
-          {/* End */}
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5 }}
-            className="text-gray-600 mt-10"
-          >
-            Want us to add more terms? Contact us at{" "}
-            <a
-              href="mailto:support@setcoffee.co.uk"
-              className="font-medium text-yellow-600 hover:text-amber-700"
+          {/* Main content */}
+          <div className="flex-1 bg-chocolate/10 dark:bg-white/5 p-8 rounded-2xl shadow-sm dark:border dark:border-orange-200/15">
+            {/* Title */}
+            <motion.h1
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl font-bold mb-6 text-chocolate dark:text-orange-200"
             >
-              support@setcoffee.co.uk
-            </a>
-            .
-          </motion.p>
+              Coffee Dictionary
+            </motion.h1>
+
+            {/* Intro */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6 }}
+              className="mb-10 font-semibold text-chocolate/90 dark:text-orange-200/75 text-lg"
+            >
+              Whether you're new to specialty coffee or a seasoned enthusiast,
+              this dictionary helps you understand common terms, brewing
+              language, and flavour notes used across the coffee world.
+            </motion.p>
+
+            {/* Sections */}
+            {letters.map((letter) => (
+              <motion.section
+                key={letter}
+                id={letter}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={sectionVariants}
+                className="mb-12 scroll-mt-24"
+              >
+                <h2 className="text-2xl font-bold mb-4 text-chocolate dark:text-orange-200">
+                  {letter}
+                </h2>
+
+                <div className="space-y-6">
+                  {dictionary[letter].map((item, i) => (
+                    <div key={i}>
+                      <h3 className="font-bold text-chocolate dark:text-orange-200 text-lg mb-1 tracking-wider">
+                        {item.term}
+                      </h3>
+                      <p className="text-chocolate/90 dark:text-orange-200/75 tracking-wide font-medium text-lg">
+                        {item.def}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </motion.section>
+            ))}
+
+            {/* End */}
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5 }}
+              className="text-gray-600 dark:text-orange-200/75 mt-10"
+            >
+              Want us to add more terms? Contact us at{" "}
+              <a
+                href="mailto:support@setcoffee.co.uk"
+                className="font-medium text-yellow-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-orange-300"
+              >
+                support@setcoffee.co.uk
+              </a>
+              .
+            </motion.p>
+          </div>
         </div>
       </div>
-    </div>
     </ContentLayout>
   );
 }
