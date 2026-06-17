@@ -5,17 +5,21 @@ const FilterPanelRow = ({ title, children }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-b-chocolate/30">
-      
+    <div className="border-b border-b-chocolate/30 dark:border-orange-200/20">
       <div className="mx-2 my-2 py-2">
         <button
           type="button"
           onClick={() => setOpen((s) => !s)}
           aria-expanded={open}
-          className="w-full flex items-center justify-between cursor-pointer"
+          className="w-full flex items-center justify-between cursor-pointer active:opacity-70 transition-opacity"
         >
-          <div className="font-bold text-lg tracking-wider text-left">{title}</div>
-          <Svg svgId="chevron-down" className={`w-4 h-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+          <div className="font-bold text-lg tracking-wider text-left dark:text-orange-200">
+            {title}
+          </div>
+          <Svg
+            svgId="chevron-down"
+            className={`w-4 h-4 dark:text-orange-200 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+          />
         </button>
       </div>
 
@@ -26,10 +30,7 @@ const FilterPanelRow = ({ title, children }) => {
         role="region"
         aria-label={`${title} options`}
       >
-        <div className="pl-2 pt-2">
-        
-          {children}
-        </div>
+        <div className="pl-2 pt-2">{children}</div>
       </div>
     </div>
   );

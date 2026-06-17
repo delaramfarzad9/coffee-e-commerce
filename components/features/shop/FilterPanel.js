@@ -113,33 +113,33 @@ const FilterPanel = ({
 
       {/* panel (stopPropagation prevents backdrop clicks) */}
       <aside
-        className="fixed top-16 right-0 w-full sm:w-1/3 h-full bg-gray-100 z-50 shadow-2xl px-5 pt-6 text-chocolate/80 overflow-y-auto pb-24 "
+        className="fixed top-16 right-0 w-full sm:w-1/3 h-full bg-gray-100 dark:bg-gray-900 z-50 shadow-2xl px-5 pt-6 text-chocolate/80 dark:text-orange-200 overflow-y-auto pb-24"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={handleEnterApply}
       >
         <div className="flex items-center justify-between">
-          <h3 className="font-bold text-2xl text-chocolate/80">
+          <h3 className="font-bold text-2xl text-chocolate/80 dark:text-orange-200">
             Filter & Sort
           </h3>
           <Svg
             svgId="close"
             onClick={closePanel}
-            className="cursor-pointer w-8 h-8"
+            className="cursor-pointer w-8 h-8 dark:text-orange-200 transition-opacity active:opacity-50"
           />
         </div>
 
-        <p className="mt-2  border-b pb-2 border-b-chocolate/30 text-chocolate/80 text-lg font-medium">
+        <p className="mt-2 border-b pb-2 border-b-chocolate/30 dark:border-orange-200/20 text-chocolate/80 dark:text-orange-200/75 text-lg font-medium">
           {productCount} Products{" "}
         </p>
 
         {/* Sort */}
-        <div className="border-b border-b-chocolate/30 ">
+        <div className="border-b border-b-chocolate/30 dark:border-orange-200/20">
           <div className="mt-4 mx-2 flex flex-col gap-4">
-            <p className="font-bold text-xl">Sort By</p>
+            <p className="font-bold text-xl dark:text-orange-200">Sort By</p>
             {/* sorting menu  */}
             <div
               onClick={() => setOpen((s) => !s)}
-              className="flex justify-between items-center border-2 border-chocolate/30 p-3 rounded-sm cursor-pointer"
+              className="flex justify-between items-center border-2 border-chocolate/30 dark:border-orange-200/20 dark:bg-white/5 dark:text-orange-200 p-3 rounded-sm cursor-pointer transition-colors active:bg-chocolate/10 dark:active:bg-white/5"
             >
               <span className="font-semibold">Featured</span>
               <Svg
@@ -151,7 +151,7 @@ const FilterPanel = ({
             <div
               className={` transition-all overflow-hidden ${open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
             >
-              <div className="flex flex-col  border-l border-b border-r border-chocolate/30 *:hover:bg-chocolate/10 *:text-left *:p-2">
+              <div className="flex flex-col border-l border-b border-r border-chocolate/30 dark:border-orange-200/20 dark:bg-gray-800 dark:text-orange-200 *:hover:bg-chocolate/10 dark:*:hover:bg-white/5 *:active:bg-chocolate/20 dark:*:active:bg-white/10 *:text-left *:p-2 *:transition-colors">
                 <button
                   onClick={() => {
                     onSortChange(null);
@@ -208,7 +208,7 @@ const FilterPanel = ({
         {/* Availability (placeholder) */}
         <FilterPanelRow title="Availability">
           <div className="flex flex-col gap-2 pb-4">
-            <label className="flex items-center gap-2">
+            <label className="flex items-center gap-2 cursor-pointer active:opacity-70 transition-opacity">
               <input
                 type="radio"
                 name="availability"
@@ -217,7 +217,7 @@ const FilterPanel = ({
               />
               <span>Any</span>
             </label>
-            <label className="flex items-center gap-2">
+            <label className="flex items-center gap-2 cursor-pointer active:opacity-70 transition-opacity">
               <input
                 type="radio"
                 name="availability"
@@ -226,7 +226,7 @@ const FilterPanel = ({
               />
               <span>In Stock</span>
             </label>
-            <label className="flex items-center gap-2">
+            <label className="flex items-center gap-2 cursor-pointer active:opacity-70 transition-opacity">
               <input
                 type="radio"
                 name="availability"
@@ -246,14 +246,14 @@ const FilterPanel = ({
               type="number"
               value={localFilters.priceFrom ?? ""}
               onChange={(e) => handlePriceChange("priceFrom", e.target.value)}
-              className="w-24 px-2 py-1 border rounded"
+              className="w-24 px-2 py-1 border border-chocolate/30 dark:border-orange-200/20 rounded bg-white dark:bg-white/5 text-chocolate dark:text-orange-200 placeholder:text-gray-400 dark:placeholder:text-orange-200/40 focus:outline-none focus:ring-2 focus:ring-amber-400/40"
             />
             <label>To £</label>
             <input
               type="number"
               value={localFilters.priceTo ?? ""}
               onChange={(e) => handlePriceChange("priceTo", e.target.value)}
-              className="w-24 px-2 py-1 border rounded"
+              className="w-24 px-2 py-1 border border-chocolate/30 dark:border-orange-200/20 rounded bg-white dark:bg-white/5 text-chocolate dark:text-orange-200 placeholder:text-gray-400 dark:placeholder:text-orange-200/40 focus:outline-none focus:ring-2 focus:ring-amber-400/40"
             />
           </div>
         </FilterPanelRow>
@@ -269,7 +269,10 @@ const FilterPanel = ({
               "Indonesia",
               "Guatemala",
             ].map((o) => (
-              <label key={o} className="flex items-center gap-2">
+              <label
+                key={o}
+                className="flex items-center gap-2 cursor-pointer active:opacity-70 transition-opacity"
+              >
                 <input
                   type="checkbox"
                   checked={localFilters.origin.includes(o)}
@@ -285,7 +288,10 @@ const FilterPanel = ({
         <FilterPanelRow title="Roast Level">
           <div className="flex flex-col gap-2 pb-4">
             {["Light", "Medium", "Medium‑Dark", "Dark"].map((r) => (
-              <label key={r} className="flex items-center gap-2">
+              <label
+                key={r}
+                className="flex items-center gap-2 cursor-pointer active:opacity-70 transition-opacity"
+              >
                 <input
                   type="checkbox"
                   checked={localFilters.roast.includes(r)}
@@ -302,7 +308,10 @@ const FilterPanel = ({
           <div className="flex flex-col gap-2 pb-4">
             {["Washed", "Natural", "Wet‑hulled", "Blend", "Swiss Water"].map(
               (p) => (
-                <label key={p} className="flex items-center gap-2">
+                <label
+                  key={p}
+                  className="flex items-center gap-2 cursor-pointer active:opacity-70 transition-opacity"
+                >
                   <input
                     type="checkbox"
                     checked={localFilters.process.includes(p)}
@@ -318,14 +327,14 @@ const FilterPanel = ({
         <div className="mt-4">
           <button
             onClick={applyAndClose}
-            className="w-full py-3 bg-chocolate text-gray-50 rounded-full font-semibold text-lg"
+            className="w-full py-3 bg-chocolate dark:bg-amber-700 text-gray-50 dark:text-orange-50 rounded-full font-semibold text-lg hover:bg-chocolate/90 dark:hover:bg-amber-600 active:scale-95 transition-all"
           >
             Apply Filters
           </button>
 
           <button
             onClick={clearAll}
-            className="w-full mt-2 py-2 text-chocolate underline"
+            className="w-full mt-2 py-2 text-chocolate dark:text-orange-200/75 underline hover:text-chocolate/70 dark:hover:text-orange-200 active:opacity-60 transition-all"
           >
             Remove All Filters
           </button>

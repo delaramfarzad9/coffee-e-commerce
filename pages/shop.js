@@ -73,12 +73,13 @@ export default function Shop({
   const handleFiltersChange = (newFilters) => {
     setFilters((prev) => {
       const merged = { ...prev, ...newFilters };
-      pushFiltersToUrl(merged, sortOption);
+      pushFiltersToUrl(merged, sortOption); //calling the helper function
       return merged;
     });
   };
 
-  // ***  handleSortChange updates sort and URL
+  //// Update sort option and sync filters + sort to the URL
+
   const handleSortChange = (option) => {
     setSortOption(option);
     pushFiltersToUrl(filters, option);
