@@ -2,6 +2,7 @@ import Svg from "../../ui/Svg";
 import { useState, useRef, useEffect, useMemo } from "react";
 import Quantity from "./Quantity";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import Button from "../../ui/Button";
 import { useCart } from "@/context/CartContext";
 import { getBestSellerIds } from "@/utils/bestSellers";
@@ -18,11 +19,22 @@ export default function Cart({
   confirmUnlike = false,
   onRemove = () => {},
 }) {
+  const router = useRouter();
   const { isLiked, toggleLike } = useCart();
 
   const { cart, addToCart, increaseQty, decreaseQty } = useCart();
   const itemInCart = cart.find((item) => item.id === id);
   const quantity = itemInCart ? itemInCart.quantity : 0;
+  const productSlug = getProductSlug(title);
+  const productHref = {
+    pathname: "/products/[id]",
+    query: {
+      id: productSlug,
+      ...(router.asPath && !router.asPath.startsWith("/products/")
+        ? { from: router.asPath }
+        : {}),
+    },
+  };
 
   // Compute once per render; Set lookup is O(1)
   const isBestSeller = useMemo(() => getBestSellerIds().has(id), [id]);
@@ -113,7 +125,7 @@ export default function Cart({
 
           sessionStorage.setItem("scrollPosition", window.scrollY);
         }}
-        href={`/products/${getProductSlug(title)}`}
+        href={productHref}
         className="no-underline"
       >
         <div className="relative flex flex-col w-full shadow-lg rounded-2xl h-[400px] sm:h-[460px] transition-all duration-300 text-chocolate dark:text-orange-200">

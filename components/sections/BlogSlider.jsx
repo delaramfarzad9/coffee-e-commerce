@@ -4,8 +4,10 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function BlogSlider({ posts }) {
+  const router = useRouter();
   const autoplay = Autoplay({ delay: 4500, stopOnInteraction: true });
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -53,7 +55,10 @@ export default function BlogSlider({ posts }) {
           {posts.map((post) => (
             <Link
               key={post.id}
-              href={`/blog/${post.id}`}
+              href={{
+                pathname: "/blog/[id]",
+                query: { id: post.id, from: router.asPath },
+              }}
               className="min-w-[85%] sm:min-w-[46%] lg:min-w-[31%] pr-3 no-underline group"
             >
               <div

@@ -15,6 +15,7 @@ export default function Catalog({
   btnTaskLabel,
   mobileBtnLabel,
   className = "",
+  getCartProps,
 }) {
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -66,6 +67,7 @@ export default function Catalog({
                 addToCart={addToCart}
                 increaseQty={increaseQty}
                 decreaseQty={decreaseQty}
+                {...(getCartProps ? getCartProps(p) : {})}
               />
             </motion.div>
           );

@@ -117,6 +117,7 @@ export default function Shop({
   // ***  master filtering pipeline
   const filteredProducts = useMemo(() => {
     let result = [...products];
+    
 
     if (searchQuery?.trim()) {
       const q = searchQuery.toLowerCase();

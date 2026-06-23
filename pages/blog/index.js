@@ -2,8 +2,10 @@ import blogPosts from "@/data/blogPosts";
 import Link from "next/link";
 import ContentLayout from "@/components/layout/ContentLayout";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 export default function BlogPage() {
+  const router = useRouter();
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i) => ({
@@ -42,7 +44,13 @@ export default function BlogPage() {
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
-              <Link key={post.id} href={`/blog/${post.id}`}>
+              <Link
+                key={post.id}
+                href={{
+                  pathname: "/blog/[id]",
+                  query: { id: post.id, from: router.asPath },
+                }}
+              >
                 <div className="rounded-xl shadow-md hover:shadow-xl transition-all cursor-pointer bg-chocolate/20 dark:bg-white/5 dark:border dark:border-orange-200/15 flex flex-col h-full">
                   <img
                     src={post.image}
