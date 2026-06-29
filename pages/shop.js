@@ -197,6 +197,8 @@ export default function Shop({
     return () => router.events.off("routeChangeComplete", handleRouteDone);
   }, [filteredProducts, router.events]);
 
+// Restore scroll position on page load (one-time scroll restoration)
+
   useEffect(() => {
     const saved = sessionStorage.getItem("scrollPosition");
     if (saved) {
@@ -219,6 +221,7 @@ export default function Shop({
     }
   }, [filteredProducts.length]);
 
+  
   useEffect(() => {
     if (!shouldScrollToCatalogRef.current || !catalogRef.current) return;
 
