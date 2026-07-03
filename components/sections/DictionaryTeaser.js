@@ -27,7 +27,7 @@ export default function DictionaryTeaser() {
     >
       {/* Section heading  */}
       <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-chocolate dark:text-orange-200 border-b-2 border-b-chocolate/30 dark:border-b-orange-200/30 w-min whitespace-nowrap">
-        Coffee Dictionary
+        Coffee Dictionary it is
       </h2>
 
       {/* Card */}

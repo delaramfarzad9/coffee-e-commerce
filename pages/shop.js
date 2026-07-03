@@ -221,7 +221,8 @@ export default function Shop({
     }
   }, [filteredProducts.length]);
 
-  
+  // Auto-scroll to the catalog section when the scroll flag is set and the catalog is ready
+
   useEffect(() => {
     if (!shouldScrollToCatalogRef.current || !catalogRef.current) return;
 
@@ -237,6 +238,7 @@ export default function Shop({
       window.scrollTo({ top, behavior: "smooth" });
     });
   }, [filteredProducts, filters, sortOption]);
+  
 
   const catalogTitle = useMemo(() => {
     if (searchQuery?.trim()) {
