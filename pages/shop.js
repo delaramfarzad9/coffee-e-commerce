@@ -221,7 +221,8 @@ export default function Shop({
     }
   }, [filteredProducts.length]);
 
-  
+  // Auto-scroll to the catalog section when the scroll flag is set and the catalog is ready
+
   useEffect(() => {
     if (!shouldScrollToCatalogRef.current || !catalogRef.current) return;
 
@@ -238,6 +239,8 @@ export default function Shop({
     });
   }, [filteredProducts, filters, sortOption]);
 
+  // Catalog title and smart fallback matching when filters return no results
+//catalogTitle — dynamic title for the catalog
   const catalogTitle = useMemo(() => {
     if (searchQuery?.trim()) {
       return `Results for "${searchQuery}"`;
