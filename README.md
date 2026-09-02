@@ -6,7 +6,7 @@ A responsive coffee e-commerce website built with **Next.js, React and Tailwind 
 
 ## Preview
 
-![SetCoffee Preview](./public/images/projects/coffeeecommerce.png)
+![SetCoffee Preview](./public/images/coffeeecommerce.png)
 
 ## Features
 
