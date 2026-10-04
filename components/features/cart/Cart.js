@@ -170,8 +170,8 @@ export default function Cart({
                 text-[9px] sm:text-[11px] font-extrabold tracking-wide sm:tracking-widest uppercase
                 text-amber-900
                 bg-linear-to-r from-[#FFD700] via-[#FFC200] to-[#D4AF37]
-                shadow-[0_2px_8px_rgba(212,175,55,0.4)] sm:shadow-[0_2px_12px_rgba(212,175,55,0.55)]
-                border border-[#D4AF37]/60
+               shadow-[0_1px_3px_rgba(0,0,0,0.12)] dark:shadow-[0_1px_4px_rgba(212,175,55,0.16)]
+                border border-[#D4AF37]/60 
                 backdrop-blur-sm
                 select-none
                 pointer-events-none
