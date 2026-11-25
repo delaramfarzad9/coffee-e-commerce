@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "./Button";
 
 export default function Modal({ isOpen, onClose, onConfirm, text, btnTask }) {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleEsc = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-70 flex items-center justify-center px-4 backdrop-blur-sm bg-black/60">
-      <div className="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-6 w-full max-w-sm">
+      <div
+        role="alertdialog"
+        aria-modal="true"
+        tabIndex={-1}
+        className="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-6 w-full max-w-sm focus:outline-none"
+      >
         <p className="text-gray-200 text-base mb-6 leading-relaxed">{text}</p>
         <div className="flex gap-3">
           <button

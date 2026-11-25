@@ -5,10 +5,14 @@ import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import { useCart } from "../../../context/CartContext";
 
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 export default function ShoppingCart({ isOpen, onClose }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const scrollContainerRef = useRef(null);
   const touchStartYRef = useRef(null);
+  const panelRef = useRef(null);
 
   const { cart, clearCart, removeFromCart, increaseQty, decreaseQty } =
     useCart();
@@ -16,11 +20,74 @@ export default function ShoppingCart({ isOpen, onClose }) {
   useEffect(() => {
     if (!isOpen) return;
     const handleEsc = (e) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape" && !isModalOpen) onClose();
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, [isOpen, onClose]);
+  }, [isOpen, isModalOpen, onClose]);
+
+  // Move focus into the cart on open, restore it to the opener on close
+  useEffect(() => {
+    if (!isOpen) return;
+    const previouslyFocused = document.activeElement;
+    panelRef.current?.focus({ preventScroll: true });
+    return () => {
+      if (previouslyFocused instanceof HTMLElement) previouslyFocused.focus();
+    };
+  }, [isOpen]);
+
+  // Move focus into the confirm dialog when it opens, back to the cart when it closes
+  const modalWasOpenRef = useRef(false);
+  useEffect(() => {
+    if (isModalOpen) {
+      document
+        .querySelector('[role="alertdialog"]')
+        ?.focus({ preventScroll: true });
+    } else if (modalWasOpenRef.current) {
+      panelRef.current?.focus({ preventScroll: true });
+    }
+    modalWasOpenRef.current = isModalOpen;
+  }, [isModalOpen]);
+
+  // Focus trap: Tab / Shift+Tab loop inside the cart (or the confirm dialog on top of it)
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleTab = (e) => {
+      if (e.key !== "Tab") return;
+
+      const container = isModalOpen
+        ? document.querySelector('[role="alertdialog"]')
+        : panelRef.current;
+      if (!container) return;
+
+      const items = Array.from(container.querySelectorAll(FOCUSABLE)).filter(
+        (el) => el.getClientRects().length > 0,
+      );
+      if (items.length === 0) {
+        e.preventDefault();
+        return;
+      }
+
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+
+      if (!container.contains(active) || active === container) {
+        e.preventDefault();
+        (e.shiftKey ? last : first).focus();
+      } else if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleTab);
+    return () => document.removeEventListener("keydown", handleTab);
+  }, [isOpen, isModalOpen]);
   // Disable body scroll when cart is open
   useEffect(() => {
     if (isOpen) {
@@ -128,7 +195,14 @@ export default function ShoppingCart({ isOpen, onClose }) {
       />
 
       {/* PANEL */}
-      <div className="fixed left-0 top-0 z-60 h-screen w-full sm:w-120 md:w-130 lg:w-140 xl:w-150 bg-white dark:bg-gray-900 flex flex-col shadow-2xl">
+      <div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Shopping cart"
+        tabIndex={-1}
+        className="fixed left-0 top-0 z-60 h-screen w-full sm:w-120 md:w-130 lg:w-140 xl:w-150 bg-white dark:bg-gray-900 flex flex-col shadow-2xl focus:outline-none"
+      >
         {/* ── HEADER ── */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200 dark:border-gray-700 bg-orange-50/60 dark:bg-gray-900 shrink-0">
           <div className="flex items-center gap-3">
@@ -145,9 +219,10 @@ export default function ShoppingCart({ isOpen, onClose }) {
             </h2>
           </div>
           <button
+            type="button"
             onClick={onClose}
             aria-label="Close cart"
-            className="sm:hidden w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 flex items-center justify-center transition-colors"
+            className="sm:hidden w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70"
           >
             <Svg
               svgId="close"
@@ -166,7 +241,7 @@ export default function ShoppingCart({ isOpen, onClose }) {
               cart.map((product) => (
                 <div
                   key={product.id}
-                  className="flex items-center gap-4 bg-orange-50 hover:bg-amber-50 dark:bg-gray-800 dark:hover:bg-gray-750 rounded-xl p-3 transition-colors"
+                  className="flex items-center gap-4 bg-orange-50 hover:bg-amber-50 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-xl p-3 transition-colors"
                 >
                   {/* Thumbnail */}
                   <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-lg overflow-hidden ring-1 ring-orange-200 dark:ring-gray-700">
@@ -183,9 +258,16 @@ export default function ShoppingCart({ isOpen, onClose }) {
                       {product.title}
                     </h3>
                     <span className="text-amber-600 dark:text-amber-400 font-bold text-sm">
-                      ${product.price}
+                      <span className="text-amber-600 dark:text-amber-400 font-bold text-sm">
+                        £{" "}
+                        {product.price.toLocaleString("en-GB", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </span>
                     </span>
                     <Quantity
+                      label={product.title}
                       quantity={product.quantity}
                       onIncrease={() => increaseQty(product.id)}
                       onDecrease={() => decreaseQty(product.id)}
@@ -218,7 +300,11 @@ export default function ShoppingCart({ isOpen, onClose }) {
                 <div className="flex justify-between">
                   <span>Items ({totalItems})</span>
                   <span className="text-gray-700 dark:text-gray-300">
-                    ${totalPrice.toLocaleString()}
+                    £{" "}
+                    {totalPrice.toLocaleString("en-GB", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -231,7 +317,11 @@ export default function ShoppingCart({ isOpen, onClose }) {
               <div className="flex justify-between items-center pt-2 border-t border-gray-200 dark:border-gray-700 text-chocolate dark:text-gray-100 font-bold text-base sm:text-lg">
                 <span>Total</span>
                 <span className="text-amber-600 dark:text-amber-400 text-xl">
-                  ${totalPrice.toLocaleString()}
+                  £{" "}
+                  {totalPrice.toLocaleString("en-GB", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </span>
               </div>
 
@@ -242,9 +332,10 @@ export default function ShoppingCart({ isOpen, onClose }) {
                   className="w-full justify-center mx-0! my-0! py-3 text-base"
                 />
                 <button
+                  type="button"
                   onClick={() => setIsModalOpen(true)}
                   className="w-full py-2.5 rounded-xl border border-rose-400/50 dark:border-rose-500/60 text-rose-500 dark:text-rose-400 text-sm font-semibold
-                             hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors duration-200"
+                             hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/70"
                 >
                   Clear Cart
                 </button>
@@ -254,15 +345,17 @@ export default function ShoppingCart({ isOpen, onClose }) {
         </div>
 
         {/* Outside close button for sm+ */}
-        <div
+        <button
+          type="button"
           onClick={onClose}
-          className="hidden sm:flex absolute top-5 -right-11 w-9 h-9 items-center justify-center rounded-full bg-white hover:bg-orange-50 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer transition-colors shadow-lg ring-1 ring-gray-200 dark:ring-transparent"
+          aria-label="Close cart"
+          className="hidden sm:flex absolute top-5 -right-11 w-9 h-9 items-center justify-center rounded-full bg-white hover:bg-orange-50 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer transition-colors shadow-lg ring-1 ring-gray-200 dark:ring-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
         >
           <Svg
             svgId="close"
             className="text-gray-700 dark:text-gray-100 w-4 h-4"
           />
-        </div>
+        </button>
       </div>
 
       {/* CLEAR CONFIRMATION MODAL */}

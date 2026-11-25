@@ -200,7 +200,10 @@ export default function Cart({
           >
             <h2 className="font-bold text-sm sm:text-base">{title}</h2>
             <span className="font-semibold text-sm sm:text-base">
-              £ {price.toLocaleString("en-GB", { minimumFractionDigits: 2 })}
+   £ {price.toLocaleString("en-GB", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+})}
             </span>
             <p className="line-clamp-2 text-xs sm:text-sm mb-auto">
               {description}
